@@ -1,6 +1,4 @@
-const x=()=>{
-    console.log('这里是可爱糖的组件库');
-}
-x()
+import LoginBox from './components/login-box';
+import toast from './utils/toast';
 
-export default x
+export { LoginBox, toast };

@@ -1,0 +1,23 @@
+{
+  "name": "sweet-me",
+  "version": "0.0.1",
+  "description": "可爱糖的组件库",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/DearDawn/sweet-me.git"
+  },
+  "keywords": [
+    "sweet-me"
+  ],
+  "author": "tangjingchun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DearDawn/sweet-me/issues"
+  },
+  "homepage": "https://github.com/DearDawn/sweet-me#readme",
+  "dependencies": {}
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import toast from '../utils/toast';
 import TabBar from './tab-bar';
 
-enum EMode {
+export enum EMode {
   register,
   login,
 }

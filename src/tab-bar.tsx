@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 import cs from 'classnames';
 
 interface IProps {
@@ -11,8 +12,8 @@ interface IProps {
 const TabBar = ({
   tablist,
   activeTab,
-  onTabChange = () => {},
-  style,
+  onTabChange = (x: number) => {},
+  style = {},
 }: IProps) => {
   const [active, setActive] = useState(0);
 
@@ -44,7 +45,7 @@ const TabBar = ({
           display: flex;
           color: #000;
           border: 1px solid #000;
-          cursor:pointer;
+          cursor: pointer;
         }
         .tab-item {
           height: 100%;
@@ -57,11 +58,11 @@ const TabBar = ({
         .tab-item:nth-last-child(2) {
           border: none;
         }
-        .tab-item:not(.active):hover{
-            background-color:#eee;
+        .tab-item:not(.active):hover {
+          background-color: #eee;
         }
-        .tab-item:not(.active):active{
-            background-color:#aaa;
+        .tab-item:not(.active):active {
+          background-color: #aaa;
         }
         .active {
           background-color: #000000;

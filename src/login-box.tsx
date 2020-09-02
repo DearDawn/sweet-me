@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import toast from './toast';
 import TabBar from './tab-bar';
+import { useState, useEffect } from 'react';
 
 export enum EMode {
   register,
@@ -17,7 +18,7 @@ const API = {
   login: 'http://localhost:3000/login',
 };
 
-const LoginBox = () => {
+const LoginBox = ():JSX.Element => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);

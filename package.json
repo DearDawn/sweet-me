@@ -1,11 +1,11 @@
 {
   "name": "sweet-me",
-  "version": "0.0.22",
-  "description": "可爱糖的React&TS组件库",
+  "version": "0.0.27",
+  "description": "可爱糖的React&TS组件库（2020-09-02）",
   "main": "dist/index.js",
   "type": "dist/index.d.js",
   "scripts": {
-    "build": "tsc",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,13 +22,22 @@
   },
   "homepage": "https://github.com/DearDawn/sweet-me#readme",
   "dependencies": {
-    "@types/classnames": "^2.2.10"
+    "@types/classnames": "^2.2.10",
+    "classnames": "^2.2.6"
   },
   "devDependencies": {
-    "@types/react": "^16.9.41",
-    "@types/react-dom": "^16.9.8",
+    "@babel/cli": "^7.11.5",
+    "@babel/core": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-typescript": "^7.10.4",
     "@types/styled-jsx": "^2.2.8",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.1.0",
+    "source-map-loader": "^1.1.0",
+    "styled-jsx": "^3.3.0",
     "ts-loader": "^7.0.5",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }

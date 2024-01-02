@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { toast } from './toast';
-import { TabBar } from './tab-bar';
+import { toast } from '../utils/toast';
+import { TabBar } from '../common/tab-bar';
 import { useState, useEffect } from 'react';
 
 export enum EMode {

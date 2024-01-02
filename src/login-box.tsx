@@ -1,6 +1,6 @@
 import * as React from 'react';
-import toast from './toast';
-import TabBar from './tab-bar';
+import { toast } from './toast';
+import { TabBar } from './tab-bar';
 import { useState, useEffect } from 'react';
 
 export enum EMode {
@@ -18,7 +18,7 @@ const API = {
   login: 'http://localhost:3000/login',
 };
 
-const LoginBox = ():JSX.Element => {
+export const LoginBox = (): React.Element => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
@@ -76,7 +76,7 @@ const LoginBox = ():JSX.Element => {
         .then((res) => {
           if (res.status === 0) {
             toast('登录成功！');
-            window.location.href="./qia-home"
+            window.location.href = "./qia-home"
           } else {
             toast('登录失败');
           }
@@ -192,5 +192,3 @@ const LoginBox = ():JSX.Element => {
     </div>
   );
 };
-
-export default LoginBox;

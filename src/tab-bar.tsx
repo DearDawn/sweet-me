@@ -9,7 +9,7 @@ interface IProps {
   style?: React.CSSProperties;
 }
 
-const TabBar = ({
+export const TabBar = ({
   tablist,
   activeTab,
   onTabChange = (x: number) => {},
@@ -72,5 +72,3 @@ const TabBar = ({
     </div>
   );
 };
-
-export default TabBar;

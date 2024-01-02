@@ -2,11 +2,13 @@
   "name": "sweet-me",
   "version": "0.0.27",
   "description": "可爱糖的React&TS组件库（2020-09-02）",
+  "source": "index.tsx",
   "main": "dist/index.js",
-  "type": "dist/index.d.js",
+  "module": "dist/module.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "parcel build",
+    "start": "parcel"
   },
   "repository": {
     "type": "git",
@@ -23,21 +25,15 @@
   "homepage": "https://github.com/DearDawn/sweet-me#readme",
   "dependencies": {
     "@types/classnames": "^2.2.10",
-    "classnames": "^2.2.6"
+    "classnames": "^2.2.6",
+    "parcel": "^2.10.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.11.5",
-    "@babel/core": "^7.11.5",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-typescript": "^7.10.4",
-    "@types/styled-jsx": "^2.2.8",
-    "awesome-typescript-loader": "^5.2.1",
-    "babel-loader": "^8.1.0",
-    "source-map-loader": "^1.1.0",
-    "styled-jsx": "^3.3.0",
-    "ts-loader": "^7.0.5",
+    "@parcel/packager-ts": "^2.10.3",
+    "@parcel/transformer-typescript-types": "^2.10.3",
     "typescript": "^3.9.7",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^4.44.1"
   }
 }

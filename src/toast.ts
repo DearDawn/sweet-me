@@ -1,7 +1,7 @@
-const toast = (str: string) => {
-    const div = document.createElement('div');
-    div.className='toast';
-    div.innerHTML = `${str}<style>
+export const toast = (str: string) => {
+  const div = document.createElement('div');
+  div.className = 'toast';
+  div.innerHTML = `${str}<style>
     .toast{
         width:300px;
         height:130px;
@@ -20,13 +20,10 @@ const toast = (str: string) => {
         align-items:center;
     }
     </style>`;
-  
-    const body = document.querySelector('body');
-    body?.appendChild(div);
-    setTimeout(() => {
-      body?.removeChild(div);
-    }, 1500);
-  };
-  
-  export default toast;
-  
+
+  const body = document.querySelector('body');
+  body?.appendChild(div);
+  setTimeout(() => {
+    body?.removeChild(div);
+  }, 1500);
+};

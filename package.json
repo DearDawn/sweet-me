@@ -1,6 +1,6 @@
 {
   "name": "sweet-me",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "可爱糖的React&TS组件库（2020-09-02）",
   "source": "index.tsx",
   "main": "dist/index.js",

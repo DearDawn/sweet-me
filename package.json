@@ -1,6 +1,6 @@
 {
   "name": "sweet-me",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "可爱糖的React&TS组件库（2020-09-02）",
   "scripts": {
     "build": "parcel build src/index.tsx --dist-dir dist && tsc",
@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git@github.com/DearDawn/sweet-me.git"
   },
+  "main": "dist/index.js",
   "files": [
     "README.md",
     "dist/"

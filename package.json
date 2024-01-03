@@ -1,6 +1,6 @@
 {
   "name": "sweet-me",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "可爱糖的React&TS组件库（2020-09-02）",
   "scripts": {
     "build": "parcel build src/*/index.tsx --dist-dir dist && tsc",
@@ -9,6 +9,19 @@
   "repository": {
     "type": "git",
     "url": "git@github.com/DearDawn/sweet-me.git"
+  },
+  "files": [
+    "README.md",
+    "dist/"
+  ],
+  "exports": {
+    ".": {
+      "react-server": "./react.shared-subset.js",
+      "default": "./dist/utils/index.js"
+    },
+    "./utils": "./dist/utils/index.js",
+    "./common": "./dist/common/index.js",
+    "./biz": "./dist/biz/index.js"
   },
   "keywords": [
     "sweet-me"
@@ -31,6 +44,7 @@
   "devDependencies": {
     "@parcel/packager-ts": "^2.10.3",
     "@parcel/transformer-less": "^2.10.3",
+    "@parcel/transformer-typescript-tsc": "^2.10.3",
     "@parcel/transformer-typescript-types": "^2.10.3",
     "less": "^4.2.0",
     "typescript": "^5.3.3",

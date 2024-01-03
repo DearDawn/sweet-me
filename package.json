@@ -1,9 +1,9 @@
 {
   "name": "sweet-me",
-  "version": "0.0.31",
+  "version": "0.0.33",
   "description": "可爱糖的React&TS组件库（2020-09-02）",
   "scripts": {
-    "build": "parcel build src/*/index.tsx --dist-dir dist && tsc",
+    "build": "parcel build src/index.tsx --dist-dir dist && tsc",
     "start": "parcel src/page/index.html"
   },
   "repository": {
@@ -14,15 +14,6 @@
     "README.md",
     "dist/"
   ],
-  "exports": {
-    ".": {
-      "react-server": "./react.shared-subset.js",
-      "default": "./dist/utils/index.js"
-    },
-    "./utils": "./dist/utils/index.js",
-    "./common": "./dist/common/index.js",
-    "./biz": "./dist/biz/index.js"
-  },
   "keywords": [
     "sweet-me"
   ],

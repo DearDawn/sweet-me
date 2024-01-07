@@ -37,7 +37,7 @@ export const TabBar = ({
           </div>
         );
       })}
-      <style jsx>{`
+      <style>{`
         .tab-bar {
           width: 100%;
           height: 50px;

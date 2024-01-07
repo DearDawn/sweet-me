@@ -18,7 +18,7 @@ const API = {
   login: 'http://localhost:3000/login',
 };
 
-export const LoginBox = (): React.Element => {
+export const LoginBox = () => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
@@ -128,7 +128,7 @@ export const LoginBox = (): React.Element => {
         {modeText}
       </div>
       {error && <div className='error'>{errorTip}</div>}
-      <style jsx>{`
+      <style>{`
         .login-box {
           width: 300px;
           min-height: 200px;

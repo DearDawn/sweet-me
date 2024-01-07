@@ -1,0 +1,37 @@
+html {
+  counter-reset: count;
+}
+
+.dodo-notice {
+  counter-increment: count;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20px;
+  width: 300px;
+  height: 50px;
+  margin: auto;
+  background-color: rgb(255 255 255 / 70%);
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 30%);
+  backdrop-filter: blur(5px);
+  border-radius: 6px;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .dodo-notice-title {
+    font-size: 18px;
+  }
+
+  &.success {
+    background-color: rgb(217 247 190 / 90%);
+  }
+
+  &.error {
+    background-color: rgb(255 163 158 / 90%);
+  }
+}

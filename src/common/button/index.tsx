@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import cs from 'classnames';
-import styles from './index.module.less'
+import * as styles from './index.module.less'
 import { ICommonProps } from 'src/types';
 
 interface IProps extends ICommonProps { }

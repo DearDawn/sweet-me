@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as styles from './App.module.less';
 import { toast } from '../utils/toast';
-import { notice } from 'src/utils';
-import { Button } from 'src/common/button';
+import { notice } from '../utils';
+import { Button } from '../common/button';
 
 interface IProps { }
 

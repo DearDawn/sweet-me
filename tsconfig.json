@@ -3,8 +3,9 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "commonjs",
-    "target": "es2015",
+    "target": "es5",
+    "module": "es6",
+    "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "esModuleInterop": true,
@@ -20,6 +21,9 @@
       "./global.d.ts"
     ]
   },
+  "exclude": [
+    "src/page"
+  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",

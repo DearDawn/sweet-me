@@ -22,6 +22,8 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  animation: fade-in 0.1s linear forwards;
 
   .dodo-notice-title {
     font-size: 18px;
@@ -33,5 +35,15 @@ html {
 
   &.error {
     background-color: rgb(255 163 158 / 90%);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

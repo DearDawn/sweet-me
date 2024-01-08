@@ -1,6 +1,7 @@
+import '../../global.d'
 import * as React from 'react';
 import * as styles from './App.module.less';
-import { Button, toast, notice } from 'dist';
+import { toast, notice, Button } from './dist';
 
 interface IProps { }
 
@@ -10,9 +11,9 @@ export const App = (props: IProps) => {
 
     setTimeout(() => {
       // toast('123123213123213');
-      notice.info('info', 10000)
-      notice.error('error', 20000)
-      notice.success('success', 30000)
+      notice.info('info', 1000)
+      notice.error('error', 2000)
+      notice.success('success', 3000)
     }, 3000);
   }, []);
 

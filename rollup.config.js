@@ -1,15 +1,32 @@
+import { name } from './package.json'
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss'
+export const file = (type) => `dist/index.${type}.js`;
 
 export default {
   input: 'src/index.tsx', // 入口文件路径
-  output: {
-    dir: 'dist', // 输出目录路径
-    format: 'esm', // 输出格式
-  },
+  output: [
+    {
+      name,
+      file: file("umd"),
+      format: "umd",
+      globals: {
+        react: "React",
+        "react/jsx-runtime": "jsxRuntime"
+      },
+    },
+    {
+      file: file("esm"),
+      format: "es",
+      globals: {
+        react: "React",
+        "react/jsx-runtime": "jsxRuntime"
+      },
+    },
+  ],
   external: ['react', 'react-is', 'react-router', 'react/jsx-runtime'],
   plugins: [
     postcss({

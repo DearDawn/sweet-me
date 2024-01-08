@@ -7,6 +7,9 @@
     "start": "parcel src/page/index.html",
     "prepublishOnly": "npm run build && npm version patch"
   },
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com/DearDawn/sweet-me.git"

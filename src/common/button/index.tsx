@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import cs from 'clsx';
 import * as styles from './index.module.less'
-import { ICommonProps } from 'src/types';
+import { ICommonProps } from '../../types';
 
 interface IProps extends ICommonProps {
   /** 按钮大小 */

@@ -13,7 +13,7 @@
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com/DearDawn/sweet-me.git"
+    "url": "git+ssh://git@github.com/DearDawn/sweet-me.git"
   },
   "files": [
     "README.md",

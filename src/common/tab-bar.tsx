@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import cs from 'classnames';
+import cs from 'clsx';
 
 interface IProps {
   tablist: string[];

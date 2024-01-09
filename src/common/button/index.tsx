@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import cs from 'classnames';
+import cs from 'clsx';
 import * as styles from './index.module.less'
 import { ICommonProps } from 'src/types';
 
 interface IProps extends ICommonProps {
-  size?: 'normal' | 'small' | 'large'
+  /** 按钮大小 */
+  size?: 'normal' | 'small' | 'large' | 'mini' | 'long'
+  /** 按钮状态 */
+  status?: 'success' | 'error' | 'warning' | 'default'
 }
 
 export const Button = ({
@@ -13,10 +16,11 @@ export const Button = ({
   children,
   className,
   size = 'normal',
+  status = 'default',
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
 
   return (
-    <button className={cs(styles.button, styles[size], className)} {...rest}>{children}</button>
+    <button className={cs(styles.button, styles[`size-${size}`], styles[`status-${status}`], className)} {...rest}>{children}</button>
   );
 };

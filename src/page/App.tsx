@@ -1,7 +1,7 @@
 import '../../global.d'
 import * as React from 'react';
 import * as styles from './App.module.less';
-import { toast, notice, Button } from './dist';
+import { toast, notice, Button, Title } from './dist';
 import clsx from 'clsx';
 
 interface IProps { }
@@ -19,7 +19,7 @@ export const App = (props: IProps) => {
   }, []);
 
   return <div className={styles.app}>
-    按钮
+    <Title>按钮</Title>
     <div className={styles.buttonWrap}>
       <Button className={styles.button} size='large'>大按钮</Button>
       <Button className={styles.button} size='normal'>中按钮</Button>

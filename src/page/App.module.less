@@ -1,6 +1,9 @@
 .app {
-  color: red;
   font-size: 0.2rem;
+
+  &>* {
+    margin-bottom: 10px;
+  }
 }
 
 .buttonWrap {
@@ -16,4 +19,21 @@
 
 .long {
   margin-right: 10px;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 0 10px;
+}
+
+.iconItem {
+  flex: none;
+}
+
+.ml10 {
+  margin-left: 10px;
 }

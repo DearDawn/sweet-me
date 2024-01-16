@@ -4,7 +4,8 @@ export const toast = (str: string) => {
   div.innerHTML = `${str}<style>
     .toast{
         width:300px;
-        height:130px;
+        min-height:80px;
+        height: fit-content;
         position:fixed;
         top:0;
         bottom:0;
@@ -13,7 +14,7 @@ export const toast = (str: string) => {
         margin:auto;
         background-color:white;
         font-size:24px;
-        box-shadow: 0px 0px 30px rgba(0,0,0,0.5);
+        box-shadow: 0px 0px 30px rgba(0,0,0,0.3);
         border-radius: 10px;
         display:flex;
         justify-content:center;

@@ -12,10 +12,8 @@ export const App = (props: IProps) => {
     toast('this is a toast');
   }, [])
 
-  const handleNotice = React.useCallback(() => {
-    notice.info('info', 1000)
-    notice.error('error', 2000)
-    notice.success('success', 3000)
+  const handleNotice = React.useCallback((type: 'info' | 'error' | 'success') => () => {
+    notice[type](type, 1000)
   }, [])
 
   return <div className={styles.app}>
@@ -45,7 +43,9 @@ export const App = (props: IProps) => {
       rightPart={<Icon type={ICON.refresh} />}
     />
     <Title>Toast & Notice</Title>
-    <Button onClick={handleToast}>点击 Toast</Button>
-    <Button onClick={handleNotice} className={styles.ml10}>点击 Notice</Button>
+    <Button onClick={handleToast} className={styles.ml10}>Toast</Button>
+    <Button onClick={handleNotice('info')} className={styles.ml10} status='default'>Notice</Button>
+    <Button onClick={handleNotice('success')} className={styles.ml10} status='success'>Notice</Button>
+    <Button onClick={handleNotice('error')} className={styles.ml10} status='error'>Notice</Button>
   </div>;
 };

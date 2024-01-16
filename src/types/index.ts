@@ -1,4 +1,4 @@
 export interface ICommonProps {
   className?: string
-  children?: string
+  children?: any
 }

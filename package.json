@@ -6,11 +6,19 @@
     "clean": "rm -rf dist && rm -rf .parcel-cache",
     "build": "npm run clean && rollup -c",
     "start": "npm run build && parcel src/page/index.html",
+    "build-page": "npm run build; parcel build --target page",
     "prepublishOnly": "npm run build && npm version patch"
   },
   "main": "./dist/index.umd.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
+  "targets": {
+    "page": {
+      "source": "src/page/index.html",
+      "distDir": "./dist/page",
+      "isLibrary": false
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/DearDawn/sweet-me.git"

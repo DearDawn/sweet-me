@@ -12,9 +12,11 @@ export const toast = (str: string) => {
         left:0;
         right:0;
         margin:auto;
-        background-color:white;
-        font-size:24px;
+        font-size:18px;
         box-shadow: 0px 0px 30px rgba(0,0,0,0.3);
+        color: #fff;
+        background-color: rgb(0 0 0 / 70%);
+        backdrop-filter: blur(5px);
         border-radius: 10px;
         display:flex;
         justify-content:center;

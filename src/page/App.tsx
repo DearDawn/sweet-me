@@ -1,7 +1,7 @@
 import '../../global.d'
 import * as React from 'react';
 import * as styles from './App.module.less';
-import { toast, notice, Button, Title, Icon, Header, Page } from './dist';
+import { toast, notice, Button, Title, Icon, Header, Page, Input } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
 
@@ -44,10 +44,17 @@ export const App = (props: IProps) => {
         rightPart={<Icon type={ICON.refresh} />}
       />
       <Title>Toast & Notice</Title>
-      <Button onClick={handleToast} className={styles.ml10}>Toast</Button>
-      <Button onClick={handleNotice('info')} className={styles.ml10} status='default'>Notice</Button>
-      <Button onClick={handleNotice('success')} className={styles.ml10} status='success'>Notice</Button>
-      <Button onClick={handleNotice('error')} className={styles.ml10} status='error'>Notice</Button>
+      <div>
+        <Button onClick={handleToast} className={styles.ml10}>Toast</Button>
+        <Button onClick={handleNotice('info')} className={styles.ml10} status='default'>Notice</Button>
+        <Button onClick={handleNotice('success')} className={styles.ml10} status='success'>Notice</Button>
+        <Button onClick={handleNotice('error')} className={styles.ml10} status='error'>Notice</Button>
+      </div>
+      <Title>Input</Title>
+      <div className={styles.inputWrap}>
+        <Input className={styles.input} placeholder="请输入" />
+        <Button className={styles.ml10}>提交</Button>
+      </div>
     </Page>
   );
 };

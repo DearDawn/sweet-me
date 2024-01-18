@@ -16,7 +16,8 @@
     "page": {
       "source": "src/page/index.html",
       "distDir": "./dist/page",
-      "isLibrary": false
+      "isLibrary": false,
+      "publicUrl": "./"
     }
   },
   "repository": {

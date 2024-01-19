@@ -1,9 +1,21 @@
 const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 const { version } = require('../package.json');
 
 const CHANGELOG_FILE = path.join(__dirname, '../CHANGE_LOG.md'); // CHANGE_LOG 文件路径
+
+// 执行 git commit 命令
+function gitCommit () {
+  try {
+    execSync('git add CHANGE_LOG.md'); // 添加 CHANGELOG.md 到暂存区
+    execSync('git commit -m "Update CHANGE_LOG.md" --amend'); // 提交更改
+    console.log('CHANGE_LOG 更新已提交到 Git 仓库');
+  } catch (error) {
+    console.error('无法提交 CHANGE_LOG 更新至 Git 仓库:', error.message);
+  }
+}
 
 // 创建 readline 接口
 const rl = readline.createInterface({
@@ -77,4 +89,5 @@ rl.on('close', async () => {
   await writeChangeLogToFile(newContent);
 
   console.log(`CHANGE_LOG 更新成功`);
+  gitCommit();
 });

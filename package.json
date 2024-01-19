@@ -27,6 +27,7 @@
   },
   "files": [
     "README.md",
+    "CHANGE_LOG.md",
     "dist/",
     "package.json"
   ],

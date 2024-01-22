@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import cs from 'clsx';
-import * as styles from './index.module.less'
+import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
 interface IProps extends ICommonProps {
@@ -21,6 +20,6 @@ export const Button = ({
 }: IProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
 
   return (
-    <button className={cs(styles.button, styles[`size_${size}`], styles[`status_${status}`], className)} {...rest}>{children}</button>
+    <button style={style} className={cs(styles.button, styles[`size_${size}`], styles[`status_${status}`], className)} {...rest}>{children}</button>
   );
 };

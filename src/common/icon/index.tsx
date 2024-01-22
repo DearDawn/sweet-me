@@ -1,7 +1,5 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
 import cs from 'clsx';
-import * as styles from './index.module.less'
+import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
 export enum ICON {
@@ -22,7 +20,6 @@ interface IProps extends ICommonProps {
 }
 
 export const Icon = ({
-  children,
   className,
   type = ICON.home,
   ...rest

@@ -11,7 +11,7 @@ interface IProps {
 export const TabBar = ({
   tablist,
   activeTab,
-  onTabChange = (x: number) => {},
+  onTabChange = () => {},
   style = {},
 }: IProps) => {
   const [active, setActive] = useState(0);

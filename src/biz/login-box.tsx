@@ -76,7 +76,7 @@ export const LoginBox = () => {
         .then((res) => {
           if (res.status === 0) {
             toast('登录成功！');
-            window.location.href = "./qia-home"
+            window.location.href = "./qia-home";
           } else {
             toast('登录失败');
           }

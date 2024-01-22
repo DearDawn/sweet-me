@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import cs from 'clsx';
-import * as styles from './index.module.less'
+import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
 interface IProps extends ICommonProps {
@@ -23,10 +23,10 @@ export const Page = ({
 }: IProps) => {
   useEffect(() => {
     const rootStyles = document.documentElement.style;
-    const windowWidth = `min(max(${minWidth}, 100vw), ${maxWidth})`
+    const windowWidth = `min(max(${minWidth}, 100vw), ${maxWidth})`;
     rootStyles.setProperty('--dodo-root-fz', `calc(${windowWidth} / 375 * ${rem})`);
-  }, [])
-  const fz = `${fontSize / rem}rem`
+  }, []);
+  const fz = `${fontSize / rem}rem`;
 
   return (
     <div style={{ fontSize: fz, minWidth, maxWidth }} className={cs(styles.page, className)} {...rest}>{children}</div>

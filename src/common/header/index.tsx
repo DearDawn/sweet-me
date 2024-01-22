@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import cs from 'clsx';
-import * as styles from './index.module.less'
+import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import { ICON, Icon } from '../icon';
 
@@ -12,7 +11,6 @@ interface IProps extends ICommonProps {
 }
 
 export const Header = ({
-  children,
   className,
   title = 'Header',
   leftPart = <Icon type={ICON.home} />,

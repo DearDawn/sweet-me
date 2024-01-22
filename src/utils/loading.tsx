@@ -1,8 +1,8 @@
-export const toast = (str: string) => {
+export const loading = (str: string, threshold = 30000) => {
   const div = document.createElement('div');
   div.className = 'loading';
   div.innerHTML = `${str}<style>
-    .toast{
+    .loading{
         width:300px;
         min-height:80px;
         height: fit-content;
@@ -26,7 +26,19 @@ export const toast = (str: string) => {
 
   const body = document.querySelector('body');
   body?.appendChild(div);
-  setTimeout(() => {
+
+  const remove = () => {
     body?.removeChild(div);
-  }, 1500);
+  };
+
+  const timer = setTimeout(() => {
+    remove();
+  }, threshold);
+
+  const close = () => {
+    clearTimeout(timer);
+    remove();
+  };
+
+  return close;
 };

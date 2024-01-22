@@ -1,20 +1,18 @@
-import '../../global.d'
+import '../../global.d';
 import * as React from 'react';
 import * as styles from './App.module.less';
 import { toast, notice, Button, Title, Icon, Header, Page, Input } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
 
-interface IProps { }
-
-export const App = (props: IProps) => {
+export const App = () => {
   const handleToast = React.useCallback(() => {
     toast('this is a toast');
-  }, [])
+  }, []);
 
   const handleNotice = React.useCallback((type: 'info' | 'error' | 'success') => () => {
-    notice[type](type, 1000)
-  }, [])
+    notice[type](type, 1000);
+  }, []);
 
   return (
     <Page className={styles.app}>

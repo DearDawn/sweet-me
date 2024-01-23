@@ -22,6 +22,15 @@ export const Button = ({
 }: IProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
 
   return (
-    <button style={style} className={cs(styles.button, styles[`size_${size}`], styles[`status_${status}`], className)} {...rest} disabled={loading}>{children}</button>
+    <button
+      style={style}
+      className={cs(styles.button, styles[`size_${size}`], styles[`status_${status}`], className, {
+        [styles.loading]: loading
+      })}
+      {...rest}
+      disabled={loading}
+    >
+      {children}
+    </button>
   );
 };

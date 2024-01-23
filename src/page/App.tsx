@@ -28,7 +28,7 @@ export const App = () => {
 
   return (
     <Page className={styles.app}>
-      <Header title="小糖的组件库" />
+      <Header title="小糖的组件库" isSticky />
       <Title>按钮</Title>
       <div className={styles.buttonWrap}>
         <Button className={styles.button} size='large'>大按钮</Button>
@@ -64,7 +64,7 @@ export const App = () => {
       <Title>Loading</Title>
       <div>
         <Button onClick={handleLoading(3000)} className={styles.ml10}>3s Loading</Button>
-        <Button onClick={handleLoading(5000)} className={styles.ml10}>5s Loading</Button>
+        <Button onClick={handleLoading(50000)} className={styles.ml10}>5s Loading</Button>
         <Button onClick={handleLoadingEnd} className={styles.ml10} status='error'>End Loading</Button>
       </div>
       <Title>Input</Title>

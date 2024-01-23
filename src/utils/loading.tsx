@@ -1,7 +1,7 @@
 export const loading = (str: string, threshold = 30000) => {
-  const div = document.createElement('div');
+  let div = document.createElement('div');
   div.className = 'loading';
-  div.innerHTML = `${str}<style>
+  div.innerHTML = `<span class="icon"></span>${str}<style>
     .loading{
         width:300px;
         min-height:80px;
@@ -22,13 +22,37 @@ export const loading = (str: string, threshold = 30000) => {
         justify-content:center;
         align-items:center;
     }
+
+    .loading .icon {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        border-top-color: transparent;
+        animation: spin 1.5s linear infinite;
+        z-index: 2;
+        margin-right: 8px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
     </style>`;
 
   const body = document.querySelector('body');
   body?.appendChild(div);
 
   const remove = () => {
+    if (!div) return;
     body?.removeChild(div);
+    div = null;
   };
 
   const timer = setTimeout(() => {

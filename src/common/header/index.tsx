@@ -8,6 +8,7 @@ interface IProps extends ICommonProps {
   leftPart?: React.ReactNode
   title?: React.ReactNode
   rightPart?: React.ReactNode
+  isSticky?: boolean
 }
 
 export const Header = ({
@@ -15,11 +16,17 @@ export const Header = ({
   title = 'Header',
   leftPart = <Icon type={ICON.home} />,
   rightPart = <Icon type={ICON.sugar} />,
+  isSticky = false,
   ...rest
 }: IProps) => {
 
   return (
-    <div className={cs(styles.header, className)} {...rest}>
+    <div
+      className={cs(styles.header, className, {
+        [styles.sticky]: isSticky
+      })}
+      {...rest}
+    >
       <div className={styles.leftPart}>
         {leftPart}
       </div>

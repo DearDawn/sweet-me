@@ -25,7 +25,7 @@ export const Page = ({
     const rootStyles = document.documentElement.style;
     const windowWidth = `min(max(${minWidth}, 100vw), ${maxWidth})`;
     rootStyles.setProperty('--dodo-root-fz', `calc(${windowWidth} / 375 * ${rem})`);
-  }, []);
+  }, [maxWidth, minWidth, rem]);
   const fz = `${fontSize / rem}rem`;
 
   return (

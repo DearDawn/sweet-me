@@ -1,7 +1,8 @@
 {
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "react-hooks"
   ],
   "env": {
     "browser": true,
@@ -18,7 +19,11 @@
   "rules": {
     "semi": "error",
     "no-console": "warn",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    // 检查 Hooks 的使用规则
+    "react-hooks/rules-of-hooks": "error",
+    // 检查依赖项的声明
+    "react-hooks/exhaustive-deps": "warn"
   },
   "overrides": [
     {

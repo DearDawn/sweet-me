@@ -24,7 +24,7 @@ export const useRequest = <T = any> (props: RequestProps) => {
     }).catch(err => {
       setError(err);
     }).finally(endLoading);
-  }, []);
+  }, [endLoading, init, params, startLoading, url]);
 
   const runApi = useCallback(() => {
     doRequest();
@@ -41,7 +41,7 @@ export const useRequest = <T = any> (props: RequestProps) => {
     if (!autoRun) return;
 
     doRequest();
-  }, []);
+  }, [autoRun, doRequest]);
 
   return { data, error, loading, runApi };
 };

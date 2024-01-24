@@ -22,7 +22,7 @@ export const Input = ({
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = React.useCallback((e) => {
     const val = e.target.value;
     onValueChange?.(val);
-  }, []);
+  }, [onValueChange]);
 
   return (
     <input

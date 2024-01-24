@@ -12,9 +12,9 @@ export const App = () => {
     toast('this is a toast');
   }, []);
 
-  const handleLoading = React.useCallback((duration?: number) => () => {
+  const handleLoading = React.useCallback((duration?: number, mask = false) => () => {
     loadingRef.current();
-    loadingRef.current = loading('loading', duration);
+    loadingRef.current = loading('loading', duration, mask);
   }, []);
 
   const handleLoadingEnd = React.useCallback(() => {
@@ -63,8 +63,8 @@ export const App = () => {
       </div>
       <Title>Loading</Title>
       <div>
-        <Button onClick={handleLoading(3000)} className={styles.ml10}>3s Loading</Button>
-        <Button onClick={handleLoading(50000)} className={styles.ml10}>5s Loading</Button>
+        <Button onClick={handleLoading(1000, true)} className={styles.ml10}>1s Loading</Button>
+        <Button onClick={handleLoading(5000)} className={styles.ml10}>5s Loading</Button>
         <Button onClick={handleLoadingEnd} className={styles.ml10} status='error'>End Loading</Button>
       </div>
       <Title>Input</Title>

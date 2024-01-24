@@ -1,6 +1,6 @@
-export const loading = (str: string, threshold = 30000) => {
+export const loading = (str: string, threshold = 30000, mask = true) => {
   let div = document.createElement('div');
-  div.className = 'loading';
+  div.className = 'loading' + (mask ? ' mask' : "");
   div.innerHTML = `<span class="icon"></span>${str}<style>
     .loading{
         width:300px;
@@ -21,6 +21,21 @@ export const loading = (str: string, threshold = 30000) => {
         display:flex;
         justify-content:center;
         align-items:center;
+        z-index: 100000;
+    }
+
+    .loading.mask {
+        &::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(0,0,0,0.3);
+          z-index: -1;
+          width: 100vw;
+          height: 100vh;
+        }
     }
 
     .loading .icon {
@@ -37,11 +52,11 @@ export const loading = (str: string, threshold = 30000) => {
 
     @keyframes spin {
       0% {
-        transform: translate(-50%, -50%) rotate(0deg);
+        transform: rotate(0deg);
       }
 
       100% {
-        transform: translate(-50%, -50%) rotate(360deg);
+        transform: rotate(360deg);
       }
     }
     </style>`;

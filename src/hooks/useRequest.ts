@@ -18,13 +18,15 @@ export const useRequest = <T = any> (props: RequestProps) => {
   const [loading, startLoading, endLoading] = useBoolean(false);
 
   const doRequest = useCallback(() => {
+    if (loading) return;
+
     startLoading();
     apiGet<T>(url, params, init).then(res => {
       setData(res);
     }).catch(err => {
       setError(err);
     }).finally(endLoading);
-  }, [endLoading, init, params, startLoading, url]);
+  }, [endLoading, init, loading, params, startLoading, url]);
 
   const runApi = useCallback(() => {
     doRequest();

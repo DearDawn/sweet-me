@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { RequestUrl, apiGet } from "src/utils/request";
 import { useBoolean } from "./useBoolean";
 
@@ -12,24 +12,28 @@ export type RequestProps = {
 
 /** 请求 */
 export const useRequest = <T = any> (props: RequestProps) => {
-  const { url, params, init, loadingFn, autoRun = false } = props || {};
+  const { url = '/', params = {}, init = {}, loadingFn, autoRun = false } = props || {};
   const [data, setData] = useState<T>(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error>(null);
   const [loading, startLoading, endLoading] = useBoolean(false);
 
-  const doRequest = useCallback(() => {
-    if (loading) return;
-
+  const doRequest = useRef(() => {
     startLoading();
-    apiGet<T>(url, params, init).then(res => {
-      setData(res);
-    }).catch(err => {
-      setError(err);
-    }).finally(endLoading);
-  }, [endLoading, init, loading, params, startLoading, url]);
+    return new Promise((resolve, reject) => {
+      if (loading) return doRequest.current;
+
+      apiGet<T>(url, params, init).then(res => {
+        setData(res);
+        resolve(res);
+      }).catch(err => {
+        setError(err);
+        reject(err);
+      }).finally(endLoading);
+    });
+  });
 
   const runApi = useCallback(() => {
-    doRequest();
+    return doRequest.current();
   }, [doRequest]);
 
   useEffect(() => {
@@ -42,7 +46,7 @@ export const useRequest = <T = any> (props: RequestProps) => {
   useEffect(() => {
     if (!autoRun) return;
 
-    doRequest();
+    doRequest.current();
   }, [autoRun, doRequest]);
 
   return { data, error, loading, runApi };

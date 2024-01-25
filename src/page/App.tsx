@@ -4,8 +4,10 @@ import * as styles from './App.module.less';
 import { toast, notice, Button, Title, Icon, Header, Page, Input, loading } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
+import { useRequest } from '../hooks';
 
 export const App = () => {
+  const { runApi, loading: isLoading } = useRequest({ url: 'https://dododawn.com:7020/', params: {} });
   const loadingRef = React.useRef(() => { });
 
   const handleToast = React.useCallback(() => {
@@ -21,6 +23,10 @@ export const App = () => {
     loadingRef.current();
     loadingRef.current = () => { };
   }, []);
+
+  const handleSubmit = React.useCallback(() => {
+    runApi().then(toast).catch(toast);
+  }, [runApi]);
 
   const handleNotice = React.useCallback((type: 'info' | 'error' | 'success') => () => {
     notice[type](type, 1000);
@@ -70,7 +76,7 @@ export const App = () => {
       <Title>Input</Title>
       <div className={styles.inputWrap}>
         <Input className={styles.input} placeholder="请输入" />
-        <Button className={styles.ml10}>提交</Button>
+        <Button className={styles.ml10} onClick={handleSubmit} loading={isLoading}>提交</Button>
       </div>
     </Page>
   );

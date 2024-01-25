@@ -7,6 +7,7 @@ import { ICON } from '../common/icon';
 import { useRequest } from '../hooks';
 
 export const App = () => {
+  const [url, setUrl] = React.useState('');
   const { runApi, loading: isLoading } = useRequest({ url: 'https://dododawn.com:7020/', params: {} });
   const loadingRef = React.useRef(() => { });
 
@@ -31,6 +32,11 @@ export const App = () => {
   const handleNotice = React.useCallback((type: 'info' | 'error' | 'success') => () => {
     notice[type](type, 1000);
   }, []);
+
+  React.useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('[dodo] ', 'input', url);
+  }, [url]);
 
   return (
     <Page className={styles.app}>
@@ -75,7 +81,11 @@ export const App = () => {
       </div>
       <Title>Input</Title>
       <div className={styles.inputWrap}>
-        <Input className={styles.input} placeholder="请输入" />
+        <Input
+          className={styles.input}
+          onValueChange={(val = '') => setUrl(val.trim())}
+          placeholder="请输入"
+        />
         <Button className={styles.ml10} onClick={handleSubmit} loading={isLoading}>提交</Button>
       </div>
     </Page>

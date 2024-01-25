@@ -16,11 +16,12 @@ export const useRequest = <T = any> (props: RequestProps) => {
   const [data, setData] = useState<T>(null);
   const [error, setError] = useState<Error>(null);
   const [loading, startLoading, endLoading] = useBoolean(false);
+  const doRequest = useRef<() => Promise<T>>(() => Promise.resolve(data));
 
-  const doRequest = useRef(() => {
+  const doRequestFn = () => {
     startLoading();
-    return new Promise((resolve, reject) => {
-      if (loading) return doRequest.current;
+    return new Promise<T>((resolve, reject) => {
+      if (loading) return doRequestFn;
 
       apiGet<T>(url, params, init).then(res => {
         setData(res);
@@ -30,7 +31,9 @@ export const useRequest = <T = any> (props: RequestProps) => {
         reject(err);
       }).finally(endLoading);
     });
-  });
+  };
+
+  doRequest.current = doRequestFn;
 
   const runApi = useCallback(() => {
     return doRequest.current();

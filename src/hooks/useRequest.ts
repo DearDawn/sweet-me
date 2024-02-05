@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { RequestUrl, apiGet } from "src/utils/request";
+import { RequestUrl, apiGet } from "../utils/request";
 import { useBoolean } from "./useBoolean";
 
 export type RequestProps = {

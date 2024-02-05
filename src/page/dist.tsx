@@ -12,5 +12,6 @@ export const {
   Header,
   Icon,
   Page,
-  Input
+  Input,
+  Modal
 } = Target;

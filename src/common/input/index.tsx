@@ -3,7 +3,7 @@ import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
-interface IProps extends ICommonProps {
+type IProps = ICommonProps & {
   /** 按钮大小 */
   size?: 'normal' | 'small' | 'large' | 'mini' | 'long'
   /** 按钮状态 */

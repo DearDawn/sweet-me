@@ -1,4 +1,7 @@
-export interface ICommonProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ICommonProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'title'
+> {
   className?: string
   children?: any
 }

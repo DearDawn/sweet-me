@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import cs from 'clsx';
+import { ICommonProps } from 'src';
 
-interface IProps {
+type IProps = ICommonProps & {
   tablist: string[];
   activeTab: number;
   onTabChange?: (index: number) => void;

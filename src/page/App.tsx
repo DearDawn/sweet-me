@@ -1,15 +1,16 @@
 import '../../global.d';
 import * as React from 'react';
 import * as styles from './App.module.less';
-import { toast, notice, Button, Title, Icon, Header, Page, Input, loading } from './dist';
+import { toast, notice, Button, Title, Icon, Header, Page, Input, loading, Modal } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
-import { useRequest } from '../hooks';
+import { useBoolean, useRequest } from '../hooks';
 
 export const App = () => {
   const [url, setUrl] = React.useState('');
   const { runApi, loading: isLoading } = useRequest({ url: 'https://dododawn.com:7020/', params: {} });
   const loadingRef = React.useRef(() => { });
+  const [modalVisible, openModal, closeModal] = useBoolean(false);
 
   const handleToast = React.useCallback(() => {
     toast('this is a toast');
@@ -88,6 +89,11 @@ export const App = () => {
         />
         <Button className={styles.ml10} onClick={handleSubmit} loading={isLoading}>提交</Button>
       </div>
+      <Title>Modal</Title>
+      <Button className={styles.ml10} onClick={openModal}>打开弹窗</Button>
+      <Modal visible={modalVisible} maskClosable onClose={closeModal}>
+        <Button className={styles.closeModalBtn} onClick={closeModal}>关闭弹窗</Button>
+      </Modal>
     </Page>
   );
 };

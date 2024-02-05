@@ -4,7 +4,7 @@ import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import { ICON, Icon } from '../icon';
 
-interface IProps extends ICommonProps {
+type IProps = ICommonProps & {
   leftPart?: React.ReactNode
   title?: React.ReactNode
   rightPart?: React.ReactNode

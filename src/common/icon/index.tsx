@@ -15,7 +15,7 @@ export enum ICON {
   likeFull = '&#xe60f;'
 }
 
-interface IProps extends ICommonProps {
+type IProps = ICommonProps & {
   type?: ICON
 }
 

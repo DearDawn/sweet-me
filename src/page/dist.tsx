@@ -13,5 +13,6 @@ export const {
   Icon,
   Page,
   Input,
+  Textarea,
   Modal
 } = Target;

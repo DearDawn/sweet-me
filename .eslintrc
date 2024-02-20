@@ -20,6 +20,15 @@
     "semi": "error",
     "no-console": "warn",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "none",
+        // "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_"
+      }
+    ],
     // 检查 Hooks 的使用规则
     "react-hooks/rules-of-hooks": "error",
     // 检查依赖项的声明

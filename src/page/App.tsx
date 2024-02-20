@@ -1,14 +1,14 @@
 import '../../global.d';
 import * as React from 'react';
 import * as styles from './App.module.less';
-import { toast, notice, Button, Title, Icon, Header, Page, Input, loading, Modal } from './dist';
+import { toast, notice, Button, Title, Icon, Header, Page, Input, loading, Modal, Textarea } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
 import { useBoolean, useRequest } from '../hooks';
 
 export const App = () => {
   const [url, setUrl] = React.useState('');
-  const { runApi, loading: isLoading } = useRequest({ url: 'https://dododawn.com:7020/', params: {} });
+  const { runApi, loading: isLoading } = useRequest({ url: 'https://dododawn.com:7020/api/', params: {} });
   const loadingRef = React.useRef(() => { });
   const [modalVisible, openModal, closeModal] = useBoolean(false);
 
@@ -27,7 +27,7 @@ export const App = () => {
   }, []);
 
   const handleSubmit = React.useCallback(() => {
-    runApi().then(toast).catch(toast);
+    runApi().then(res => toast(res?.message)).catch(err => toast(err?.message));
   }, [runApi]);
 
   const handleNotice = React.useCallback((type: 'info' | 'error' | 'success') => () => {
@@ -80,7 +80,7 @@ export const App = () => {
         <Button onClick={handleLoading(5000)} className={styles.ml10}>5s Loading</Button>
         <Button onClick={handleLoadingEnd} className={styles.ml10} status='error'>End Loading</Button>
       </div>
-      <Title>Input</Title>
+      <Title>Input & Textarea</Title>
       <div className={styles.inputWrap}>
         <Input
           className={styles.input}
@@ -88,6 +88,11 @@ export const App = () => {
           placeholder="请输入"
         />
         <Button className={styles.ml10} onClick={handleSubmit} loading={isLoading}>提交</Button>
+        <Textarea
+          className={styles.textarea}
+          onValueChange={(val = '') => setUrl(val.trim())}
+          placeholder="请输入"
+        />
       </div>
       <Title>Modal</Title>
       <Button className={styles.ml10} onClick={openModal}>打开弹窗</Button>

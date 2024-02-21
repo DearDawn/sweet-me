@@ -3,7 +3,7 @@ import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
-type IProps = ICommonProps & {
+type IProps = ICommonProps<HTMLInputElement> & {
   /** 按钮大小 */
   size?: 'normal' | 'small' | 'large' | 'mini' | 'long'
   /** 按钮状态 */

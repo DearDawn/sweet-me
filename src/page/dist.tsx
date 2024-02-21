@@ -14,5 +14,6 @@ export const {
   Page,
   Input,
   Textarea,
-  Modal
+  Modal,
+  Form
 } = Target;

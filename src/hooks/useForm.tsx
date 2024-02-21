@@ -114,3 +114,5 @@ export const useFormState = <T,> () => {
 
   return { form };
 };
+
+export type FormState = (ReturnType<typeof useFormState>)['form']

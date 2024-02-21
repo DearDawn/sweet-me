@@ -1,16 +1,17 @@
 import '../../global.d';
 import * as React from 'react';
 import * as styles from './App.module.less';
-import { toast, notice, Button, Title, Icon, Header, Page, Input, loading, Modal, Textarea } from './dist';
+import { toast, notice, Button, Title, Icon, Header, Page, Input, loading, Modal, Textarea, Form } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
-import { useBoolean, useRequest } from '../hooks';
+import { useBoolean, useFormState, useRequest } from '../hooks';
 
 export const App = () => {
   const [url, setUrl] = React.useState('');
   const { runApi, loading: isLoading } = useRequest({ url: 'https://dododawn.com:7020/api/', params: {} });
   const loadingRef = React.useRef(() => { });
   const [modalVisible, openModal, closeModal] = useBoolean(false);
+  const { form } = useFormState();
 
   const handleToast = React.useCallback(() => {
     toast('this is a toast');
@@ -29,6 +30,11 @@ export const App = () => {
   const handleSubmit = React.useCallback(() => {
     runApi().then(res => toast(res?.message)).catch(err => toast(err?.message));
   }, [runApi]);
+
+  const handleFormSubmit = React.useCallback(() => {
+    const values = form.getFieldsValue();
+    toast(JSON.stringify(values));
+  }, [form]);
 
   const handleNotice = React.useCallback((type: 'info' | 'error' | 'success') => () => {
     notice[type](type, 1000);
@@ -80,6 +86,11 @@ export const App = () => {
         <Button onClick={handleLoading(5000)} className={styles.ml10}>5s Loading</Button>
         <Button onClick={handleLoadingEnd} className={styles.ml10} status='error'>End Loading</Button>
       </div>
+      <Title>Modal</Title>
+      <Button className={styles.ml10} onClick={openModal}>打开弹窗</Button>
+      <Modal visible={modalVisible} maskClosable onClose={closeModal}>
+        <Button className={styles.closeModalBtn} onClick={closeModal}>关闭弹窗</Button>
+      </Modal>
       <Title>Input & Textarea</Title>
       <div className={styles.inputWrap}>
         <Input
@@ -94,11 +105,16 @@ export const App = () => {
           placeholder="请输入"
         />
       </div>
-      <Title>Modal</Title>
-      <Button className={styles.ml10} onClick={openModal}>打开弹窗</Button>
-      <Modal visible={modalVisible} maskClosable onClose={closeModal}>
-        <Button className={styles.closeModalBtn} onClick={closeModal}>关闭弹窗</Button>
-      </Modal>
+      <Title>Form</Title>
+      <Form form={form}>
+        <Form.Item label='姓名' field='name' className={styles.formItem}>
+          <Input placeholder='请输入姓名' className={styles.formItemInput} />
+        </Form.Item>
+        <Form.Item label='年龄' field='age' className={styles.formItem}>
+          <Input placeholder='请输入年龄' className={styles.formItemInput} />
+        </Form.Item>
+        <Button size="long" onClick={handleFormSubmit} loading={isLoading}>提交</Button>
+      </Form>
     </Page>
   );
 };

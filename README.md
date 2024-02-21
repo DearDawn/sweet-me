@@ -20,7 +20,7 @@ TODO LIST
 | `<input type="checkbox" checked>` useRequest | `2024-01-22` |                        |
 | `<input type="checkbox" checked>` Modal      | `2024-02-05` |                        |
 | `<input type="checkbox" checked>` Textarea   | `2024-02-20` |                        |
-| `<input type="checkbox" >` Form              |                |                        |
+| `<input type="checkbox" checked>` Form       | `2024-02-21` |                        |
 | `<input type="checkbox" >` Space             |                |                        |
 
 规范

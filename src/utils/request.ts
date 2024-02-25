@@ -11,5 +11,8 @@ export const apiPost = <T> (input: RequestUrl, params: Record<string, any> = {},
   const searchStr = new URLSearchParams({ ...params }).toString();
   const url = searchStr ? `${input}?${searchStr}` : input;
 
-  return fetch(url, { method: 'POST', body: JSON.stringify(body), ...init }).then(res => res.json()) as Promise<T>;
+  return fetch(url, { method: 'POST', body: JSON.stringify(body), headers: {
+    ...init.headers,
+    'Content-Type': 'application/json'
+  }, ...init }).then(res => res.json()) as Promise<T>;
 };

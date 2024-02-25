@@ -32,7 +32,7 @@ export const Textarea = ({
     const adjustTextareaHeight = () => {
       textarea.style.height = 'auto';
       const computedHeight = textarea.scrollHeight;
-      textarea.style.height = `${computedHeight - 16}px`;
+      textarea.style.height = `${computedHeight}px`;
     };
 
     const handleResize = () => {

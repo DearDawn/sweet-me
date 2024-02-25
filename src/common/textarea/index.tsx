@@ -8,6 +8,7 @@ type IProps = ICommonProps & {
   size?: 'normal' | 'small' | 'large' | 'mini' | 'long'
   /** 按钮状态 */
   status?: 'success' | 'error' | 'warning' | 'default'
+  autoFitHeight?: boolean;
   onValueChange?: (value?: string) => void
 }
 
@@ -15,6 +16,7 @@ export const Textarea = ({
   className,
   size = 'normal',
   status = 'default',
+  autoFitHeight = true,
   onValueChange,
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLTextAreaElement>) => {
@@ -27,7 +29,7 @@ export const Textarea = ({
 
   React.useEffect(() => {
     const textarea = textareaRef.current;
-    if (!textarea) return;
+    if (!textarea || !autoFitHeight) return;
 
     const adjustTextareaHeight = () => {
       textarea.style.height = 'auto';
@@ -48,7 +50,7 @@ export const Textarea = ({
       textarea.removeEventListener('input', adjustTextareaHeight);
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [autoFitHeight]);
 
   return (
     <textarea

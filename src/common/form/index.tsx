@@ -9,7 +9,7 @@ type IFormProps = ICommonProps<HTMLFormElement> & {
   onSubmit?: (values?: Record<string, any>) => void
 }
 
-type IFormItemProps = Omit<ICommonProps<HTMLDivElement>, 'children'> & {
+type IFormItemProps = Omit<ICommonProps<HTMLDivElement>, 'children' | 'label'> & {
   label?: string
   field: string
   labelClassName?: string

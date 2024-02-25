@@ -5,7 +5,7 @@ import { FormState } from '../../hooks/useForm';
 import React, { FormEvent, ReactElement, cloneElement, useCallback, useContext } from 'react';
 
 type IFormProps = ICommonProps<HTMLFormElement> & {
-  form: FormState
+  form: FormState<unknown>
   onSubmit?: (values?: Record<string, any>) => void
 }
 
@@ -24,7 +24,7 @@ interface FormChildProps {
   onChange: (value: any) => void;
 }
 
-const FormContext = React.createContext<{ form: FormState }>({ form: null });
+const FormContext = React.createContext<{ form: FormState<unknown> }>({ form: null });
 
 export const Form = ({
   children,

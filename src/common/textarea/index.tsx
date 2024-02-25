@@ -15,7 +15,6 @@ export const Textarea = ({
   className,
   size = 'normal',
   status = 'default',
-  defaultValue = '',
   onValueChange,
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLTextAreaElement>) => {
@@ -54,8 +53,6 @@ export const Textarea = ({
   return (
     <textarea
       ref={textareaRef}
-      key={defaultValue as string}
-      defaultValue={defaultValue}
       onChange={handleChange}
       className={cs(styles.textarea, styles[`size_${size}`], styles[`status_${status}`], className)}
       {...rest}

@@ -15,8 +15,8 @@ export const Input = ({
   className,
   size = 'normal',
   status = 'default',
-  defaultValue = '',
   onValueChange,
+  value,
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLInputElement>) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = React.useCallback((e) => {
@@ -26,8 +26,6 @@ export const Input = ({
 
   return (
     <input
-      key={defaultValue as string}
-      defaultValue={defaultValue}
       onChange={handleChange}
       className={cs(styles.input, styles[`size_${size}`], styles[`status_${status}`], className)} {...rest}
     />

@@ -14,37 +14,35 @@ interface IState {
 export const useFormState = <T,> () => {
   const [stateMap, setStateMap] = React.useState<Record<keyof T | any, IState>>({});
 
+  const handleInput = React.useCallback((config: IConfig, value?: any) => (e?: React.ChangeEvent<HTMLInputElement>) => {
+    const { field = '', required = false, disabled = false } = config;
+      setStateMap((f) => ({
+        ...f,
+        [field]: {
+          ...stateMap[field],
+          required,
+          value: value || e?.target?.value,
+          disabled
+        }
+      }));
+  }, [stateMap]);
+
   const input = React.useCallback(
     (config: IConfig) => {
-      const { field = '', required = false, disabled = false } = config;
+      const { field = '', disabled = false } = config;
       if (!stateMap[field]) {
-        setStateMap((f) => ({
-          ...f,
-          [field]: {
-            ...stateMap[field],
-            required,
-            value: '',
-            disabled
-          }
-        }));
+        setTimeout(() => {
+          handleInput(config, '')();
+        }, 0);
       }
 
       return {
         value: stateMap[field]?.value || '',
-        onInput: (e) =>
-          setStateMap((f) => ({
-            ...f,
-            [field]: {
-              ...stateMap[field],
-              required,
-              value: e.target.value,
-              disabled
-            }
-          })),
+        onInput: handleInput(config),
         disabled
       };
     },
-    [stateMap]
+    [handleInput, stateMap]
   );
 
   const setFieldsValue = React.useCallback(

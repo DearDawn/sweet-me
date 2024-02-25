@@ -10,7 +10,7 @@ type IFormProps = ICommonProps<HTMLFormElement> & {
 }
 
 type IFormItemProps = Omit<ICommonProps<HTMLDivElement>, 'children'> & {
-  label: string
+  label?: string
   field: string
   labelClassName?: string
   required?: boolean
@@ -68,7 +68,9 @@ export const FormItem = ({
 
   return (
     <div className={cs(styles.formItem, className)} {...rest}>
-      <label className={cs(styles.formLabel, labelClassName)} htmlFor={field}>{label}</label>
+      {label && (
+        <label className={cs(styles.formLabel, labelClassName)} htmlFor={field}>{label}</label>
+      )}
       {modifiedChildren}
     </div>
   );

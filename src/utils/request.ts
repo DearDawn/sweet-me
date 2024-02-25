@@ -12,7 +12,7 @@ export const apiPost = <T> (input: RequestUrl, params: Record<string, any> = {},
   const url = searchStr ? `${input}?${searchStr}` : input;
 
   return fetch(url, { method: 'POST', body: JSON.stringify(body), headers: {
-    ...init.headers,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    ...init?.headers
   }, ...init }).then(res => res.json()) as Promise<T>;
 };

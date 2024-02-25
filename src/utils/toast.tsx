@@ -24,6 +24,7 @@ export const toast = (str: string) => {
     align-items:center;
     padding: 5px 10px;
     box-sizing: border-box;
+    z-index: 100000;
   }`;
   div.appendChild(style);
   const body = document.querySelector('body');

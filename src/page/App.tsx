@@ -5,12 +5,16 @@ import { toast, notice, Button, Title, Icon, Header, Page, Input, loading, Modal
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
 import { useBoolean, useFormState, useRequest } from '../hooks';
+import { Progress } from './components/progress';
+import { Changelog } from './components/changelog';
 
 export const App = () => {
   const [url, setUrl] = React.useState('');
   const { runApi, loading: isLoading } = useRequest({ url: 'https://dododawn.com:7020/api/', params: {} });
   const loadingRef = React.useRef(() => { });
   const [modalVisible, openModal, closeModal] = useBoolean(false);
+  const [progressVisible, openProgress, closeProgress] = useBoolean(false);
+  const [changeLogVisible, openChangeLog, closeChangeLog] = useBoolean(false);
   const { form } = useFormState();
 
   const handleToast = React.useCallback(() => {
@@ -40,6 +44,10 @@ export const App = () => {
     notice[type](type, 1000);
   }, []);
 
+  const handleHelp = () => {
+    toast('开发中...');
+  };
+
   React.useEffect(() => {
     // eslint-disable-next-line no-console
     console.log('[dodo] ', 'input', url);
@@ -48,6 +56,40 @@ export const App = () => {
   return (
     <Page className={styles.app}>
       <Header title="小糖的组件库" isSticky />
+      <div className={styles.buttonWrap}>
+        <div className={styles.helpBtnList}>
+          <Button className={styles.button} size='normal' status='success' onClick={openProgress}>
+            <Icon type={ICON.pc} className={styles.buttonIcon} />
+            开发进展
+          </Button>
+          <Button className={styles.button} size='normal' status='success' onClick={openChangeLog} >
+            <Icon type={ICON.log} size={26} className={styles.buttonIcon} />
+            CHANGE LOG
+          </Button>
+          <Button className={styles.button} size='normal' status='success' onClick={handleHelp} >
+            <Icon type={ICON.book} className={styles.buttonIcon} />
+            使用文档
+          </Button>
+          <Modal
+            onClose={closeProgress}
+            maskClosable
+            visible={progressVisible}
+            footer={
+              <Button className={styles.closeModalBtn} onClick={closeProgress}>关闭</Button>
+            }>
+            <Progress />
+          </Modal>
+          <Modal
+            maskClosable
+            onClose={closeChangeLog}
+            visible={changeLogVisible}
+            footer={
+              <Button className={styles.closeModalBtn} onClick={closeChangeLog}>关闭</Button>
+            }>
+            <Changelog />
+          </Modal>
+        </div>
+      </div>
       <Title>按钮</Title>
       <div className={styles.buttonWrap}>
         <Button className={styles.button} size='large'>大按钮</Button>

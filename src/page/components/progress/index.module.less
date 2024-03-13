@@ -1,0 +1,50 @@
+.progress.progress {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+:global(.markdown-body .table) {
+  max-width: unset;
+}
+
+:global(.markdown-body .table-wrapper) {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  :global(.table-inner) {
+    overflow: auto;
+    width: 100%;
+    position: relative;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -5px;
+    width: 5px;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 10px;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  table {
+    max-width: unset;
+  }
+}

@@ -2,18 +2,20 @@ import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import ReactDom from 'react-dom';
-import { useCallback } from 'react';
+import { ReactNode, useCallback } from 'react';
 
 type IProps = ICommonProps & {
   visible: boolean
   maskClosable?: boolean
   rootElement?: Element
+  footer?: ReactNode
   onClose?: VoidFunction
 }
 
 export const Modal = ({
   children,
   className,
+  footer,
   onClose,
   visible = false,
   maskClosable = false,
@@ -41,8 +43,9 @@ export const Modal = ({
       onClick={handleMaskClick}
       {...rest}
     >
-      <div className={styles.content} onClick={handleContentClick}>
-        {children}
+      <div className={styles.modalContent} onClick={handleContentClick}>
+        <div className={styles.content}>{children}</div>
+        {footer && <div className={styles.footer}>{footer}</div>}
       </div>
     </div>
     , rootElement);

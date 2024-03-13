@@ -10,11 +10,27 @@
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
+  margin-bottom: 0;
+  overflow: auto;
+}
+
+.helpBtnList {
+  overflow: auto;
+  white-space: nowrap;
+  padding-right: 10px;
+
+  .button {
+    display: inline-flex;
+  }
 }
 
 .button {
-  margin-top: 10px;
+  margin-bottom: 10px;
   margin-left: 10px;
+
+  .buttonIcon {
+    margin-right: 5px;
+  }
 }
 
 .long {

@@ -17,6 +17,7 @@ export const Button = ({
   className,
   size = 'normal',
   status = 'default',
+  disabled = false,
   loading = false,
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
@@ -28,7 +29,7 @@ export const Button = ({
         [styles.loading]: loading
       })}
       {...rest}
-      disabled={loading}
+      disabled={loading || disabled}
     >
       {children}
     </button>

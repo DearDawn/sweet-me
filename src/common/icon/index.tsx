@@ -15,22 +15,30 @@ export enum ICON {
   likeFull = '&#xe60f;',
   pc = '&#xe620;',
   pad = '&#xe6f4;',
-  mobile = '&#xe75f;'
+  mobile = '&#xe75f;',
+  clock = '&#xe60d;',
+  bulb = '&#xe6cb;',
+  log = '&#xe612;',
+  book ='&#xe622;'
 }
 
 type IProps = ICommonProps & {
-  type?: ICON
+  type?: ICON,
+  /** 尺寸，默认 fontSize 32 */
+  size?: number
 }
 
 export const Icon = ({
   className,
   type = ICON.home,
+  size,
   ...rest
 }: IProps) => {
 
   return (
     <i
-      className={cs(styles.iconfont, className)}
+      style={size ? { fontSize: size } : {}}
+      className={cs(styles.iconfont, 'dodo-icon', className)}
       dangerouslySetInnerHTML={{ __html: type }}
       {...rest}
     ></i>

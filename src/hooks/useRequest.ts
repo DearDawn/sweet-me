@@ -13,8 +13,8 @@ export type RequestProps = {
 /** 请求 */
 export const useRequest = <T = any> (props: RequestProps) => {
   const { url = '/', params = {}, init = {}, loadingFn, autoRun = false } = props || {};
-  const [data, setData] = useState<T>(null);
-  const [error, setError] = useState<Error>(null);
+  const [data, setData] = useState<T>();
+  const [error, setError] = useState<any>();
   const [loading, startLoading, endLoading] = useBoolean(false);
   const doRequest = useRef<() => Promise<T>>(() => Promise.resolve(data));
 

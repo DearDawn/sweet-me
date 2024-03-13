@@ -21,6 +21,7 @@ TODO LIST
 | `<input type="checkbox" checked>` Modal      | `2024-02-05` |                        |
 | `<input type="checkbox" checked>` Textarea   | `2024-02-20` |                        |
 | `<input type="checkbox" checked>` Form       | `2024-02-21` |                        |
+| `<input type="checkbox" checked>` Select     | `2024-03-13` |                        |
 | `<input type="checkbox" >` Space             |                |                        |
 
 规范

@@ -1,7 +1,7 @@
 import '../../global.d';
 import * as React from 'react';
 import * as styles from './App.module.less';
-import { toast, notice, Button, Title, Icon, Header, Page, Input, loading, Modal, Textarea, Form } from './dist';
+import { toast, notice, Button, Title, Icon, Header, Page, Input, loading, Modal, Textarea, Form, Select } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
 import { useBoolean, useFormState, useRequest } from '../hooks';
@@ -33,7 +33,7 @@ export const App = () => {
 
   const handleFormSubmit = React.useCallback(() => {
     const values = form.getFieldsValue();
-    toast(JSON.stringify(values));
+    toast(JSON.stringify(values, undefined, 2));
   }, [form]);
 
   const handleNotice = React.useCallback((type: 'info' | 'error' | 'success') => () => {
@@ -105,6 +105,31 @@ export const App = () => {
           placeholder="请输入"
         />
       </div>
+      <Title>Select</Title>
+      <div className={styles.selectWrap}>
+        <Select
+          className={styles.select}
+          options={[
+            { label: '选项一', value: '1' },
+            { label: '选项二', value: '2' },
+            { label: '选项三', value: '3', disabled: true },
+            { label: '选项四', value: '4' },
+            { label: '选项五', value: '5' },
+            { label: '选项六', value: '6' },
+            { label: '选项七', value: '7' },
+          ]}
+        />
+        <Select
+          className={styles.select}
+          type='icon'
+          options={[
+            { label: <Icon type={ICON.home} className={styles.selectIcon} />, value: '1' },
+            { label: <Icon type={ICON.rocket} className={styles.selectIcon} />, value: '2' },
+            { label: <Icon type={ICON.sugar} className={styles.selectIcon} />, value: '3' },
+          ]}
+        />
+      </div>
+
       <Title>Form</Title>
       <Form form={form}>
         <Form.Item label='姓名' field='name' className={styles.formItem}>
@@ -112,6 +137,16 @@ export const App = () => {
         </Form.Item>
         <Form.Item label='年龄' field='age' className={styles.formItem}>
           <Input placeholder='请输入年龄' className={styles.formItemInput} />
+        </Form.Item>
+        <Form.Item label='性别' field='sex' className={styles.formItem}>
+          <Select
+            className={styles.formItemSelect}
+            options={[
+              { label: '男', value: '1' },
+              { label: '女', value: '2' },
+              { label: '保密', value: '3' }
+            ]}
+          />
         </Form.Item>
         <Button size="long" onClick={handleFormSubmit} loading={isLoading}>提交</Button>
       </Form>

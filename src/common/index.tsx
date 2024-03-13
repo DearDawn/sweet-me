@@ -7,4 +7,5 @@ export { Header } from './header';
 export { Page } from './page';
 export { Modal } from './modal';
 export { Icon, ICON } from './icon';
+export { Select } from './select';
 export { Form, FormItem } from './form';

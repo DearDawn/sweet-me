@@ -25,6 +25,8 @@ export const toast = (str: string) => {
     padding: 5px 10px;
     box-sizing: border-box;
     z-index: 100000;
+    white-space: pre-wrap;
+    word-break: break-all;
   }`;
   div.appendChild(style);
   const body = document.querySelector('body');

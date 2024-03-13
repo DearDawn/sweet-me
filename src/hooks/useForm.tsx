@@ -16,15 +16,18 @@ export const useFormState = <T,> () => {
 
   const handleInput = React.useCallback((config: IConfig, value?: any) => (e?: React.ChangeEvent<HTMLInputElement>) => {
     const { field = '', required = false, disabled = false } = config;
-      setStateMap((f) => ({
-        ...f,
-        [field]: {
-          ...stateMap[field],
-          required,
-          value: value || e?.target?.value,
-          disabled
-        }
-      }));
+
+    const inputVal = e?.target instanceof Element ? e?.target?.value : e;
+
+    setStateMap((f) => ({
+      ...f,
+      [field]: {
+        ...stateMap[field],
+        required,
+        value: value || inputVal,
+        disabled
+      }
+    }));
   }, [stateMap]);
 
   const input = React.useCallback(

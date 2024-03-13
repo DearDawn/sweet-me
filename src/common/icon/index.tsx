@@ -12,7 +12,10 @@ export enum ICON {
   back = '&#xe62b;',
   done = '&#xe627;',
   likeCircle = '&#xe61a;',
-  likeFull = '&#xe60f;'
+  likeFull = '&#xe60f;',
+  pc = '&#xe620;',
+  pad = '&#xe6f4;',
+  mobile = '&#xe75f;'
 }
 
 type IProps = ICommonProps & {

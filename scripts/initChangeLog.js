@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
@@ -32,12 +33,15 @@ function getCurrentDate () {
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 // 逐行询问 CHANGE_LOG 条目
 function askChangeLogEntry (first = false) {
-  const prompts = first ? '请输入 CHANGE_LOG 条目（Ctrl+C 结束）: \n' : ''
+  const prompts = first ? '请输入 CHANGE_LOG 条目（Ctrl+C 结束）: \n' : '';
   rl.question(prompts, (entry) => {
     if (entry.trim() === '') {
       // 如果输入为空行，则结束交互

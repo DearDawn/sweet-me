@@ -3,6 +3,7 @@ import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import ReactDom from 'react-dom';
 import { ReactNode, useCallback } from 'react';
+import clsx from 'clsx';
 
 type IProps = ICommonProps & {
   visible: boolean
@@ -45,7 +46,7 @@ export const Modal = ({
     >
       <div className={styles.modalContent} onClick={handleContentClick}>
         <div className={styles.content}>{children}</div>
-        {footer && <div className={styles.footer}>{footer}</div>}
+        {footer && <div className={clsx(styles.footer, 'dodo-modal-footer')}>{footer}</div>}
       </div>
     </div>
     , rootElement);

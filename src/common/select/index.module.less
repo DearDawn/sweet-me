@@ -113,7 +113,7 @@
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
     display: none;
     user-select: text;
-    animation: scale-in 0.2s ease-out forwards;
+    animation: scaleIn 0.2s ease-out forwards;
     transform: scaleY(0);
     transform-origin: top;
     max-height: 160px;
@@ -132,7 +132,7 @@
     padding: 0 10px;
     box-sizing: border-box;
     opacity: 0;
-    animation: fade-in 0.2s ease-out forwards;
+    animation: fadeIn 0.2s ease-out forwards;
 
     &:hover {
       background-color: #f1f3f5;
@@ -150,7 +150,7 @@
   }
 }
 
-@keyframes scale-in {
+@keyframes scaleIn {
   0% {
     transform: scaleY(0);
   }
@@ -160,7 +160,7 @@
   }
 }
 
-@keyframes fade-in {
+@keyframes fadeIn {
   0% {
     opacity: 0;
   }

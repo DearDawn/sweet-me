@@ -5,6 +5,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss';
 import eslint from '@rollup/plugin-eslint';
+import analyze from 'rollup-plugin-analyzer';
 
 export const file = (type) => `dist/index.${type}.js`;
 
@@ -17,6 +18,7 @@ export default {
       format: "umd",
       globals: {
         react: "React",
+        "react-dom": "ReactDom",
         "react/jsx-runtime": "jsxRuntime"
       },
     },
@@ -25,12 +27,14 @@ export default {
       format: "es",
       globals: {
         react: "React",
+        "react-dom": "ReactDom",
         "react/jsx-runtime": "jsxRuntime"
       },
     },
   ],
-  external: ['react', 'react-is', 'react-router', 'react/jsx-runtime'],
+  external: ['react', 'react-dom', 'react-is', 'react-router', 'react/jsx-runtime'],
   plugins: [
+    analyze(),
     postcss({
       extract: false, // 独立导出css文件 ，使用组件时需要单独引入
       namedExports: true,

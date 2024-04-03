@@ -32,7 +32,7 @@ export const useFormState = <T,> () => {
       [field]: {
         ...stateMap[field],
         required,
-        value: value || inputVal,
+        value: value ?? inputVal,
         disabled
       }
     }));

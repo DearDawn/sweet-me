@@ -36,8 +36,14 @@ export const App = () => {
   }, [runApi]);
 
   const handleFormSubmit = React.useCallback(() => {
-    const values = form.getFieldsValue();
-    toast(JSON.stringify(values, undefined, 2));
+    const pass = form.validate();
+
+    if (pass) {
+      const values = form.getFieldsValue();
+      toast(JSON.stringify(values, undefined, 2));
+    } else {
+      toast('未完整填写');
+    }
   }, [form]);
 
   const handleNotice = React.useCallback((type: 'info' | 'error' | 'success') => () => {
@@ -184,9 +190,9 @@ export const App = () => {
           <Select
             className={styles.formItemSelect}
             options={[
-              { label: '男', value: '1' },
-              { label: '女', value: '2' },
-              { label: '保密', value: '3' }
+              { label: '男', value: 1 },
+              { label: '女', value: 2 },
+              { label: '保密', value: 3 }
             ]}
           />
         </Form.Item>

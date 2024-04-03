@@ -11,6 +11,14 @@ interface IState {
   value?: any
 }
 
+const checkVal = (value?: string | number) => {
+  if (typeof value === "string") {
+    return value.trim();
+  }
+
+  return typeof value === 'number' && !Number.isNaN(value);
+};
+
 export const useFormState = <T,> () => {
   const [stateMap, setStateMap] = React.useState<Record<keyof T | any, IState>>({});
 
@@ -84,7 +92,7 @@ export const useFormState = <T,> () => {
   const validate = React.useCallback(() => {
     let pass = true;
     Object.entries(stateMap).forEach(([_, val]) => {
-      if (val?.required && !val?.value?.trim()) {
+      if (val?.required && checkVal(val.value)) {
         if (pass) {
           pass = !pass;
         }

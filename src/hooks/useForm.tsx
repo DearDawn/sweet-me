@@ -41,7 +41,7 @@ export const useFormState = <T,> () => {
   const input = React.useCallback(
     (config: IConfig) => {
       const { field = '', disabled = false } = config;
-      if (!stateMap[field]) {
+      if (stateMap[field] === undefined || stateMap[field] === null) {
         setTimeout(() => {
           handleInput(config, '')();
         }, 0);

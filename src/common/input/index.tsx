@@ -10,7 +10,6 @@ type IProps = ICommonProps<HTMLInputElement> & {
 export const Input = ({
   className,
   onValueChange,
-  value,
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLInputElement>) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = React.useCallback((e) => {
@@ -21,7 +20,8 @@ export const Input = ({
   return (
     <input
       onChange={handleChange}
-      className={cs(styles.input, className)} {...rest}
+      className={cs(styles.input, className)}
+      {...rest}
     />
   );
 };

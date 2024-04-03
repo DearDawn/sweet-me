@@ -4,11 +4,13 @@ interface IConfig {
   field: string
   required?: boolean
   disabled?: boolean
+  defaultValue?: any
 }
 
 interface IState {
   required?: boolean
   value?: any
+  defaultValue?: any
 }
 
 const valuePass = (value?: string | number) => {
@@ -40,15 +42,18 @@ export const useFormState = <T,> () => {
 
   const input = React.useCallback(
     (config: IConfig) => {
-      const { field = '', disabled = false } = config;
+      const { field = '', disabled = false, defaultValue } = config;
+      let init = false;
+
       if (stateMap[field] === undefined || stateMap[field] === null) {
+        init = true;
         setTimeout(() => {
-          handleInput(config, '')();
+          handleInput(config, defaultValue)();
         }, 0);
       }
 
       return {
-        value: stateMap[field]?.value ?? '',
+        value: (init ? defaultValue : stateMap[field]?.value) ?? '',
         onInput: handleInput(config),
         disabled
       };
@@ -104,6 +109,7 @@ export const useFormState = <T,> () => {
 
   const getFieldsValue = React.useCallback(() => {
     const newObj: Record<keyof T | any, T[keyof T]> = {};
+
     Object.entries(stateMap).forEach(([key, val]) => {
       newObj[key] = stateMap[key]?.value;
     });

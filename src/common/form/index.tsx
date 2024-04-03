@@ -1,6 +1,6 @@
 import cs from 'clsx';
 import * as styles from './index.module.less';
-import { ICommonProps } from '../../types';
+import { ICommonBaseProps, ICommonProps } from '../../types';
 import { FormState } from '../../hooks/useForm';
 import React, { FormEvent, ReactElement, cloneElement, useCallback, useContext } from 'react';
 
@@ -9,12 +9,13 @@ type IFormProps = ICommonProps<HTMLFormElement> & {
   onSubmit?: (values?: Record<string, any>) => void
 }
 
-type IFormItemProps = Omit<ICommonProps<HTMLDivElement>, 'children' | 'label'> & {
+type IFormItemProps = Omit<ICommonBaseProps, 'children' | 'label'> & {
   label?: string
   field: string
   labelClassName?: string
   required?: boolean
   disabled?: boolean
+  defaultValue?: any
   children: ReactElement<FormChildProps>
 }
 
@@ -53,6 +54,7 @@ export const FormItem = ({
   label,
   required,
   disabled,
+  defaultValue,
   field,
   ...rest
 }: IFormItemProps) => {
@@ -63,7 +65,7 @@ export const FormItem = ({
   // 使用React.cloneElement克隆children组件并添加新的props
   const modifiedChildren = cloneElement(children, {
     id: field,
-    ...(form.input({ field, required, disabled }))
+    ...(form.input({ field, required, disabled, defaultValue }))
   });
 
   return (

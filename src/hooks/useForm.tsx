@@ -23,6 +23,7 @@ const valuePass = (value?: string | number) => {
 
 export const useFormState = <T,> () => {
   const [stateMap, setStateMap] = React.useState<Record<keyof T | any, IState>>({});
+  const init = React.useRef(false);
 
   const handleInput = React.useCallback((config: IConfig, value?: any) => (e?: React.ChangeEvent<HTMLInputElement>) => {
     const { field = '', required = false, disabled = false } = config;
@@ -43,17 +44,16 @@ export const useFormState = <T,> () => {
   const input = React.useCallback(
     (config: IConfig) => {
       const { field = '', disabled = false, defaultValue } = config;
-      let init = false;
 
       if (stateMap[field] === undefined || stateMap[field] === null) {
-        init = true;
+        init.current = true;
         setTimeout(() => {
           handleInput(config, defaultValue)();
         }, 0);
       }
 
       return {
-        value: (init ? defaultValue : stateMap[field]?.value) ?? '',
+        value: (init.current ? defaultValue : stateMap[field]?.value) ?? '',
         onInput: handleInput(config),
         disabled
       };
@@ -87,6 +87,8 @@ export const useFormState = <T,> () => {
 
   const resetField = React.useCallback(() => {
     const newObj = {};
+    init.current = false;
+
     Object.entries(stateMap).forEach(([key, _]) => {
       newObj[key] = { ...stateMap[key], value: '' };
     });

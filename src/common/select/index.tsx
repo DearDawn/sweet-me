@@ -7,12 +7,12 @@ import { useBoolean } from '../../hooks';
 
 type IOption = {
   label: React.ReactNode,
-  value: string,
+  value: any,
   disabled?: boolean
 }
 type IProps = ICommonProps & {
   value?: string,
-  onInput?: (value?: string) => void,
+  onInput?: (value?: any) => void,
   onValueChange?: (it?: IOption) => void,
   type?: 'text' | 'icon',
   options?: IOption[]
@@ -27,7 +27,7 @@ export const Select = ({
   options = [],
   ...rest
 }: IProps) => {
-  const [selfVal, setSelfVal] = React.useState<string>();
+  const [selfVal, setSelfVal] = React.useState();
   const [visible, openPanel, closePanel] = useBoolean(false);
   const [pos, setPos] = React.useState<'top' | "bottom">('bottom');
   const value = selfVal || propsValue;

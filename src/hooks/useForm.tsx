@@ -93,7 +93,7 @@ export const useFormState = <T,> () => {
 
   const resetField = React.useCallback(() => {
     const newObj = {};
-    init.current = false;
+    init.current = true;
 
     Object.entries(stateMap).forEach(([key, _]) => {
       newObj[key] = { ...stateMap[key], value: '' };

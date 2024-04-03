@@ -48,7 +48,7 @@ export const useFormState = <T,> () => {
       }
 
       return {
-        value: stateMap[field]?.value || '',
+        value: stateMap[field]?.value ?? '',
         onInput: handleInput(config),
         disabled
       };
@@ -113,7 +113,7 @@ export const useFormState = <T,> () => {
 
   const form = {
     getFieldsValue,
-    getFieldValue: (key = '') => stateMap[key]?.value || '',
+    getFieldValue: (key = '') => stateMap[key]?.value ?? '',
     resetField,
     setFieldsValue,
     setFieldValue,

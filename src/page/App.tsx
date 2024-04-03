@@ -186,7 +186,7 @@ export const App = () => {
         <Form.Item label='年龄' field='age' className={styles.formItem}>
           <Input placeholder='请输入年龄' className={styles.formItemInput} />
         </Form.Item>
-        <Form.Item label='性别' field='sex' className={styles.formItem}>
+        <Form.Item label='性别' field='sex' required className={styles.formItem}>
           <Select
             className={styles.formItemSelect}
             options={[

@@ -15,7 +15,9 @@ type IProps = ICommonProps & {
   onInput?: (value?: any) => void,
   onValueChange?: (it?: IOption) => void,
   type?: 'text' | 'icon',
+  align?: 'left' | 'center' | 'right'
   options?: IOption[]
+  placeholder?: string
 }
 
 export const Select = ({
@@ -23,6 +25,8 @@ export const Select = ({
   onValueChange,
   onInput,
   value: propsValue,
+  placeholder = '请选择',
+  align = 'center',
   type = 'text',
   options = [],
   ...rest
@@ -81,13 +85,13 @@ export const Select = ({
   return (
     <div
       ref={selectWrapRef}
-      className={cs(styles.select, styles[`pos_${pos}`], styles[`type_${type}`], className, {
+      className={cs(styles.select, styles[`pos_${pos}`], styles[`type_${type}`], styles[`align_${align}`], className, {
         [styles.empty]: !activeItem,
         [styles.visible]: visible
       })}
       {...rest}
     >
-      <div className={styles.input} onClick={handleToggle}>{activeItem?.label || '请选择'}</div>
+      <div className={styles.input} onClick={handleToggle}>{activeItem?.label || placeholder}</div>
       <div className={styles.optionList}>
         {options.map(it => (
           <div

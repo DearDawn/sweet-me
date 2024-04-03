@@ -12,6 +12,7 @@ function gitCommit () {
   try {
     execSync('git add CHANGE_LOG.md'); // 添加 CHANGELOG.md 到暂存区
     execSync('git commit -m "v${version} CHANGE_LOG" --amend'); // 提交更改
+    execSync('git push'); // 提交更改
     console.log('CHANGE_LOG 更新已提交到 Git 仓库');
   } catch (error) {
     console.error('无法提交 CHANGE_LOG 更新至 Git 仓库:', error.message);

@@ -52,6 +52,12 @@ export const useFormState = <T,> () => {
         }, 0);
       }
 
+      if (init.current) {
+        setTimeout(() => {
+          init.current = false;
+        }, 0);
+      }
+
       return {
         value: (init.current ? defaultValue : stateMap[field]?.value) ?? '',
         onInput: handleInput(config),

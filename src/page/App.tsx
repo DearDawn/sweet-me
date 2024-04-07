@@ -65,7 +65,7 @@ export const App = () => {
   }, [url]);
 
   return (
-    <Page className={styles.app}>
+    <Page className={styles.app} fontSize='18px'>
       <Header title="小糖的组件库" isSticky />
       <div className={styles.buttonWrap}>
         <div className={styles.helpBtnList}>

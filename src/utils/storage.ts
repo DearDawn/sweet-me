@@ -1,10 +1,14 @@
 import { RequestUrl, apiGet, apiPost } from "./request";
 
 class DodoStorage {
-  private remoteUrl: RequestUrl;
-  private params: Record<string, any>;
-  private sync: boolean;
-  private namespace: string;
+  /** 接口地址，默认： `${protocol}//${hostname}:7020/api/storage` */
+  private remoteUrl?: RequestUrl;
+  /** 接口额外参数 */
+  private params?: Record<string, any>;
+  /** 是否使用服务端 store， 默认 false */
+  private sync?: boolean;
+  /** 命名空间， 默认：域名 */
+  private namespace?: string;
   constructor () {
     const { protocol, hostname } = window.location || {};
     const apiUrl = `${protocol}//${hostname}:7020/api/storage` as RequestUrl;
@@ -15,9 +19,13 @@ class DodoStorage {
   }
 
   config ({ remoteUrl, params, sync, namespace }: {
+    /** 接口地址，默认： `${protocol}//${hostname}:7020/api/storage` */
     remoteUrl?: RequestUrl,
+    /** 接口额外参数 */
     params?: Record<string, any>,
+    /** 是否使用服务端 store， 默认 false */
     sync?: boolean,
+    /** 命名空间， 默认：域名 */
     namespace?: string
   }) {
     this.remoteUrl = remoteUrl || this.remoteUrl;
@@ -30,7 +38,7 @@ class DodoStorage {
     return { ...this.params, namespace: this.namespace };
   }
 
-  private localGet (key = '') {
+  localGet (key = '') {
     const allData = {};
 
     for (let i = 0; i < localStorage.length; i++) {
@@ -46,7 +54,7 @@ class DodoStorage {
     return allData[key];
   }
 
-  private async remoteGet (key = '') {
+  async remoteGet (key = '') {
     const res = await apiGet(`${this.remoteUrl}/get/${key}`, { ...this.reqParams }) as any;
 
     return res.data;

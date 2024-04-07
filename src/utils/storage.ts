@@ -63,7 +63,7 @@ class Storage {
 
   private async remoteSet (key = '', data: any) {
     const res = await apiPost(`${this.remoteUrl}/set/${key}`, { ...this.reqParams }, { data }) as any;
-    localStorage.setItem(key, data);
+    this.localSet(key, data);
 
     return res.data;
   }

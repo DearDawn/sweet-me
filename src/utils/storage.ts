@@ -44,7 +44,7 @@ class Storage {
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
       const val = localStorage.getItem(k);
-      allData[k] = val;
+      allData[k] = JSON.parse(val ?? null);
     }
 
     if (!key) {
@@ -69,7 +69,7 @@ class Storage {
   }
 
   private async localSet (key = '', data: any) {
-    localStorage.setItem(key, data);
+    localStorage.setItem(key, JSON.stringify(data));
   }
 
   async get (key = '') {

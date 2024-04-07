@@ -1,3 +1,4 @@
+import { safeParse } from "./common";
 import { RequestUrl, apiGet, apiPost } from "./request";
 
 class Storage {
@@ -44,7 +45,7 @@ class Storage {
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
       const val = localStorage.getItem(k);
-      allData[k] = JSON.parse(val ?? null);
+      allData[k] = safeParse(val ?? null);
     }
 
     if (!key) {

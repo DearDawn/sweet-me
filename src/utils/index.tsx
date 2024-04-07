@@ -4,3 +4,4 @@ export * from './notice';
 export * from './math';
 export * from './request';
 export * from './storage';
+export * from './common';

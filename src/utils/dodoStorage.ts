@@ -1,4 +1,4 @@
-import { RequestUrl, apiGet, apiPost } from ".";
+import { RequestUrl, apiGet, apiPost } from "./request";
 
 class DodoStorage {
   private remoteUrl: RequestUrl;

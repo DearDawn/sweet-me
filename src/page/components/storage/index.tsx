@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import * as styles from './index.module.less';
 import { Button, Space, dodoStorage } from '../../dist';
 
@@ -6,6 +6,7 @@ dodoStorage.config({ namespace: 'sweet-me', sync: true, params: { dodokey: 123 }
 
 export const Storage = () => {
   const [storageStr, setStorageStr] = useState('');
+  const storageKey = useRef('testKey');
 
   const handleList = useCallback(async () => {
     const str = await dodoStorage.get();
@@ -14,13 +15,15 @@ export const Storage = () => {
   }, []);
 
   const handleGet = useCallback(async () => {
-    const str = await dodoStorage.get("testKey");
+    const str = await dodoStorage.get(storageKey.current);
 
-    setStorageStr(JSON.stringify({ testKey: str }, undefined, 2));
+    setStorageStr(JSON.stringify({ [storageKey.current]: str }, undefined, 2));
   }, []);
 
   const handleSet = useCallback(() => {
-    dodoStorage.set("testKey", Math.floor(Math.random() * 7777777));
+    storageKey.current = `testKey_${Math.floor(Math.random() * 77)}`;
+
+    dodoStorage.set(storageKey.current, Math.floor(Math.random() * 7777777));
   }, []);
 
   return (

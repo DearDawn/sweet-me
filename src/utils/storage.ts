@@ -1,6 +1,6 @@
 import { RequestUrl, apiGet, apiPost } from "./request";
 
-class DodoStorage {
+class Storage {
   /** 接口地址，默认： `${protocol}//${hostname}:7020/api/storage` */
   private remoteUrl?: RequestUrl;
   /** 接口额外参数 */
@@ -89,4 +89,4 @@ class DodoStorage {
   }
 }
 
-export const dodoStorage = new DodoStorage();
+export const storage = new Storage();

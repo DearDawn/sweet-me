@@ -6,7 +6,7 @@ const Target: typeof Src = process.env.NODE_ENV === 'development' ? Src : Dist;
 export const {
   notice,
   toast,
-  dodoStorage,
+  storage,
   loading,
   Button,
   Title,

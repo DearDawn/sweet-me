@@ -7,6 +7,7 @@ import { ICON } from '../common/icon';
 import { useBoolean, useFormState, useRequest } from '../hooks';
 import { Progress } from './components/progress';
 import { Changelog } from './components/changelog';
+import { Storage } from './components/storage';
 
 export const App = () => {
   const [url, setUrl] = React.useState('');
@@ -206,6 +207,8 @@ export const App = () => {
           <Button size="long" onClick={handleFormReset} loading={isLoading}>重置</Button>
         </div>
       </Form>
+      <Title>Storage</Title>
+      <Storage />
     </Page>
   );
 };

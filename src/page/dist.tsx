@@ -6,6 +6,7 @@ const Target: typeof Src = process.env.NODE_ENV === 'development' ? Src : Dist;
 export const {
   notice,
   toast,
+  dodoStorage,
   loading,
   Button,
   Title,
@@ -17,4 +18,5 @@ export const {
   Modal,
   Form,
   Select,
+  Space
 } = Target;

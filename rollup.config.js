@@ -39,6 +39,9 @@ export default {
       extract: false, // 独立导出css文件 ，使用组件时需要单独引入
       namedExports: true,
       minimize: true,
+      inject: {
+        injectAt: 'top'
+      }
     }),
     resolve(),
     commonjs(),

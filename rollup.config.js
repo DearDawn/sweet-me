@@ -40,7 +40,7 @@ export default {
       namedExports: true,
       minimize: true,
       inject: {
-        injectAt: 'top'
+        insertAt: 'top'
       }
     }),
     resolve(),

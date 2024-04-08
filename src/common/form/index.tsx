@@ -14,6 +14,7 @@ type IFormItemProps = Omit<ICommonBaseProps, 'children' | 'label'> & {
   field: string
   labelClassName?: string
   required?: boolean
+  noMargin?: boolean
   disabled?: boolean
   defaultValue?: any
   children: ReactElement<FormChildProps>
@@ -55,6 +56,7 @@ export const FormItem = ({
   required,
   disabled,
   defaultValue,
+  noMargin = false,
   field,
   ...rest
 }: IFormItemProps) => {
@@ -69,7 +71,11 @@ export const FormItem = ({
   });
 
   return (
-    <div className={cs(styles.formItem, className)} {...rest}>
+    <div className={cs(styles.formItem, {
+      [styles.noMargin]: noMargin
+    }, className)}
+      {...rest}
+    >
       {label && (
         <label className={cs(styles.formLabel, labelClassName)} htmlFor={field}>{label}</label>
       )}

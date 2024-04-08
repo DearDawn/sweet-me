@@ -4,18 +4,12 @@ import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
 type IProps = ICommonProps & {
-  /** 按钮大小 */
-  size?: 'normal' | 'small' | 'large' | 'mini' | 'long'
-  /** 按钮状态 */
-  status?: 'success' | 'error' | 'warning' | 'default'
   autoFitHeight?: boolean;
   onValueChange?: (value?: string) => void
 }
 
 export const Textarea = ({
   className,
-  size = 'normal',
-  status = 'default',
   autoFitHeight = true,
   onValueChange,
   ...rest
@@ -56,7 +50,7 @@ export const Textarea = ({
     <textarea
       ref={textareaRef}
       onChange={handleChange}
-      className={cs(styles.textarea, styles[`size_${size}`], styles[`status_${status}`], className)}
+      className={cs(styles.textarea, className)}
       {...rest}
     />
   );

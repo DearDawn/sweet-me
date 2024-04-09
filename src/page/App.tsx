@@ -184,12 +184,15 @@ export const App = () => {
       </div>
 
       <Title>Form</Title>
-      <Form form={form}>
+      <Form form={form} onSubmit={handleFormSubmit}>
         <Form.Item label='姓名' field='name' defaultValue="小糖" className={styles.formItem}>
           <Input placeholder='请输入姓名' className={styles.formItemInput} />
         </Form.Item>
         <Form.Item label='年龄' field='age' className={styles.formItem}>
           <Input placeholder='请输入年龄' className={styles.formItemInput} />
+        </Form.Item>
+        <Form.Item label='备注' field='remark' className={styles.formItem}>
+          <Textarea placeholder='请输入备注' className={styles.formItemInput} />
         </Form.Item>
         <Form.Item label='性别' field='sex' defaultValue={0} className={styles.formItem}>
           <Select
@@ -203,7 +206,7 @@ export const App = () => {
           />
         </Form.Item>
         <div className={styles.btnWrap}>
-          <Button size="long" onClick={handleFormSubmit} loading={isLoading}>提交</Button>
+          <Button size="long" type='submit' loading={isLoading}>提交</Button>
           <Button size="long" onClick={handleFormReset} loading={isLoading}>重置</Button>
         </div>
       </Form>

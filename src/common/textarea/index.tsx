@@ -5,12 +5,14 @@ import { ICommonProps } from '../../types';
 
 type IProps = ICommonProps & {
   autoFitHeight?: boolean;
+  enterAsSubmit?: boolean;
   onValueChange?: (value?: string) => void
 }
 
 export const Textarea = ({
   className,
   autoFitHeight = true,
+  enterAsSubmit = true,
   onValueChange,
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLTextAreaElement>) => {
@@ -31,9 +33,24 @@ export const Textarea = ({
       textarea.style.height = `${computedHeight}px`;
     };
 
+    const submitOnEnter = (event: KeyboardEvent) => {
+      if (event.code === 'Enter' && !event.shiftKey) {
+        if (!event.repeat) {
+          const newEvent = new Event("submit", { bubbles: true, cancelable: true });
+          textareaRef.current?.form?.dispatchEvent(newEvent);
+        }
+
+        event.preventDefault();
+      }
+    };
+
     const handleResize = () => {
       adjustTextareaHeight();
     };
+
+    if (enterAsSubmit && textareaRef.current?.form) {
+      textarea.addEventListener("keydown", submitOnEnter);
+    }
 
     textarea.addEventListener('input', adjustTextareaHeight);
     window.addEventListener('resize', handleResize);
@@ -41,10 +58,11 @@ export const Textarea = ({
     adjustTextareaHeight();
 
     return () => {
+      textarea.removeEventListener("keydown", submitOnEnter);
       textarea.removeEventListener('input', adjustTextareaHeight);
       window.removeEventListener('resize', handleResize);
     };
-  }, [autoFitHeight]);
+  }, [autoFitHeight, enterAsSubmit]);
 
   return (
     <textarea

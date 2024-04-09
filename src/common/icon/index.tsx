@@ -19,7 +19,10 @@ export enum ICON {
   clock = '&#xe60d;',
   bulb = '&#xe6cb;',
   log = '&#xe612;',
-  book ='&#xe622;'
+  book = '&#xe622;',
+  copy = '&#xe62d;',
+  file = '&#xe638;',
+  paste = '&#xed8b;'
 }
 
 type IProps = ICommonProps & {

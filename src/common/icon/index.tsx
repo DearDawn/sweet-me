@@ -22,7 +22,8 @@ export enum ICON {
   book = '&#xe622;',
   copy = '&#xe62d;',
   file = '&#xe638;',
-  paste = '&#xed8b;'
+  paste = '&#xed8b;',
+  download = '&#xe628;',
 }
 
 type IProps = ICommonProps & {

@@ -5,5 +5,5 @@ export type ICommonBaseProps = {
 
 export type ICommonProps<T = HTMLDivElement> = Omit<
   React.HTMLAttributes<T> & React.InputHTMLAttributes<T>,
-  'title' | 'size' | 'form' | 'onSubmit'
+  'size' | 'form' | 'onSubmit'
 > & ICommonBaseProps;

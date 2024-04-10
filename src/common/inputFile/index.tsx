@@ -4,10 +4,10 @@ import { ICommonProps } from '../../types';
 import { ICON, Icon } from '../icon';
 import { Button } from '../button';
 
-type IProps = ICommonProps<HTMLInputElement> & {
+type IProps = Omit<ICommonProps<HTMLInputElement>, 'value'> & {
   onValueChange?: (file?: File) => void;
   onInput?: (file?: File) => void;
-  value?: any;
+  value?: File;
 };
 
 export const InputFile = ({
@@ -22,7 +22,7 @@ export const InputFile = ({
     </Button>
   ),
   ...rest
-}: IProps & React.ButtonHTMLAttributes<HTMLInputElement>) => {
+}: IProps) => {
   const inputFileRef = React.useRef<HTMLInputElement>(null);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> =
@@ -47,7 +47,15 @@ export const InputFile = ({
 
   React.useEffect(() => {
     if (inputFileRef.current) {
-      inputFileRef.current.value = value;
+      const dataTransfer = new DataTransfer();
+
+      if (value) {
+        dataTransfer.items.add(value);
+      } else {
+        dataTransfer.items.clear();
+      }
+
+      inputFileRef.current.files = dataTransfer.files;
 
       // 手动触发 change 事件
       inputFileRef.current.dispatchEvent(

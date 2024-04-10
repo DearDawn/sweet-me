@@ -28,6 +28,7 @@ export const Button = ({
       className={cs(styles.button, styles[`size_${size}`], styles[`status_${status}`], className, {
         [styles.loading]: loading
       })}
+      type='button'
       {...rest}
       disabled={loading || disabled}
     >

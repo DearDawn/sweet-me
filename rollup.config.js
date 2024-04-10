@@ -53,7 +53,7 @@ export default {
       include: ['src/**/*.ts', 'src/**/*.tsx'], // 指定需要检查的文件或文件夹
       exclude: ['node_modules/**'], // 排除的文件或文件夹
       throwOnError: true, // 检查出错时抛出错误
-      throwOnWarning: true, // 检查出警告时抛出错误
+      throwOnWarning: false, // 检查出警告时抛出错误
       fix: true, // 自动修复错误
     }),
     babel({

@@ -339,6 +339,9 @@ export const App = () => {
             ]}
           />
         </Form.Item>
+        <Form.Item label='文件' field='file' className={styles.formItem}>
+          <Input.File></Input.File>
+        </Form.Item>
         <div className={styles.btnWrap}>
           <Button size='long' type='submit' loading={isLoading}>
             提交

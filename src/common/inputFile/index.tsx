@@ -6,11 +6,13 @@ import { Button } from '../button';
 
 type IProps = ICommonProps<HTMLInputElement> & {
   onValueChange?: (file?: File) => void;
+  onInput?: (file?: File) => void;
 };
 
 export const InputFile = ({
   className,
   onValueChange,
+  onInput,
   children = (
     <Button>
       <Icon className={styles.uploadIcon} type={ICON.file} />
@@ -26,8 +28,9 @@ export const InputFile = ({
       (e) => {
         const file = e.target.files[0];
         onValueChange?.(file);
+        onInput?.(file);
       },
-      [onValueChange]
+      [onInput, onValueChange]
     );
 
   // 使用React.cloneElement克隆children组件并添加新的props
@@ -45,7 +48,7 @@ export const InputFile = ({
       {modifiedChildren}
       <input
         ref={inputFileRef}
-        onChange={handleChange}
+        onInput={handleChange}
         className={styles.inputFile}
         type='file'
         {...rest}

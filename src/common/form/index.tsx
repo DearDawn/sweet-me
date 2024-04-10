@@ -43,7 +43,14 @@ export const Form = ({
 
   return (
     <FormContext.Provider value={{ form }}>
-      <form onSubmit={handleSubmit} className={cs(styles.form, className)} {...rest}>{children}</form>
+      <form
+        ref={form.formRef}
+        onSubmit={handleSubmit}
+        className={cs(styles.form, className)}
+        {...rest}
+      >
+        {children}
+      </form>
     </FormContext.Provider>
   );
 };

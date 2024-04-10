@@ -24,6 +24,7 @@ const valuePass = (value?: string | number) => {
 export const useFormState = <T,> () => {
   const [stateMap, setStateMap] = React.useState<Record<keyof T | any, IState>>({});
   const init = React.useRef(false);
+  const formRef = React.useRef<HTMLFormElement>(null);
 
   const handleInput = React.useCallback((config: IConfig, value?: any) => (e?: React.ChangeEvent<HTMLInputElement>) => {
     const { field = '', required = false, disabled = false } = config;
@@ -132,7 +133,8 @@ export const useFormState = <T,> () => {
     setFieldsValue,
     setFieldValue,
     input,
-    validate
+    validate,
+    formRef
   };
 
   return { form };

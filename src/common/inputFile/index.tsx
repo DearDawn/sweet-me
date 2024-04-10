@@ -7,13 +7,14 @@ import { Button } from '../button';
 type IProps = ICommonProps<HTMLInputElement> & {
   onValueChange?: (file?: File) => void;
   onInput?: (file?: File) => void;
+  value?: any;
 };
 
 export const InputFile = ({
   className,
   onValueChange,
   onInput,
-  value: _value,
+  value,
   children = (
     <Button>
       <Icon className={styles.uploadIcon} type={ICON.file} />
@@ -23,7 +24,6 @@ export const InputFile = ({
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLInputElement>) => {
   const inputFileRef = React.useRef<HTMLInputElement>(null);
-  const value = _value || '';
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> =
     React.useCallback(
@@ -45,6 +45,17 @@ export const InputFile = ({
     },
   });
 
+  React.useEffect(() => {
+    if (inputFileRef.current) {
+      inputFileRef.current.value = value;
+
+      // 手动触发 change 事件
+      inputFileRef.current.dispatchEvent(
+        new Event('input', { bubbles: true, cancelable: true })
+      );
+    }
+  }, [value]);
+
   return (
     <>
       {modifiedChildren}
@@ -53,7 +64,6 @@ export const InputFile = ({
         onInput={handleChange}
         className={styles.inputFile}
         type='file'
-        value={value}
         {...rest}
       />
     </>

@@ -13,6 +13,7 @@ export const InputFile = ({
   className,
   onValueChange,
   onInput,
+  value: _value,
   children = (
     <Button>
       <Icon className={styles.uploadIcon} type={ICON.file} />
@@ -22,6 +23,7 @@ export const InputFile = ({
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLInputElement>) => {
   const inputFileRef = React.useRef<HTMLInputElement>(null);
+  const value = _value || '';
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> =
     React.useCallback(
@@ -51,6 +53,7 @@ export const InputFile = ({
         onInput={handleChange}
         className={styles.inputFile}
         type='file'
+        value={value}
         {...rest}
       />
     </>

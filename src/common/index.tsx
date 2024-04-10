@@ -1,6 +1,7 @@
 export { TabBar } from './tab-bar';
 export { Button } from './button';
 export { Input } from './input';
+export { InputFile } from './inputFile';
 export { Textarea } from './textarea';
 export { Title } from './title';
 export { Header } from './header';

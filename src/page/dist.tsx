@@ -14,6 +14,7 @@ export const {
   Icon,
   Page,
   Input,
+  InputFile,
   Textarea,
   Modal,
   Form,

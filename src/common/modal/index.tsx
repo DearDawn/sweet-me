@@ -38,6 +38,11 @@ export const Modal = ({
 
   useEffect(() => {
     const modal = modalRef.current;
+
+    if (!modal) {
+      return;
+    }
+
     const escClose = (event: KeyboardEvent) => {
       if (event.code === 'Escape' && escClosable) {
         if (!event.repeat) {

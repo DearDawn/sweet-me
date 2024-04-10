@@ -2,6 +2,7 @@ import * as React from 'react';
 import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
+import { InputFile } from '../inputFile';
 
 type IProps = ICommonProps<HTMLInputElement> & {
   onValueChange?: (value?: string) => void
@@ -25,3 +26,5 @@ export const Input = ({
     />
   );
 };
+
+Input.File = InputFile;

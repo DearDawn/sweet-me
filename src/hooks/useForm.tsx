@@ -132,6 +132,15 @@ export const useFormState = <T,>() => {
     return stateMapRef.current[key]?.value;
   }, []);
 
+  const dispatchSubmit = React.useCallback(() => {
+    formRef.current.dispatchEvent(
+      new Event('submit', {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
+  }, [formRef]);
+
   React.useEffect(() => {
     stateMapRef.current = stateMap;
   }, [getFieldValue, stateMap]);
@@ -145,6 +154,7 @@ export const useFormState = <T,>() => {
       setFieldValue,
       validate,
       initField,
+      dispatchSubmit,
       formRef,
     }),
     [
@@ -155,6 +165,7 @@ export const useFormState = <T,>() => {
       setFieldValue,
       setFieldsValue,
       validate,
+      dispatchSubmit
     ]
   );
 

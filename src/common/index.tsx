@@ -10,4 +10,4 @@ export { Modal } from './modal';
 export { Icon, ICON } from './icon';
 export { Select } from './select';
 export { Space } from './space';
-export { Form, FormItem } from './form';
+export { Form, FormItem, FormContext } from './form';

@@ -165,13 +165,15 @@ export const useFormState = <T,>() => {
       setFieldValue,
       setFieldsValue,
       validate,
-      dispatchSubmit
+      dispatchSubmit,
     ]
   );
 
   form['getInitProps'] = getInitProps;
+  form['state'] = stateMap;
 
-  return { form };
+  return { form, stateMap };
 };
 
-export type FormState<T> = ReturnType<typeof useFormState<T>>['form'];
+export type FormInstant<T> = ReturnType<typeof useFormState<T>>['form'];
+export type FormState<T> = ReturnType<typeof useFormState<T>>['stateMap'];

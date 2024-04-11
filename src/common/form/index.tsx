@@ -1,7 +1,7 @@
 import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonBaseProps, ICommonProps } from '../../types';
-import { FormState } from '../../hooks/useForm';
+import { FormInstant, FormState } from '../../hooks/useForm';
 import React, {
   FormEvent,
   ReactElement,
@@ -12,7 +12,7 @@ import React, {
 } from 'react';
 
 type IFormProps = ICommonProps<HTMLFormElement> & {
-  form: FormState<any>;
+  form: FormInstant<any>;
   onSubmit?: (values?: Record<string, any>) => void;
 };
 
@@ -33,8 +33,9 @@ interface FormChildProps {
   onChange: (value: any) => void;
 }
 
-const FormContext = React.createContext<{
-  form: FormState<any>;
+export const FormContext = React.createContext<{
+  form: FormInstant<any>;
+  state?: FormState<any>;
 }>({
   form: null,
 });
@@ -56,7 +57,7 @@ export const Form = ({
   );
 
   return (
-    <FormContext.Provider value={{ form }}>
+    <FormContext.Provider value={{ form, state: form['state'] }}>
       <form
         ref={form.formRef}
         onSubmit={handleSubmit}

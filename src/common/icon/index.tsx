@@ -24,13 +24,14 @@ export enum ICON {
   file = '&#xe638;',
   paste = '&#xed8b;',
   download = '&#xe628;',
+  close = '&#xe62a;',
 }
 
 type IProps = ICommonProps & {
-  type?: ICON,
+  type?: ICON;
   /** 尺寸，默认 fontSize 32 */
-  size?: number
-}
+  size?: number;
+};
 
 export const Icon = ({
   className,
@@ -38,7 +39,6 @@ export const Icon = ({
   size,
   ...rest
 }: IProps) => {
-
   return (
     <i
       style={size ? { fontSize: size } : {}}

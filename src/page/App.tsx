@@ -23,6 +23,7 @@ import { useBoolean, useFormState, useRequest } from '../hooks';
 import { Progress } from './components/progress';
 import { Changelog } from './components/changelog';
 import { Storage } from './components/storage';
+import { FileList } from './components/fileList';
 
 export const App = () => {
   const [url, setUrl] = React.useState('');
@@ -342,6 +343,7 @@ export const App = () => {
         <Form.Item label='文件' field='file' className={styles.formItem}>
           <Input.File></Input.File>
         </Form.Item>
+        <FileList />
         <div className={styles.btnWrap}>
           <Button size='long' type='submit' loading={isLoading}>
             提交

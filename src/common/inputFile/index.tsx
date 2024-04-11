@@ -24,11 +24,13 @@ export const InputFile = ({
   ...rest
 }: IProps) => {
   const inputFileRef = React.useRef<HTMLInputElement>(null);
+  const currentFile = React.useRef<File>();
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> =
     React.useCallback(
       (e) => {
         const file = e.target.files[0];
+        currentFile.current = file;
         onValueChange?.(file);
         onInput?.(file);
       },
@@ -48,6 +50,7 @@ export const InputFile = ({
   React.useEffect(() => {
     if (inputFileRef.current) {
       const dataTransfer = new DataTransfer();
+      const needDispatch = value !== currentFile.current;
 
       if (value) {
         dataTransfer.items.add(value);
@@ -57,10 +60,12 @@ export const InputFile = ({
 
       inputFileRef.current.files = dataTransfer.files;
 
-      // 手动触发 change 事件
-      inputFileRef.current.dispatchEvent(
-        new Event('input', { bubbles: true, cancelable: true })
-      );
+      if (needDispatch) {
+        // 手动触发 change 事件
+        inputFileRef.current.dispatchEvent(
+          new Event('input', { bubbles: true, cancelable: true })
+        );
+      }
     }
   }, [value]);
 

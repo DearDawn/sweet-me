@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import * as styles from './index.module.less';
 import { Icon, storage } from '../../dist';
 import { FormContext } from '../../../common/form';
@@ -6,13 +6,9 @@ import { ICON } from '../../../common';
 
 storage.config({ namespace: 'sweet-me', sync: true, params: { dodokey: 123 } });
 
-export const FileList = () => {
+export const FileList = ({ onDelete }: { onDelete: VoidFunction }) => {
   const { state } = useContext(FormContext);
   const { value: file } = state?.file || {};
-
-  useEffect(() => {
-    console.log('[dodo] ', 'file', file);
-  }, [file]);
 
   if (!file) {
     return null;
@@ -23,7 +19,12 @@ export const FileList = () => {
       <div className={styles.fileItem}>
         <Icon className={styles.fileIcon} type={ICON.file} size={40} />
         {file?.name}
-        <Icon className={styles.closeIcon} type={ICON.close} size={24} />
+        <Icon
+          className={styles.closeIcon}
+          onClick={onDelete}
+          type={ICON.close}
+          size={24}
+        />
       </div>
     </div>
   );

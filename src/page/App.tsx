@@ -76,6 +76,10 @@ export const App = () => {
     form.resetField();
   }, [form]);
 
+  const handleDeleteFile = React.useCallback(() => {
+    form.setFieldValue('file', undefined);
+  }, [form]);
+
   const handleNotice = React.useCallback(
     (type: 'info' | 'error' | 'success') => () => {
       notice[type](type, 1000);
@@ -343,7 +347,7 @@ export const App = () => {
         <Form.Item label='文件' field='file' className={styles.formItem}>
           <Input.File></Input.File>
         </Form.Item>
-        <FileList />
+        <FileList onDelete={handleDeleteFile} />
         <div className={styles.btnWrap}>
           <Button size='long' type='submit' loading={isLoading}>
             提交

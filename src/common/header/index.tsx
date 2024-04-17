@@ -4,12 +4,12 @@ import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import { ICON, Icon } from '../icon';
 
-type IProps = ICommonProps & {
-  leftPart?: React.ReactNode
-  title?: React.ReactNode
-  rightPart?: React.ReactNode
-  isSticky?: boolean
-}
+type IProps = Omit<ICommonProps, 'title'> & {
+  leftPart?: React.ReactNode;
+  title?: React.ReactNode;
+  rightPart?: React.ReactNode;
+  isSticky?: boolean;
+};
 
 export const Header = ({
   className,
@@ -19,21 +19,16 @@ export const Header = ({
   isSticky = false,
   ...rest
 }: IProps) => {
-
   return (
     <div
       className={cs(styles.header, className, {
-        [styles.sticky]: isSticky
+        [styles.sticky]: isSticky,
       })}
       {...rest}
     >
-      <div className={styles.leftPart}>
-        {leftPart}
-      </div>
+      <div className={styles.leftPart}>{leftPart}</div>
       <div className={styles.title}>{title}</div>
-      <div className={styles.rightPart}>
-        {rightPart}
-      </div>
+      <div className={styles.rightPart}>{rightPart}</div>
     </div>
   );
 };

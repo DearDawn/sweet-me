@@ -2,7 +2,7 @@ export const loading = (
   str: string,
   threshold = 30000,
   mask = true,
-  minThreshold = 0
+  minThreshold = 300
 ) => {
   let div = document.createElement('div');
   let lock = true;

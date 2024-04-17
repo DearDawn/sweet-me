@@ -1,6 +1,12 @@
-export const loading = (str: string, threshold = 30000, mask = true) => {
+export const loading = (
+  str: string,
+  threshold = 30000,
+  mask = true,
+  minThreshold = 0
+) => {
   let div = document.createElement('div');
-  div.className = 'loading' + (mask ? ' mask' : "");
+  let lock = true;
+  div.className = 'loading' + (mask ? ' mask' : '');
   div.innerHTML = `<span class="icon"></span>${str}<style>
     .loading{
         width:300px;
@@ -64,6 +70,10 @@ export const loading = (str: string, threshold = 30000, mask = true) => {
   const body = document.querySelector('body');
   body?.appendChild(div);
 
+  setTimeout(() => {
+    lock = false;
+  }, minThreshold);
+
   const remove = () => {
     if (!div) return;
     body?.removeChild(div);
@@ -75,8 +85,12 @@ export const loading = (str: string, threshold = 30000, mask = true) => {
   }, threshold);
 
   const close = () => {
-    clearTimeout(timer);
-    remove();
+    if (lock) {
+      setTimeout(close, minThreshold);
+    } else {
+      clearTimeout(timer);
+      remove();
+    }
   };
 
   return close;

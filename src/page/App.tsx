@@ -363,7 +363,7 @@ export const App = () => {
       <Storage />
       <Title>Image & Preview</Title>
       <Space stretch padding='0 10px'>
-        <Image src={WallImage} alt='壁纸' />
+        <Image src={WallImage} alt='壁纸' className={styles.image} />
       </Space>
     </Page>
   );

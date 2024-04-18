@@ -29,6 +29,7 @@ TODO LIST
 | `<input type="checkbox" checked />` Storage        | `2024-04-07` |                        |
 | `<input type="checkbox" checked />` usePageVisible | `2024-04-07` |                        |
 | `<input type="checkbox" checked />` InputFile      | `2024-04-10` |                        |
+| `<input type="checkbox" checked />` Image          | `2024-04-18` | todo: preview          |
 
 </div>
 </div>

@@ -16,6 +16,7 @@ import {
   Form,
   Select,
   Space,
+  Image,
 } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
@@ -24,6 +25,7 @@ import { Progress } from './components/progress';
 import { Changelog } from './components/changelog';
 import { Storage } from './components/storage';
 import { FileList } from './components/fileList';
+import WallImage from './wallpaper.jpg';
 
 export const App = () => {
   const [url, setUrl] = React.useState('');
@@ -359,6 +361,10 @@ export const App = () => {
       </Form>
       <Title>Storage</Title>
       <Storage />
+      <Title>Image & Preview</Title>
+      <Space stretch padding='0 10px'>
+        <Image src={WallImage} alt='壁纸' />
+      </Space>
     </Page>
   );
 };

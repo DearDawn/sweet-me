@@ -30,7 +30,7 @@ export const Storage = () => {
     <div className={styles.storage}>
       <Space padding='0 10px'>Storage:</Space>
       <div className={styles.content}>{storageStr}</div>
-      <Space stretch>
+      <Space stretch padding='10px 10px 0'>
         <Button onClick={handleList}>列表</Button>
         <Button onClick={handleGet}>取</Button>
         <Button onClick={handleSet}>存</Button>

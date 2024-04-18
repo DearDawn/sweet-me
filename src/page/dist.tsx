@@ -19,5 +19,6 @@ export const {
   Modal,
   Form,
   Select,
-  Space
+  Space,
+  Image
 } = Target;

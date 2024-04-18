@@ -10,4 +10,5 @@ export { Modal } from './modal';
 export { Icon, ICON } from './icon';
 export { Select } from './select';
 export { Space } from './space';
+export { Image } from './image';
 export { Form, FormItem, FormContext } from './form';

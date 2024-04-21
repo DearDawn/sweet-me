@@ -56,17 +56,27 @@ class Storage {
   }
 
   async remoteGet (key = '') {
-    const res = await apiGet(`${this.remoteUrl}/get/${key}`, { ...this.reqParams }) as any;
+    try {
+      const res = await apiGet(`${this.remoteUrl}/get/${key}`, { ...this.reqParams }) as any;
 
-    return res.data;
+      return res.data;
+    } catch (error) {
+      console.error(error)
+      return null;
+    }
   }
 
 
   private async remoteSet (key = '', data: any) {
     this.localSet(key, data);
-    const res = await apiPost(`${this.remoteUrl}/set/${key}`, { ...this.reqParams }, { data }) as any;
+    try {
+      const res = await apiPost(`${this.remoteUrl}/set/${key}`, { ...this.reqParams }, { data }) as any;
 
-    return res.data;
+      return res.data;
+    } catch (error) {
+      console.error(error)
+      return null;
+    }
   }
 
   private async localSet (key = '', data: any) {

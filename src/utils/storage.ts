@@ -61,7 +61,7 @@ class Storage {
 
       return res.data;
     } catch (error) {
-      console.error(error)
+      console.error(error);
       return null;
     }
   }
@@ -74,7 +74,7 @@ class Storage {
 
       return res.data;
     } catch (error) {
-      console.error(error)
+      console.error(error);
       return null;
     }
   }

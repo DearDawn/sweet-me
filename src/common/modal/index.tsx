@@ -88,7 +88,7 @@ export const Modal = ({
 };
 
 export const showModal = async (
-  renderFn: ({ onClose: VoidFunction }) => ReactNode,
+  renderFn: (params: { onClose: VoidFunction }) => ReactNode,
   props?: Omit<IProps, 'visible'>
 ) => {
   const { maskClosable = true, ...rest } = props || {};

@@ -17,6 +17,7 @@ export const {
   InputFile,
   Textarea,
   Modal,
+  showModal,
   Form,
   Select,
   Space,

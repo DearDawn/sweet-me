@@ -6,7 +6,7 @@ export { Textarea } from './textarea';
 export { Title } from './title';
 export { Header } from './header';
 export { Page } from './page';
-export { Modal } from './modal';
+export { Modal, showModal } from './modal';
 export { Icon, ICON } from './icon';
 export { Select } from './select';
 export { Space } from './space';

@@ -17,6 +17,7 @@ import {
   Select,
   Space,
   Image,
+  showModal,
 } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
@@ -38,6 +39,16 @@ export const App = () => {
   const [progressVisible, openProgress, closeProgress] = useBoolean(false);
   const [changeLogVisible, openChangeLog, closeChangeLog] = useBoolean(false);
   const { form } = useFormState();
+
+  const openModalWithApi = React.useCallback(async () => {
+    await showModal(({ onClose }) => (
+      <Button className={styles.closeModalBtn} onClick={onClose}>
+        关闭弹窗
+      </Button>
+    ));
+
+    toast('弹窗已关闭')
+  }, []);
 
   const handleToast = React.useCallback(() => {
     toast('this is a toast');
@@ -251,6 +262,9 @@ export const App = () => {
       <Title>Modal</Title>
       <Button className={styles.ml10} onClick={openModal}>
         打开弹窗
+      </Button>
+      <Button className={styles.ml10} onClick={openModalWithApi}>
+        showModal Api
       </Button>
       <Modal visible={modalVisible} maskClosable onClose={closeModal}>
         <Button className={styles.closeModalBtn} onClick={closeModal}>

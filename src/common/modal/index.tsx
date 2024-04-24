@@ -4,6 +4,7 @@ import { ICommonProps } from '../../types';
 import ReactDom from 'react-dom';
 import React, { ReactNode, useCallback, useEffect } from 'react';
 import clsx from 'clsx';
+import { createRoot } from 'react-dom/client';
 
 type IProps = ICommonProps & {
   visible: boolean;
@@ -84,4 +85,34 @@ export const Modal = ({
     </div>,
     rootElement
   );
+};
+
+export const showModal = async (
+  renderFn: ({ onClose: VoidFunction }) => ReactNode,
+  props?: Omit<IProps, 'visible'>
+) => {
+  const { maskClosable = true, ...rest } = props || {};
+
+  let resolve = (_) => {};
+
+  const promise = new Promise((res) => {
+    resolve = res;
+  });
+
+  const modalRoot = document.createElement('div');
+  document.body.appendChild(modalRoot);
+  const root = createRoot(modalRoot);
+
+  const onClose = () => {
+    root.unmount();
+    resolve(true);
+  };
+
+  root.render(
+    <Modal onClose={onClose} visible maskClosable={maskClosable} {...rest}>
+      {renderFn({ onClose })}
+    </Modal>
+  );
+
+  return promise;
 };

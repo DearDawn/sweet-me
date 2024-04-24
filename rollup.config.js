@@ -32,7 +32,7 @@ export default {
       },
     },
   ],
-  external: ['react', 'react-dom', 'react-is', 'react-router', 'react/jsx-runtime'],
+  external: ['react', 'react-dom', 'react-dom/client', 'react-is', 'react-router', 'react/jsx-runtime'],
   plugins: [
     analyze(),
     postcss({

@@ -22,7 +22,7 @@ export const Image = (props: IProps) => {
     }
 
     onClick?.();
-  }, [onClick]);
+  }, [onClick, withPreview]);
 
   return (
     <>

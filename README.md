@@ -43,6 +43,8 @@ z-index
 
 toast 类：100000+
 
+preview 蒙层：20000+
+
 Modal 类 10000+
 
 sticky: 1000

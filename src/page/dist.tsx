@@ -14,12 +14,14 @@ export const {
   Icon,
   Page,
   Input,
+  InputImage,
   InputFile,
+
   Textarea,
   Modal,
   showModal,
   Form,
   Select,
   Space,
-  Image
+  Image,
 } = Target;

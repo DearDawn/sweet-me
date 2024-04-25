@@ -328,6 +328,10 @@ export const App = () => {
       <Space padding='0 10px'>
         <Input.File></Input.File>
       </Space>
+      <Title>Image</Title>
+      <Space padding='0 10px'>
+        <Input.Image></Input.Image>
+      </Space>
       <Title>Form</Title>
       <Form form={form} onSubmit={handleFormSubmit}>
         <Form.Item

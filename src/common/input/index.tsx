@@ -3,6 +3,7 @@ import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import { InputFile } from '../inputFile';
+import { InputImage } from '../inputImage';
 
 type IProps = ICommonProps<HTMLInputElement> & {
   onValueChange?: (value?: string) => void
@@ -28,3 +29,4 @@ export const Input = ({
 };
 
 Input.File = InputFile;
+Input.Image = InputImage;

@@ -25,6 +25,7 @@ export enum ICON {
   paste = '&#xed8b;',
   download = '&#xe628;',
   close = '&#xe62a;',
+  delete = '&#xe7e8;',
 }
 
 type IProps = ICommonProps & {

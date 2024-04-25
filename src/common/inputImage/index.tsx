@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
+import { Image } from '../image';
+import { ICON, Icon } from '../icon';
 
 type IProps = Omit<ICommonProps<HTMLInputElement>, 'value'> & {
   onValueChange?: (file?: File) => void;
@@ -31,7 +33,7 @@ export const InputImage = ({
   const handleChange: React.ChangeEventHandler<HTMLInputElement> =
     React.useCallback(
       (e) => {
-        const file = e.target.files[0];
+        const file = e ? e.target.files[0] : undefined;
         currentFile.current = file;
         onValueChange?.(file);
         onInput?.(file);
@@ -46,37 +48,47 @@ export const InputImage = ({
       [onInput, onValueChange]
     );
 
-  const renderDom = () => {
-    if (previewUrl) {
-      return (
-        <img
-          className={styles.imgItem}
-          style={{ width: size, height: size }}
-          src={previewUrl}
-          alt='图片'
-        />
-      );
-    }
-
-    return (
-      <div className={styles.holder} style={{ width: size, height: size }}>
-        <div className={styles.icon}></div>
-        <div className={styles.text}>选择图片</div>
-      </div>
+  const onDelete = React.useCallback(() => {
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.clear();
+    inputFileRef.current.files = dataTransfer.files;
+    inputFileRef.current.dispatchEvent(
+      new Event('input', { bubbles: true, cancelable: true })
     );
-  };
-
-  const dom = renderDom();
+  }, []);
 
   // 使用React.cloneElement克隆children组件并添加新的props
-  const modifiedHolder = React.cloneElement(dom, {
+  const modifiedHolder = React.cloneElement(holder, {
     onClick: (event) => {
       // 首先调用原始元素的 onClick 事件处理程序（如果存在）
-      dom.props.onClick?.(event);
+      holder.props.onClick?.(event);
       // 执行额外的点击处理逻辑
       inputFileRef.current.click();
     },
   });
+
+  const renderContent = () => {
+    if (previewUrl) {
+      return (
+        <div className={styles.imgItemWrap}>
+          <Image
+            className={styles.imgItem}
+            style={{ width: size, height: size }}
+            src={previewUrl}
+            alt='图片'
+          />
+          <Icon
+            className={styles.delIcon}
+            onClick={onDelete}
+            type={ICON.delete}
+            size={20}
+          />
+        </div>
+      );
+    }
+
+    return modifiedHolder;
+  };
 
   React.useEffect(() => {
     if (inputFileRef.current) {
@@ -102,7 +114,7 @@ export const InputImage = ({
 
   return (
     <>
-      {modifiedHolder}
+      {renderContent()}
       <input
         ref={inputFileRef}
         onInput={handleChange}

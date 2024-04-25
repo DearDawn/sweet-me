@@ -6,10 +6,11 @@ import { createPortal } from 'react-dom';
 type IProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   onClick?: VoidFunction;
   withPreview?: boolean;
+  imgRef?: React.MutableRefObject<HTMLImageElement>;
 };
 
 export const Image = (props: IProps) => {
-  const { onClick, className, withPreview = true, ...rest } = props;
+  const { onClick, className, withPreview = true, imgRef, ...rest } = props;
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const handleFullScreenClick = useCallback(() => {
@@ -34,6 +35,7 @@ export const Image = (props: IProps) => {
           document.body
         )}
       <img
+        ref={imgRef}
         className={clsx(styles.img, className)}
         {...rest}
         onClick={handleClick}

@@ -108,6 +108,8 @@ export const InputImage = ({
         onInput={handleChange}
         className={styles.inputImage}
         type='file'
+        accept='image/*'
+        multiple={false}
         {...rest}
       />
     </>

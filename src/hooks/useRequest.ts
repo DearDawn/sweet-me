@@ -19,7 +19,7 @@ export const useRequest = <T = any> (props: RequestProps) => {
   const [loading, startLoading, endLoading] = useBoolean(false);
   const doRequest = useRef<() => Promise<T>>(() => Promise.resolve(data));
   const cacheDataMap = useRef<Record<string, T>>({});
-  const cacheKey = `${url}-${JSON.stringify(params) }`;
+  const cacheKey = `${url}-${JSON.stringify(params)}`;
 
   const doRequestFn = () => {
     const cacheData = cacheDataMap.current[cacheKey];

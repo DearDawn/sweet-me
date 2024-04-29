@@ -74,7 +74,7 @@ export const Image = (props: IProps) => {
       {isFullScreen &&
         createPortal(
           <div className={styles.fullImgWrap} onClick={handleFullScreenClick}>
-            <img className={styles.img} {...rest} />
+            <img className={styles.img} src={imgSrc} {...rest} />
           </div>,
           document.body
         )}

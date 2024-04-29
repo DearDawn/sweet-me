@@ -19,10 +19,11 @@ export const useRequest = <T = any> (props: RequestProps) => {
   const [loading, startLoading, endLoading] = useBoolean(false);
   const doRequest = useRef<() => Promise<T>>(() => Promise.resolve(data));
   const cacheDataMap = useRef<Record<string, T>>({});
+  const cacheKey = `${url}-${JSON.stringify(params) }`;
 
   const doRequestFn = () => {
+    const cacheData = cacheDataMap.current[cacheKey];
 
-    const cacheData = cacheDataMap.current[JSON.stringify(params)];
     if (cache && cacheData) {
       return Promise.resolve(cacheData);
     }
@@ -32,7 +33,7 @@ export const useRequest = <T = any> (props: RequestProps) => {
       if (loading) return doRequestFn;
 
       apiGet<T>(url, params, init).then(res => {
-        cacheDataMap.current[JSON.stringify(params)] = res;
+        cacheDataMap.current[cacheKey] = res;
         setData(res);
         resolve(res);
       }).catch(err => {

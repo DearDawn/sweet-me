@@ -7,23 +7,32 @@ export type RequestProps = {
   params?: Record<string, any>;
   init?: RequestInit;
   autoRun?: boolean;
-  loadingFn?: () => VoidFunction
-}
+  loadingFn?: () => VoidFunction;
+  cache?: boolean;
+};
 
 /** 请求 */
 export const useRequest = <T = any> (props: RequestProps) => {
-  const { url = '/', params = {}, init = {}, loadingFn, autoRun = false } = props || {};
+  const { url = '/', params = {}, init = {}, loadingFn, autoRun = false, cache = false } = props || {};
   const [data, setData] = useState<T>();
   const [error, setError] = useState<any>();
   const [loading, startLoading, endLoading] = useBoolean(false);
   const doRequest = useRef<() => Promise<T>>(() => Promise.resolve(data));
+  const cacheDataMap = useRef<Record<string, T>>({});
 
   const doRequestFn = () => {
+
+    const cacheData = cacheDataMap.current[JSON.stringify(params)];
+    if (cache && cacheData) {
+      return Promise.resolve(cacheData);
+    }
+
     startLoading();
     return new Promise<T>((resolve, reject) => {
       if (loading) return doRequestFn;
 
       apiGet<T>(url, params, init).then(res => {
+        cacheDataMap.current[JSON.stringify(params)] = res;
         setData(res);
         resolve(res);
       }).catch(err => {

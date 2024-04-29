@@ -46,7 +46,6 @@ export const Image = (props: IProps) => {
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
-        console.log('[dodo] ', 'entry', entry, entry.isIntersecting);
         if (entry.isIntersecting) {
           entry.target.setAttribute('src', src);
           observer.unobserve(entry.target);

@@ -34,7 +34,7 @@ export default {
   ],
   external: ['react', 'react-dom', 'react-dom/client', 'react-is', 'react-router', 'react/jsx-runtime'],
   plugins: [
-    analyze(),
+    // analyze(),
     postcss({
       extract: false, // 独立导出css文件 ，使用组件时需要单独引入
       namedExports: true,

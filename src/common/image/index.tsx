@@ -68,7 +68,7 @@ export const Image = (props: IProps) => {
         observer.unobserve(img);
       }
     };
-  }, [lazyLoad, src, lazyRoot]);
+  }, [lazyLoad, src, lazyRoot, imgDomRef]);
 
   return (
     <>

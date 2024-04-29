@@ -39,6 +39,7 @@ export const App = () => {
   const [progressVisible, openProgress, closeProgress] = useBoolean(false);
   const [changeLogVisible, openChangeLog, closeChangeLog] = useBoolean(false);
   const { form } = useFormState();
+  const pageRef = React.useRef<HTMLDivElement>(null);
 
   const openModalWithApi = React.useCallback(async () => {
     await showModal(({ onClose }) => (
@@ -47,7 +48,7 @@ export const App = () => {
       </Button>
     ));
 
-    toast('弹窗已关闭')
+    toast('弹窗已关闭');
   }, []);
 
   const handleToast = React.useCallback(() => {
@@ -110,7 +111,7 @@ export const App = () => {
   }, [url]);
 
   return (
-    <Page className={styles.app} fontSize='18px'>
+    <Page className={styles.app} fontSize='18px' pageRef={pageRef}>
       <Header title='小糖的组件库' isSticky />
       <div className={styles.buttonWrap}>
         <div className={styles.helpBtnList}>
@@ -381,7 +382,13 @@ export const App = () => {
       <Storage />
       <Title>Image & Preview</Title>
       <Space stretch padding='0 10px'>
-        <Image src={WallImage} alt='壁纸' className={styles.image} />
+        <Image
+          src={WallImage}
+          alt='壁纸'
+          className={styles.image}
+          lazyLoad
+          lazyRoot={pageRef.current}
+        />
       </Space>
     </Page>
   );

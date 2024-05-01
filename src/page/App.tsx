@@ -316,6 +316,7 @@ export const App = () => {
         <Radio
           className={styles.radio}
           type='radio'
+          defaultValue='1'
           options={[
             { label: '选项一', value: '1' },
             { label: '选项二', value: '2' },

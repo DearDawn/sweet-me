@@ -6,6 +6,7 @@ import { Button } from '../button';
 import { createRoot } from 'react-dom/client';
 
 interface IProps {
+  /** 转换后的 html 字符串 */
   mdContent: string;
   visible?: boolean;
   onClose?: VoidFunction;

@@ -18,6 +18,7 @@ import {
   Space,
   Image,
   showModal,
+  Radio,
 } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
@@ -325,6 +326,29 @@ export const App = () => {
           ]}
         />
       </div>
+      <Title>Radio</Title>
+      <div className={styles.radioWrap}>
+        <Radio
+          className={styles.radio}
+          defaultValue='1'
+          options={[
+            { label: '选项一', value: '1' },
+            { label: '选项二', value: '2' },
+            { label: '选项三', value: '3' },
+            { label: '选项四', value: '4' },
+          ]}
+        />
+        <Radio
+          className={styles.radio}
+          type='radio'
+          options={[
+            { label: '选项一', value: '1' },
+            { label: '选项二', value: '2' },
+            { label: '选项三', value: '3' },
+            { label: '选项四', value: '4' },
+          ]}
+        />
+      </div>
       <Title>File</Title>
       <Space padding='0 10px'>
         <Input.File></Input.File>
@@ -348,6 +372,22 @@ export const App = () => {
         </Form.Item>
         <Form.Item label='备注' field='remark' className={styles.formItem}>
           <Textarea placeholder='请输入备注' className={styles.formItemInput} />
+        </Form.Item>
+        <Form.Item
+          label='血型'
+          field='blood'
+          className={styles.formItem}
+          defaultValue=''
+        >
+          <Radio
+            options={[
+              { label: '未知', value: '' },
+              { label: 'A', value: 'A' },
+              { label: 'B', value: 'B' },
+              { label: 'O', value: 'O' },
+              { label: 'AB', value: 'AB' },
+            ]}
+          />
         </Form.Item>
         <Form.Item
           label='性别'

@@ -31,6 +31,7 @@ TODO LIST
 | <input type="checkbox" checked /> InputFile      | `2024-04-10` |                        |
 | <input type="checkbox" checked /> Image          | `2024-04-18` |                        |
 | <input type="checkbox" checked /> InputImage     | `2024-04-25` |                        |
+| <input type="checkbox" checked /> Radio          | `2024-05-01` |                        |
 
 </div>
 </div>

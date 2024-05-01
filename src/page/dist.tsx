@@ -22,6 +22,7 @@ export const {
   showModal,
   Form,
   Select,
+  Radio,
   Space,
   Image,
 } = Target;

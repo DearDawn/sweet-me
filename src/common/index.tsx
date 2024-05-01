@@ -10,6 +10,7 @@ export { Page } from './page';
 export { Modal, showModal } from './modal';
 export { Icon, ICON } from './icon';
 export { Select } from './select';
+export { Radio } from './radio';
 export { Space } from './space';
 export { Image } from './image';
 export { Form, FormItem, FormContext } from './form';

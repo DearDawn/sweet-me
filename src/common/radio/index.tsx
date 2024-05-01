@@ -2,14 +2,14 @@ import { useState } from 'react';
 import * as styles from './index.module.less';
 import clsx from 'clsx';
 
-type ITabOption = {
+export type IRadioOption = {
   label: React.ReactNode;
   value: number | string;
 };
 
 export const Radio = (props: {
-  options: ITabOption[];
-  onValueChange?: (val: ITabOption) => void;
+  options: IRadioOption[];
+  onValueChange?: (val: IRadioOption) => void;
   onInput?: (val: number | string) => void;
   className?: string;
   value?: string | number;
@@ -28,7 +28,7 @@ export const Radio = (props: {
   const [activeKey, setActiveKey] = useState<string | number>(defaultValue);
   const key = activeKey || propsValue;
 
-  const handleClick = (it: ITabOption) => () => {
+  const handleClick = (it: IRadioOption) => () => {
     if (onValueChange || onInput) {
       onValueChange?.(it);
       onInput?.(it.value);

@@ -13,4 +13,5 @@ export { Select } from './select';
 export { Radio } from './radio';
 export { Space } from './space';
 export { Image } from './image';
+export { MdViewer, showMdViewer } from './mdViewer';
 export { Form, FormItem, FormContext } from './form';

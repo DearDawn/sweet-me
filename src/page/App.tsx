@@ -19,15 +19,16 @@ import {
   Image,
   showModal,
   Radio,
+  showMdViewer,
 } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
 import { useBoolean, useFormState, useRequest } from '../hooks';
-import { Progress } from './components/progress';
-import { Changelog } from './components/changelog';
 import { Storage } from './components/storage';
 import { FileList } from './components/fileList';
 import WallImage from './wallpaper.jpg';
+import README from '../../README.md';
+import CHANGE_LOG from '../../CHANGE_LOG.md';
 
 export const App = () => {
   const [url, setUrl] = React.useState('');
@@ -37,8 +38,6 @@ export const App = () => {
   });
   const loadingRef = React.useRef(() => {});
   const [modalVisible, openModal, closeModal] = useBoolean(false);
-  const [progressVisible, openProgress, closeProgress] = useBoolean(false);
-  const [changeLogVisible, openChangeLog, closeChangeLog] = useBoolean(false);
   const { form } = useFormState();
   const pageRef = React.useRef<HTMLDivElement>(null);
 
@@ -120,7 +119,7 @@ export const App = () => {
             className={styles.button}
             size='normal'
             status='success'
-            onClick={openProgress}
+            onClick={() => showMdViewer(README)}
           >
             <Icon type={ICON.pc} className={styles.buttonIcon} />
             开发进展
@@ -129,7 +128,7 @@ export const App = () => {
             className={styles.button}
             size='normal'
             status='success'
-            onClick={openChangeLog}
+            onClick={() => showMdViewer(CHANGE_LOG)}
           >
             <Icon type={ICON.log} size={26} className={styles.buttonIcon} />
             CHANGE LOG
@@ -143,30 +142,6 @@ export const App = () => {
             <Icon type={ICON.book} className={styles.buttonIcon} />
             使用文档
           </Button>
-          <Modal
-            onClose={closeProgress}
-            maskClosable
-            visible={progressVisible}
-            footer={
-              <Button className={styles.closeModalBtn} onClick={closeProgress}>
-                关闭
-              </Button>
-            }
-          >
-            <Progress />
-          </Modal>
-          <Modal
-            maskClosable
-            onClose={closeChangeLog}
-            visible={changeLogVisible}
-            footer={
-              <Button className={styles.closeModalBtn} onClick={closeChangeLog}>
-                关闭
-              </Button>
-            }
-          >
-            <Changelog />
-          </Modal>
         </div>
       </div>
       <Title>按钮</Title>

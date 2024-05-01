@@ -25,4 +25,6 @@ export const {
   Radio,
   Space,
   Image,
+  MdViewer,
+  showMdViewer,
 } = Target;

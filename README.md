@@ -9,8 +9,8 @@ TODO LIST
 <div class="table-wrapper" markdown="block">
 <div class="table-inner" markdown="block">
 
-| 组件                                               | 日期         | 详情                   |
-| -------------------------------------------------- | ------------ | ---------------------- |
+| 组件                                             | 日期         | 详情                   |
+| ------------------------------------------------ | ------------ | ---------------------- |
 | <input type="checkbox" checked /> toast          | `2020-09-02` |                        |
 | <input type="checkbox" checked /> notice         | `2020-09-02` |                        |
 | <input type="checkbox" checked /> Button         | `2024-01-09` | Loading `2024-01-23`   |
@@ -32,6 +32,7 @@ TODO LIST
 | <input type="checkbox" checked /> Image          | `2024-04-18` |                        |
 | <input type="checkbox" checked /> InputImage     | `2024-04-25` |                        |
 | <input type="checkbox" checked /> Radio          | `2024-05-01` |                        |
+| <input type="checkbox" checked /> MdViewer       | `2024-05-01` | 需要插件支持 md        |
 
 </div>
 </div>

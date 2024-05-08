@@ -2,14 +2,17 @@ export const loading = (
   str: string,
   threshold = 30000,
   mask = true,
-  minThreshold = 300
+  minThreshold = 300,
+  root = document.body
 ) => {
   let div = document.createElement('div');
   let lock = true;
   div.className = 'loading' + (mask ? ' mask' : '');
   div.innerHTML = `<span class="icon"></span>${str}<style>
     .loading{
-        width:300px;
+        width: fit-content;
+        max-width: 300px;
+        min-width: 100px;
         min-height:80px;
         height: fit-content;
         position:fixed;
@@ -28,6 +31,7 @@ export const loading = (
         justify-content:center;
         align-items:center;
         z-index: 100000;
+        padding: 10px 20px;
     }
 
     .loading.mask {
@@ -67,8 +71,7 @@ export const loading = (
     }
     </style>`;
 
-  const body = document.querySelector('body');
-  body?.appendChild(div);
+  root?.appendChild(div);
 
   setTimeout(() => {
     lock = false;
@@ -76,7 +79,7 @@ export const loading = (
 
   const remove = () => {
     if (!div) return;
-    body?.removeChild(div);
+    root?.removeChild(div);
     div = null;
   };
 

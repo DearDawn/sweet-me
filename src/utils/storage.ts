@@ -84,6 +84,8 @@ class Storage {
   }
 
   get (key = ''): any | Promise<any> {
+    console.log('[dodo] ', 'this.sync', this.sync, typeof this.remoteGet(key), typeof this.localGet(key));
+
     if (this.sync) {
       return this.remoteGet(key);
     } else {

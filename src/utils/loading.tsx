@@ -31,7 +31,7 @@ export const loading = (
         justify-content:center;
         align-items:center;
         z-index: 100000;
-        padding: 10px 20px;
+        padding: 10px 50px;
     }
 
     .loading.mask {

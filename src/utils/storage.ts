@@ -79,11 +79,11 @@ class Storage {
     }
   }
 
-  private async localSet (key = '', data: any) {
+  private localSet (key = '', data: any) {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  async get (key = '') {
+  get (key = '') {
     if (this.sync) {
       return this.remoteGet(key);
     } else {
@@ -91,7 +91,7 @@ class Storage {
     }
   }
 
-  async set (key = '', data: any) {
+  set (key = '', data: any) {
     if (this.sync) {
       return this.remoteSet(key, data);
     } else {

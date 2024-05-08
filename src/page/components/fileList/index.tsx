@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import * as styles from './index.module.less';
-import { Icon, storage } from '../../dist';
+import { Icon, Storage } from '../../dist';
 import { FormContext } from '../../../common/form';
 import { ICON } from '../../../common';
 
+const storage = new Storage();
 storage.config({ namespace: 'sweet-me', sync: true, params: { dodokey: 123 } });
 
 export const FileList = ({ onDelete }: { onDelete: VoidFunction }) => {

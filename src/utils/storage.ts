@@ -1,7 +1,7 @@
 import { safeParse } from "./common";
 import { RequestUrl, apiGet, apiPost } from "./request";
 
-class Storage {
+export class Storage {
   /** 接口地址，默认： `${protocol}//${hostname}:7020/api/storage` */
   private remoteUrl?: RequestUrl;
   /** 接口额外参数 */
@@ -83,9 +83,7 @@ class Storage {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  get (key = ''): any | Promise<any> {
-    console.log('[dodo] ', 'this.sync', this.sync, typeof this.remoteGet(key), typeof this.localGet(key));
-
+  get (key = '') {
     if (this.sync) {
       return this.remoteGet(key);
     } else {
@@ -101,5 +99,3 @@ class Storage {
     }
   }
 }
-
-export const storage = new Storage();

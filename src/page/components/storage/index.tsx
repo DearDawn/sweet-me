@@ -1,7 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
 import * as styles from './index.module.less';
-import { Button, Space, storage } from '../../dist';
+import { Button, Space, Storage as CStorage } from '../../dist';
 
+const storage = new CStorage();
 storage.config({ namespace: 'sweet-me', sync: true, params: { dodokey: 123 } });
 
 export const Storage = () => {

@@ -13,7 +13,7 @@ export const loading = (
         width: fit-content;
         max-width: 300px;
         min-width: 100px;
-        min-height:80px;
+        min-height: 60px;
         height: fit-content;
         position:fixed;
         top:0;

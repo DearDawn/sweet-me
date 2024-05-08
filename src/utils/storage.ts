@@ -27,7 +27,7 @@ class Storage {
     /** 是否使用服务端 store， 默认 false */
     sync?: boolean,
     /** 命名空间， 默认：域名 */
-    namespace?: string
+    namespace?: string;
   }) {
     this.remoteUrl = remoteUrl || this.remoteUrl;
     this.params = params || {};
@@ -83,7 +83,7 @@ class Storage {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  get (key = '') {
+  get (key = ''): any | Promise<any> {
     if (this.sync) {
       return this.remoteGet(key);
     } else {

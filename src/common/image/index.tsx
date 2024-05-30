@@ -23,7 +23,7 @@ export const Image = (props: IProps) => {
     ...rest
   } = props;
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const imgSrc = lazyLoad ? undefined : src;
+  const [imgSrc, setImgSrc] = useState(lazyLoad ? undefined : src);
   const selfRef = useRef<HTMLImageElement>(null);
   const imgDomRef = imgRef || selfRef;
 
@@ -47,7 +47,7 @@ export const Image = (props: IProps) => {
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.setAttribute('src', src);
+          setImgSrc(src);
           observer.unobserve(entry.target);
         }
       });

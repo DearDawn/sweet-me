@@ -20,6 +20,7 @@ import {
   showModal,
   Radio,
   showMdViewer,
+  Tag,
 } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
@@ -186,6 +187,17 @@ export const App = () => {
         {Object.values(ICON).map((value) => (
           <Icon className={styles.iconItem} key={value} type={value} />
         ))}
+      </div>
+      <Title>Tag</Title>
+      <div className={styles.tagWrap}>
+        <Tag className={styles.tagItem} color='red'>红色</Tag>
+        <Tag className={styles.tagItem} color='orange'>橙色</Tag>
+        <Tag className={styles.tagItem} color='yellow'>黄色</Tag>
+        <Tag className={styles.tagItem} color='green'>绿色</Tag>
+        <Tag className={styles.tagItem} color='cyan'>青色</Tag>
+        <Tag className={styles.tagItem} color='blue'>蓝色</Tag>
+        <Tag className={styles.tagItem} color='purple'>紫色</Tag>
+        <Tag className={styles.tagItem} color='gray'>灰色</Tag>
       </div>
       <Title>Header</Title>
       <Header

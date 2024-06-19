@@ -33,6 +33,7 @@ TODO LIST
 | <input type="checkbox" checked /> InputImage     | `2024-04-25` |                                                               |
 | <input type="checkbox" checked /> Radio          | `2024-05-01` |                                                               |
 | <input type="checkbox" checked /> MdViewer       | `2024-05-01` | 需要插件支持 md 转换<br />parcel: parcel-transformer-markdown |
+| <input type="checkbox" checked /> Tag            | `2024-06-19` |  |
 
 </div>
 </div

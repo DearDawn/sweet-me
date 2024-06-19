@@ -15,3 +15,4 @@ export { Space } from './space';
 export { Image } from './image';
 export { MdViewer, showMdViewer } from './mdViewer';
 export { Form, FormItem, FormContext } from './form';
+export { Tag } from './tag';

@@ -5,7 +5,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss';
 import eslint from '@rollup/plugin-eslint';
-import analyze from 'rollup-plugin-analyzer';
+// import analyze from 'rollup-plugin-analyzer';
 
 export const file = (type) => `dist/index.${type}.js`;
 
@@ -19,7 +19,8 @@ export default {
       globals: {
         react: "React",
         "react-dom": "ReactDom",
-        "react/jsx-runtime": "jsxRuntime"
+        "react/jsx-runtime": "jsxRuntime",
+        "react-dom/client": "Client",
       },
     },
     {
@@ -28,7 +29,8 @@ export default {
       globals: {
         react: "React",
         "react-dom": "ReactDom",
-        "react/jsx-runtime": "jsxRuntime"
+        "react/jsx-runtime": "jsxRuntime",
+        "react-dom/client": "Client",
       },
     },
   ],

@@ -190,14 +190,14 @@ export const App = () => {
       </div>
       <Title>Tag</Title>
       <div className={styles.tagWrap}>
-        <Tag className={styles.tagItem} color='red'>红色</Tag>
-        <Tag className={styles.tagItem} color='orange'>橙色</Tag>
-        <Tag className={styles.tagItem} color='yellow'>黄色</Tag>
-        <Tag className={styles.tagItem} color='green'>绿色</Tag>
-        <Tag className={styles.tagItem} color='cyan'>青色</Tag>
-        <Tag className={styles.tagItem} color='blue'>蓝色</Tag>
-        <Tag className={styles.tagItem} color='purple'>紫色</Tag>
-        <Tag className={styles.tagItem} color='gray'>灰色</Tag>
+        <Tag color='red'>红色</Tag>
+        <Tag color='orange'>橙色</Tag>
+        <Tag color='yellow'>黄色</Tag>
+        <Tag color='green'>绿色</Tag>
+        <Tag color='cyan'>青色</Tag>
+        <Tag color='blue'>蓝色</Tag>
+        <Tag color='purple'>紫色</Tag>
+        <Tag color='gray'>灰色</Tag>
       </div>
       <Title>Header</Title>
       <Header

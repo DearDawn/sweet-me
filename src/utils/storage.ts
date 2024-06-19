@@ -61,6 +61,7 @@ export class Storage {
 
       return res.data;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
       return null;
     }
@@ -74,6 +75,7 @@ export class Storage {
 
       return res.data;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
       return null;
     }

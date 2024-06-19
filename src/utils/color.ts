@@ -1,4 +1,6 @@
-const COLOR_RGB_MAP = {
+export type EColor = "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "purple" | "gray";
+
+const COLOR_RGB_MAP: Record<EColor, [number, number, number]> = {
   red: [250, 82, 82],
   orange: [253, 126, 20],
   yellow: [250, 176, 5],
@@ -9,7 +11,6 @@ const COLOR_RGB_MAP = {
   gray: [134, 142, 150]
 };
 
-export type EColor = keyof typeof COLOR_RGB_MAP;
 
 export const getColorRGB = (colorName: EColor) => {
 

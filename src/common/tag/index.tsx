@@ -2,11 +2,11 @@ import * as React from 'react';
 import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
-import { EColor, getColorRGB, rgbToHsl } from 'src/utils';
+import { getColorRGB, rgbToHsl } from 'src/utils';
 
 type IProps = ICommonProps & {
   /** tag 颜色：红橙黄绿青蓝紫灰 */
-  color?: EColor;
+  color?: "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "purple" | "gray";
   loading?: boolean;
 };
 

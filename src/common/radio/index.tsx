@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as styles from './index.module.less';
 import clsx from 'clsx';
 
@@ -25,7 +25,9 @@ export const Radio = (props: {
     className,
     type = 'block',
   } = props || {};
-  const [activeKey, setActiveKey] = useState<string | number>(defaultValue);
+  const [activeKey, setActiveKey] = useState<string | number>(
+    defaultValue || propsValue
+  );
   const key = activeKey || propsValue;
 
   const handleClick = (it: IRadioOption) => () => {
@@ -36,6 +38,11 @@ export const Radio = (props: {
       setActiveKey(it.value);
     }
   };
+
+  useEffect(() => {
+    setActiveKey(propsValue || defaultValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [propsValue]);
 
   return (
     <div className={clsx(styles.radio, styles[`type_${type}`], className)}>

@@ -365,7 +365,7 @@ export const App = () => {
           label='血型'
           field='blood'
           className={styles.formItem}
-          defaultValue=''
+          defaultValue='A'
         >
           <Radio
             options={[

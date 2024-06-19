@@ -21,7 +21,7 @@ const valuePass = (value?: string | number) => {
   return typeof value === 'number' && !Number.isNaN(value);
 };
 
-export const useFormState = <T,>() => {
+export const useFormState = <T = Record<string, never>,>() => {
   const [stateMap, setStateMap] = React.useState<Record<keyof T | any, IState>>(
     {}
   );
@@ -119,7 +119,8 @@ export const useFormState = <T,>() => {
   }, []);
 
   const getFieldsValue = React.useCallback(() => {
-    const newObj: Record<keyof T | any, T[keyof T]> = {};
+    type TRecord = { [P in keyof T]: T[P] };
+    const newObj: TRecord = {} as TRecord;
 
     Object.entries(stateMapRef.current).forEach(([key, val]) => {
       newObj[key] = stateMapRef.current[key]?.value;

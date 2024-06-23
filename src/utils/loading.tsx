@@ -1,3 +1,11 @@
+/**
+ * @description 显示loading
+ * @param str loading文字
+ * @param threshold 显示loading的阈值，默认30000(ms)
+ * @param mask 是否显示遮罩层，默认true
+ * @param minThreshold 最小阈值，默认300(ms)
+ * @param root 根元素，默认body
+ */
 export const loading = (
   str: string,
   threshold = 30000,

@@ -7,14 +7,21 @@ import clsx from 'clsx';
 import { createRoot } from 'react-dom/client';
 
 type IProps = ICommonProps & {
+  /** 弹窗是否可见 */
   visible: boolean;
+  /** 弹窗是否可点击遮罩层关闭 */
   maskClosable?: boolean;
+  /** esc键是否可关闭 */
   escClosable?: boolean;
+  /** 弹窗挂载的根节点, 默认 document.body */
   rootElement?: Element;
+  /** 弹窗底部内容 */
   footer?: ReactNode;
+  /** 关闭弹窗 */
   onClose?: VoidFunction;
 };
 
+/** 弹窗组件 */
 export const Modal = ({
   children,
   className,
@@ -87,8 +94,11 @@ export const Modal = ({
   );
 };
 
+/** 显示弹窗 */
 export const showModal = async (
+  /** 渲染弹窗内容，提供 onClose */
   renderFn: (params: { onClose: VoidFunction }) => ReactNode,
+  /** 透传给 Modal 的弹窗属性 */
   props?: Omit<IProps, 'visible'>
 ) => {
   const { maskClosable = true, ...rest } = props || {};

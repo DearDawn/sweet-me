@@ -8,11 +8,15 @@ type IProps = ICommonProps & {
   rem?: number;
   /** 在屏幕宽度 375px 为标准的前提下，字体的默认大小，默认 1.8rem */
   fontSize?: string;
+  /** 页面最小宽度 */
   minWidth?: string;
+  /** 页面最大宽度 */
   maxWidth?: string;
+  /** 页面容器的引用 */
   pageRef?: React.RefObject<HTMLDivElement>;
 };
 
+/** 页面容器 */
 export const Page = ({
   children,
   className,

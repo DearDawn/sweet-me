@@ -16,9 +16,9 @@ export type ETagColor =
 type IProps = ICommonProps & {
   /** tag 颜色：红橙黄绿青蓝紫灰 */
   color?: ETagColor;
-  loading?: boolean;
 };
 
+/** 标签 */
 export const Tag = ({
   style = {},
   children,

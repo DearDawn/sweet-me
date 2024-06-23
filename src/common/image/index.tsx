@@ -2,15 +2,21 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import * as styles from './index.module.less';
 import clsx from 'clsx';
 import { createPortal } from 'react-dom';
+import { findClosestScrollableParent } from 'src/utils';
 
 type IProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   onClick?: VoidFunction;
+  /** 是否开启预览 */
   withPreview?: boolean;
+  /** 是否懒加载 */
   lazyLoad?: boolean;
+  /** 懒加载的根节点, 应为最近可滚动的父元素 */
   lazyRoot?: Element | null;
+  /** 图片引用 */
   imgRef?: React.MutableRefObject<HTMLImageElement>;
 };
 
+/** 图片组件 */
 export const Image = (props: IProps) => {
   const {
     onClick,
@@ -42,6 +48,9 @@ export const Image = (props: IProps) => {
   useEffect(() => {
     if (!lazyLoad) return;
 
+    const closestScrollableParent =
+      findClosestScrollableParent(imgDomRef.current) || document;
+
     const img = imgDomRef.current;
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
@@ -54,7 +63,7 @@ export const Image = (props: IProps) => {
     };
 
     const observer = new IntersectionObserver(handleIntersection, {
-      root: lazyRoot || document,
+      root: lazyRoot || closestScrollableParent,
       rootMargin: '0px 0px 200px 0px',
     });
 

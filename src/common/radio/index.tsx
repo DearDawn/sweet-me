@@ -7,15 +7,24 @@ export type IRadioOption = {
   value: number | string;
 };
 
-export const Radio = (props: {
+type IProps = {
+  /** 选项 */
   options: IRadioOption[];
+  /** 值改变 */
   onValueChange?: (val: IRadioOption) => void;
+  /** 与 FormItem 配合时，供 FormItem 使用，请用 onValueChange 替代 */
   onInput?: (val: number | string) => void;
   className?: string;
+  /** 值 */
   value?: string | number;
+  /** 默认值 */
   defaultValue?: string | number;
+  /** 类型 */
   type?: 'radio' | 'block';
-}) => {
+};
+
+/** 单选 */
+export const Radio = (props: IProps) => {
   const {
     value: propsValue,
     options = [],

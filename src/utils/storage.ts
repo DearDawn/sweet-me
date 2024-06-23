@@ -1,6 +1,7 @@
 import { safeParse } from "./common";
 import { RequestUrl, apiGet, apiPost } from "./request";
 
+/** 存储类 */
 export class Storage {
   /** 接口地址，默认： `${protocol}//${hostname}:7020/api/storage` */
   private remoteUrl?: RequestUrl;

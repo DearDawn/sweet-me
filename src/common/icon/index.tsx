@@ -2,6 +2,7 @@ import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
+/** 图标枚举 */
 export enum ICON {
   home = '&#xe607;',
   sugar = '&#xe611;',
@@ -29,11 +30,13 @@ export enum ICON {
 }
 
 type IProps = ICommonProps & {
+  /** 图标类型 */
   type?: ICON;
   /** 尺寸，默认 fontSize 32 */
   size?: number;
 };
 
+/** 图标 */
 export const Icon = ({
   className,
   type = ICON.home,

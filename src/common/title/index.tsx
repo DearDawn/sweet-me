@@ -3,9 +3,11 @@ import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
 type IProps = ICommonProps & {
+  /** 对齐方式 */
   align?: 'left' | 'center' | 'right'
 }
 
+/** 标题组件 */
 export const Title = ({
   children,
   className,

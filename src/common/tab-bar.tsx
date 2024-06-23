@@ -3,12 +3,17 @@ import cs from 'clsx';
 import { ICommonProps } from 'src';
 
 type IProps = ICommonProps & {
+  /** 标签列表 */
   tablist: string[];
+  /** 当前激活的标签 */
   activeTab: number;
+  /** 切换标签 */
   onTabChange?: (index: number) => void;
+  /** 样式 */
   style?: React.CSSProperties;
 }
 
+/** 标签页 */
 export const TabBar = ({
   tablist,
   activeTab,

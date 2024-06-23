@@ -4,11 +4,15 @@ import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
 type IProps = ICommonProps & {
+  /** 是否自动调整高度 */
   autoFitHeight?: boolean;
+  /** 输入框回车是否提交 */
   enterAsSubmit?: boolean;
-  onValueChange?: (value?: string) => void
-}
+  /** 值改变回调 */
+  onValueChange?: (value?: string) => void;
+};
 
+/** 多行文本输入框 */
 export const Textarea = ({
   className,
   autoFitHeight = true,
@@ -16,10 +20,14 @@ export const Textarea = ({
   onValueChange,
   ...rest
 }: IProps & React.ButtonHTMLAttributes<HTMLTextAreaElement>) => {
-  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = React.useCallback((e) => {
-    const val = e.target.value;
-    onValueChange?.(val);
-  }, [onValueChange]);
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> =
+    React.useCallback(
+      (e) => {
+        const val = e.target.value;
+        onValueChange?.(val);
+      },
+      [onValueChange]
+    );
 
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -27,16 +35,25 @@ export const Textarea = ({
     const textarea = textareaRef.current;
     if (!textarea || !autoFitHeight) return;
 
+    let previousValue = textarea.value;
+
     const adjustTextareaHeight = () => {
+      if (textarea.value === previousValue) return;
+
       textarea.style.height = 'auto';
       const computedHeight = textarea.scrollHeight;
       textarea.style.height = `${computedHeight}px`;
+
+      previousValue = textarea.value;
     };
 
     const submitOnEnter = (event: KeyboardEvent) => {
       if (event.code === 'Enter' && !event.shiftKey) {
         if (!event.repeat) {
-          const newEvent = new Event("submit", { bubbles: true, cancelable: true });
+          const newEvent = new Event('submit', {
+            bubbles: true,
+            cancelable: true,
+          });
           textareaRef.current?.form?.dispatchEvent(newEvent);
         }
 
@@ -49,17 +66,19 @@ export const Textarea = ({
     };
 
     if (enterAsSubmit && textareaRef.current?.form) {
-      textarea.addEventListener("keydown", submitOnEnter);
+      textarea.addEventListener('keydown', submitOnEnter);
     }
 
     textarea.addEventListener('input', adjustTextareaHeight);
+    textarea.addEventListener('change', adjustTextareaHeight);
     window.addEventListener('resize', handleResize);
 
     adjustTextareaHeight();
 
     return () => {
-      textarea.removeEventListener("keydown", submitOnEnter);
+      textarea.removeEventListener('keydown', submitOnEnter);
       textarea.removeEventListener('input', adjustTextareaHeight);
+      textarea.removeEventListener('change', adjustTextareaHeight);
       window.removeEventListener('resize', handleResize);
     };
   }, [autoFitHeight, enterAsSubmit]);

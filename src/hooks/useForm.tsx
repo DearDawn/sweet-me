@@ -21,6 +21,7 @@ const valuePass = (value?: string | number) => {
   return typeof value === 'number' && !Number.isNaN(value);
 };
 
+/** 表单状态管理 */
 export const useFormState = <T = Record<string, never>,>() => {
   const [stateMap, setStateMap] = React.useState<Record<keyof T | any, IState>>(
     {}

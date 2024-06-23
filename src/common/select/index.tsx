@@ -8,18 +8,27 @@ import { useBoolean } from '../../hooks';
 type IOption = {
   label: React.ReactNode,
   value: any,
+  /** 是否禁用 */
   disabled?: boolean
 }
 type IProps = ICommonProps & {
+  /** 值 */
   value?: string,
+  /** 与 FormItem 配合时，供 FormItem 使用，请用 onValueChange 替代 */
   onInput?: (value?: any) => void,
+  /** 值改变 */
   onValueChange?: (it?: IOption) => void,
+  /** 选择框类型：文字，图标 */
   type?: 'text' | 'icon',
+  /** 对齐方式 */
   align?: 'left' | 'center' | 'right'
+  /** 选项 */
   options?: IOption[]
+  /** 占位符 */
   placeholder?: string
 }
 
+/** 下拉选择框 */
 export const Select = ({
   className,
   onValueChange,

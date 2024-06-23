@@ -12,17 +12,26 @@ import React, {
 } from 'react';
 
 type IFormProps = ICommonProps<HTMLFormElement> & {
+  /** 表单实例，通过 useFormState Hook 获取 */
   form: FormInstant<any>;
+  /** 提交表单 */
   onSubmit?: (values?: Record<string, any>) => void;
 };
 
 type IFormItemProps = Omit<ICommonBaseProps, 'children' | 'label'> & {
+  /** 表单项展示名 */
   label?: string;
+  /** 表单项字段名 */
   field: string;
+  /** 表单项展示名样式 */
   labelClassName?: string;
+  /** 是否必填 */
   required?: boolean;
+  /** 是否不要边距 */
   noMargin?: boolean;
+  /** 是否禁用 */
   disabled?: boolean;
+  /** 默认值 */
   defaultValue?: any;
   children: ReactElement<FormChildProps>;
 };
@@ -40,6 +49,7 @@ export const FormContext = React.createContext<{
   form: null,
 });
 
+/** 表单 */
 export const Form = ({
   children,
   className,
@@ -70,6 +80,11 @@ export const Form = ({
   );
 };
 
+/**
+ * 表单项
+ *
+ * 输入组件在配合表单使用时， onValueChange 可用， onInput 供 FormItem 使用
+ */
 export const FormItem = ({
   children,
   className,

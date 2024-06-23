@@ -1,25 +1,31 @@
 import './index.less';
 
 interface NoticeItem {
-  title?: string
-  duration?: number
-  type?: 'info' | 'success' | 'error'
-  id: number
-  dom: HTMLDivElement
+  title?: string;
+  duration?: number;
+  type?: 'info' | 'success' | 'error';
+  id: number;
+  dom: HTMLDivElement;
 }
 
+/** 提示 */
 class Notice {
-  root: HTMLElement;
-  noticeList: NoticeItem[];
-  counter: number;
-  constructor () {
-    this.root = document.body;
+  private root: HTMLElement;
+  private noticeList: NoticeItem[];
+  private counter: number;
+  constructor(root = document.body) {
+    this.root = root;
     this.noticeList = [];
     this.counter = 0;
   }
 
-  init (config?: Pick<NoticeItem, 'title' | 'duration' | 'type'>) {
-    const { title = '这是一个提示', type = 'info', duration = 1500, ...rest } = config ?? {};
+  private init(config?: Pick<NoticeItem, 'title' | 'duration' | 'type'>) {
+    const {
+      title = '这是一个提示',
+      type = 'info',
+      duration = 1500,
+      ...rest
+    } = config ?? {};
 
     const dom = document.createElement('div');
     dom.className = 'dodo-notice ' + type;
@@ -28,13 +34,13 @@ class Notice {
     this.addNotice({ dom, title, type, duration, ...rest });
   }
 
-  refactor () {
+  private refactor() {
     this.noticeList.forEach((notice, id) => {
       notice.dom.style.top = `${id * 80 + 20}px`;
     });
   }
 
-  addNotice (noticeItem: Omit<NoticeItem, 'id'>) {
+  private addNotice(noticeItem: Omit<NoticeItem, 'id'>) {
     const { dom, duration } = noticeItem;
     const id = this.counter;
     this.counter += 1;
@@ -46,7 +52,7 @@ class Notice {
     }, duration);
   }
 
-  removeNotice (id: number) {
+  private removeNotice(id: number) {
     const index = this.noticeList.findIndex((it) => it.id === id);
     const noticeItem = this.noticeList[index];
 
@@ -57,15 +63,18 @@ class Notice {
     this.refactor();
   }
 
-  info (title = '', duration = 1500) {
+  /** 通知 */
+  info(title = '', duration = 1500) {
     this.init({ title, duration });
   }
 
-  success (title = '', duration = 1500) {
+  /** 成功 */
+  success(title = '', duration = 1500) {
     this.init({ title, duration, type: 'success' });
   }
 
-  error (title = '', duration = 1500) {
+  /** 错误 */
+  error(title = '', duration = 1500) {
     this.init({ title, duration, type: 'error' });
   }
 }

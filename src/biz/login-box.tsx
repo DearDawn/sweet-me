@@ -18,6 +18,7 @@ const API = {
   login: 'http://localhost:3000/login',
 };
 
+/** 登录框，不可用，未测试 */
 export const LoginBox = () => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');

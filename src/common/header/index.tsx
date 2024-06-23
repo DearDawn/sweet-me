@@ -5,12 +5,17 @@ import { ICommonProps } from '../../types';
 import { ICON, Icon } from '../icon';
 
 type IProps = Omit<ICommonProps, 'title'> & {
+  /** 左侧内容 */
   leftPart?: React.ReactNode;
+  /** 标题 */
   title?: React.ReactNode;
+  /** 右侧内容 */
   rightPart?: React.ReactNode;
+  /** 是否吸顶 */
   isSticky?: boolean;
 };
 
+/** 头部 */
 export const Header = ({
   className,
   title = 'Header',

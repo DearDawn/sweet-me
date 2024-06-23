@@ -1,3 +1,7 @@
+/**
+ * @description 轻提示
+ * @param str 提示内容
+ */
 export const toast = (str: string) => {
   const div = document.createElement('div');
   div.className = 'toast';

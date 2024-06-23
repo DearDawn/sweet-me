@@ -6,3 +6,4 @@ export * from './request';
 export * from './storage';
 export * from './common';
 export * from './color';
+export * from './dom';

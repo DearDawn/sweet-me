@@ -5,11 +5,15 @@ import { ICON, Icon } from '../icon';
 import { Button } from '../button';
 
 type IProps = Omit<ICommonProps<HTMLInputElement>, 'value'> & {
+  /** 内容值变化 */
   onValueChange?: (file?: File) => void;
+  /** 与 FormItem 配合时，供 FormItem 使用，请用 onValueChange 替代 */
   onInput?: (file?: File) => void;
+  /** 文件 */
   value?: File;
 };
 
+/** 输入框-文件类型 */
 export const InputFile = ({
   className,
   onValueChange,

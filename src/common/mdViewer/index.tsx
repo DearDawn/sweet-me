@@ -8,10 +8,18 @@ import { createRoot } from 'react-dom/client';
 interface IProps {
   /** 转换后的 html 字符串 */
   mdContent: string;
+  /** 预览弹窗是否可见 */
   visible?: boolean;
+  /** 关闭弹窗 */
   onClose?: VoidFunction;
 }
 
+/**
+ * markdown 预览组件
+ *
+ * 若希望直接 import Markdown 文件为 html 字符串形式，需要插件支持 md 转换
+ * parcel: parcel-transformer-markdown
+ */
 export const MdViewer = (props: IProps) => {
   const { mdContent, visible, onClose } = props || {};
 

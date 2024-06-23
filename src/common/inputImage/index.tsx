@@ -5,13 +5,19 @@ import { Image } from '../image';
 import { ICON, Icon } from '../icon';
 
 type IProps = Omit<ICommonProps<HTMLInputElement>, 'value'> & {
+  /** 内容值变化 */
   onValueChange?: (file?: File) => void;
+  /** 与 FormItem 配合时，供 FormItem 使用，请用 onValueChange 替代 */
   onInput?: (file?: File) => void;
+  /** 图片文件 */
   value?: File;
+  /** 图片选择器大小 */
   size?: number;
+  /** 自定义图片选择器 */
   holder?: React.ReactElement;
 };
 
+/** 输入框-图片类型 */
 export const InputImage = ({
   className,
   onValueChange,

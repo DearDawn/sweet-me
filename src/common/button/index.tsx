@@ -8,9 +8,13 @@ type IProps = ICommonProps & {
   size?: 'normal' | 'small' | 'large' | 'mini' | 'long'
   /** 按钮状态 */
   status?: 'success' | 'error' | 'warning' | 'default'
+  /** 按钮加载中，期间不可点击 */
   loading?: boolean;
+  /** 按钮禁用，期间不可点击 */
+  disabled?: boolean;
 }
 
+/** 按钮 */
 export const Button = ({
   style = {},
   children,

@@ -11,12 +11,23 @@ const COLOR_RGB_MAP: Record<EColor, [number, number, number]> = {
   gray: [134, 142, 150]
 };
 
-
+/**
+ * 获取颜色对应的 RGB 值
+ * @param colorName 颜色名
+ * @returns RGB 值数组
+ */
 export const getColorRGB = (colorName: EColor) => {
 
   return COLOR_RGB_MAP[colorName] || []; // 如果颜色名无效，则返回空数组
 };
 
+/**
+ * RGB 转 HSL
+ * @param r 红色值
+ * @param g 绿色值
+ * @param b 蓝色值
+ * @returns HSL 值数组
+ */
 export const rgbToHsl = (_r: number, _g: number, _b: number) => {
   const [r, g, b] = [_r, _g, _b].map((v) => v / 255);
   const maxValue = Math.max(r, g, b);

@@ -6,9 +6,11 @@ import { InputFile } from '../inputFile';
 import { InputImage } from '../inputImage';
 
 type IProps = ICommonProps<HTMLInputElement> & {
+  /** 内容值变化 */
   onValueChange?: (value?: string) => void
 }
 
+/** 输入框 */
 export const Input = ({
   className,
   onValueChange,

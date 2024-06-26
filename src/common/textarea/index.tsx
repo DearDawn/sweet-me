@@ -25,15 +25,6 @@ export const Textarea = ({
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const preValue = React.useRef<any>();
 
-  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> =
-    React.useCallback(
-      (e) => {
-        const val = e.target.value;
-        onValueChange?.(val);
-      },
-      [onValueChange]
-    );
-
   const adjustTextareaHeight = useCallbackRef(() => {
     if (value === preValue.current) return;
 
@@ -44,6 +35,16 @@ export const Textarea = ({
 
     preValue.current = value;
   });
+
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> =
+    React.useCallback(
+      (e) => {
+        const val = e.target.value;
+        onValueChange?.(val);
+        adjustTextareaHeight.current();
+      },
+      [adjustTextareaHeight, onValueChange]
+    );
 
   React.useEffect(() => {
     const textarea = textareaRef.current;

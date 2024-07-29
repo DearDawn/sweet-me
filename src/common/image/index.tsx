@@ -50,7 +50,6 @@ export const Image = (props: IProps) => {
 
   const handleError = useCallback(
     (error) => {
-      console.log('[dodo] ', 'error', error);
       setImgSrc(errorHolder);
     },
     [errorHolder]

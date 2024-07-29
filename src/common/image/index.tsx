@@ -14,6 +14,8 @@ type IProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   lazyRoot?: Element | null;
   /** 图片引用 */
   imgRef?: React.MutableRefObject<HTMLImageElement>;
+  /** 加载失败的兜底图片 */
+  errorHolder?: string;
 };
 
 /** 图片组件 */
@@ -25,6 +27,7 @@ export const Image = (props: IProps) => {
     imgRef,
     lazyLoad,
     lazyRoot,
+    errorHolder = 'https://coding-demo-fullstack-serverless-vue-website-1300422826.cos.ap-guangzhou.myqcloud.com/public/images/2024-07-29-error.png',
     src,
     ...rest
   } = props;
@@ -44,6 +47,14 @@ export const Image = (props: IProps) => {
 
     onClick?.();
   }, [onClick, withPreview]);
+
+  const handleError = useCallback(
+    (error) => {
+      console.log('[dodo] ', 'error', error);
+      setImgSrc(errorHolder);
+    },
+    [errorHolder]
+  );
 
   useEffect(() => {
     if (!lazyLoad) return;
@@ -87,13 +98,16 @@ export const Image = (props: IProps) => {
           </div>,
           document.body
         )}
-      <img
-        ref={imgDomRef}
-        className={clsx(styles.img, className)}
-        src={imgSrc}
-        {...rest}
-        onClick={handleClick}
-      />
+      {
+        <img
+          ref={imgDomRef}
+          className={clsx(styles.img, className)}
+          src={imgSrc}
+          {...rest}
+          onClick={handleClick}
+          onError={handleError}
+        />
+      }
     </>
   );
 };

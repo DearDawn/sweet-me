@@ -3,6 +3,9 @@ import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import { Image } from '../image';
 import { ICON, Icon } from '../icon';
+import { convertFileSize, toast } from '../../utils';
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 type IProps = Omit<ICommonProps<HTMLInputElement>, 'value'> & {
   /** 内容值变化 */
@@ -13,6 +16,8 @@ type IProps = Omit<ICommonProps<HTMLInputElement>, 'value'> & {
   value?: File;
   /** 图片选择器大小 */
   size?: number;
+  /** 图片大小限制，默认 10MB */
+  maxSize?: number;
   /** 自定义图片选择器 */
   holder?: React.ReactElement;
 };
@@ -24,6 +29,7 @@ export const InputImage = ({
   onInput,
   value,
   size = 100,
+  maxSize = 10 * 1024 * 1024,
   holder = (
     <div className={styles.holder} style={{ width: size, height: size }}>
       <div className={styles.icon}></div>
@@ -40,6 +46,11 @@ export const InputImage = ({
     React.useCallback(
       (e) => {
         const file = e ? e.target.files[0] : undefined;
+        if (file.size >= MAX_FILE_SIZE) {
+          toast(`文件过大，最大 ${convertFileSize(MAX_FILE_SIZE)}`);
+          return;
+        }
+
         currentFile.current = file;
         onValueChange?.(file);
         onInput?.(file);

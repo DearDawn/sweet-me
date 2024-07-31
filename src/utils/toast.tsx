@@ -1,8 +1,9 @@
 /**
  * @description 轻提示
  * @param str 提示内容
+ * @param duration 提示时间，默认 1000ms
  */
-export const toast = (str: string) => {
+export const toast = (str: string, duration = 1000) => {
   const div = document.createElement('div');
   div.className = 'toast';
   div.innerText = str;
@@ -37,5 +38,5 @@ export const toast = (str: string) => {
   body?.appendChild(div);
   setTimeout(() => {
     body?.removeChild(div);
-  }, 1500);
+  }, duration);
 };

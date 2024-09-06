@@ -45,8 +45,9 @@ export const InputImage = ({
   const handleChange: React.ChangeEventHandler<HTMLInputElement> =
     React.useCallback(
       (e) => {
-        const file = e ? e.target.files[0] : undefined;
-        if (file.size >= MAX_FILE_SIZE) {
+        const file = e ? e.target?.files[0] : undefined;
+
+        if (file && file.size >= MAX_FILE_SIZE) {
           toast(`文件过大，最大 ${convertFileSize(MAX_FILE_SIZE)}`);
           return;
         }

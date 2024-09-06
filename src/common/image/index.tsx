@@ -29,6 +29,7 @@ export const Image = (props: IProps) => {
     lazyRoot,
     errorHolder = 'https://coding-demo-fullstack-serverless-vue-website-1300422826.cos.ap-guangzhou.myqcloud.com/public/images/2024-07-29-error.png',
     src,
+    style,
     ...rest
   } = props;
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -102,6 +103,7 @@ export const Image = (props: IProps) => {
           ref={imgDomRef}
           className={clsx(styles.img, className)}
           src={imgSrc}
+          style={style}
           {...rest}
           onClick={handleClick}
           onError={handleError}

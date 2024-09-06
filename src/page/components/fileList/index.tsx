@@ -7,9 +7,16 @@ import { ICON } from '../../../common';
 const storage = new Storage();
 storage.config({ namespace: 'sweet-me', sync: true, params: { dodokey: 123 } });
 
-export const FileList = ({ onDelete }: { onDelete: VoidFunction }) => {
+export const FileList = ({
+  onDelete,
+  file: propsFile,
+}: {
+  onDelete: VoidFunction;
+  file?: any;
+}) => {
   const { state } = useContext(FormContext);
-  const { value: file } = state?.file || {};
+  const { value } = state?.file || {};
+  const file = value || propsFile;
 
   if (!file) {
     return null;

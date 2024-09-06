@@ -42,6 +42,7 @@ export const App = () => {
   const [modalVisible, openModal, closeModal] = useBoolean(false);
   const { form } = useFormState();
   const pageRef = React.useRef<HTMLDivElement>(null);
+  const [tempFile, setTempFile] = React.useState<File>();
 
   const openModalWithApi = React.useCallback(async () => {
     await showModal(({ onClose }) => (
@@ -357,8 +358,11 @@ export const App = () => {
       </div>
       <Title>File</Title>
       <Space padding='0 10px'>
-        <Input.File></Input.File>
+        <Input.File onValueChange={(file) => setTempFile(file)}></Input.File>
       </Space>
+      <div style={{ padding: '0 10px' }}>
+        <FileList onDelete={() => setTempFile(undefined)} file={tempFile} />
+      </div>
       <Title>Image</Title>
       <Space padding='0 10px'>
         <Input.Image></Input.Image>

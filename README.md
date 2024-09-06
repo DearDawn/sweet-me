@@ -29,6 +29,7 @@ TODO LIST
 | <input type="checkbox" checked /> Radio      | `2024-05-01` |                                                               |
 | <input type="checkbox" checked /> MdViewer   | `2024-05-01` | 需要插件支持 md 转换<br />parcel: parcel-transformer-markdown |
 | <input type="checkbox" checked /> Tag        | `2024-06-19` |                                                               |
+| <input type="checkbox" checked /> Slider        | `2024-09-06` |                                                               |
 
 </div>
 </div
@@ -60,6 +61,7 @@ TODO LIST
 | <input type="checkbox" checked /> rgbToHsl                    | `2024-06-19` |      |
 | <input type="checkbox" checked /> rgbToHsl                    | `2024-06-19` |      |
 | <input type="checkbox" checked /> findClosestScrollableParent | `2024-06-23` |      |
+| <input type="checkbox" checked /> compressImage | `2024-09-06` |      |
 
 </div>
 </div

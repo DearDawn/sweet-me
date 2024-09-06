@@ -11,6 +11,7 @@ export { Modal, showModal } from './modal';
 export { Icon, ICON } from './icon';
 export { Select } from './select';
 export { Radio } from './radio';
+export { Slider } from './slider';
 export { Space } from './space';
 export { Image } from './image';
 export { MdViewer, showMdViewer } from './mdViewer';

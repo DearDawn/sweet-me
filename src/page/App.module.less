@@ -90,6 +90,10 @@
   .formItemSelect {
     width: 100px;
   }
+
+  .formItemSlider {
+    flex: 1;
+  }
 }
 
 .closeModalBtn {
@@ -104,6 +108,18 @@
   padding: 0 10px;
 
   .radio {
+    width: 100%;
+
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+}
+
+.sliderWrap {
+  padding: 0 10px;
+
+  .slider {
     width: 100%;
 
     &:not(:first-child) {

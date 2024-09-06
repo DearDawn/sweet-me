@@ -21,6 +21,7 @@ import {
   Radio,
   showMdViewer,
   Tag,
+  Slider,
 } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
@@ -337,6 +338,23 @@ export const App = () => {
           ]}
         />
       </div>
+      <Title>Slider</Title>
+      <div className={styles.sliderWrap}>
+        <Slider
+          className={styles.slider}
+          defaultValue={70}
+          min={0}
+          max={100}
+          step={10}
+        />
+        <Slider
+          className={styles.slider}
+          defaultValue={0}
+          min={-50}
+          max={50}
+          step={1}
+        />
+      </div>
       <Title>File</Title>
       <Space padding='0 10px'>
         <Input.File></Input.File>
@@ -391,6 +409,19 @@ export const App = () => {
               { label: '女', value: 2 },
               { label: '保密', value: 3 },
             ]}
+          />
+        </Form.Item>
+        <Form.Item
+          label='心情'
+          field='mood'
+          defaultValue={0}
+          className={styles.formItem}
+        >
+          <Slider
+            className={styles.formItemSlider}
+            min={-50}
+            max={50}
+            step={1}
           />
         </Form.Item>
         <Form.Item label='文件' field='file' className={styles.formItem}>

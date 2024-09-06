@@ -23,7 +23,7 @@ node -v
 npm -v
 
 echo "start install"
-npm install --registry=https://registry.npmjs.org/
+npm install --registry=https://registry.npmmirror.com
 
 echo "start build"
 npm run build-page

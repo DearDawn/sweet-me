@@ -11,13 +11,16 @@ export const compressImage = ({
   imgUrl,
   outputFileName,
   quality,
-  scaleSize = Number.MAX_VALUE
+  scaleSize = Number.POSITIVE_INFINITY,
+  scaleRatio = 1
 }: {
   outputFileName: string,
-  /** 压缩质量，取值 0, 1 默认 0.92 */
+  /** 【无效，请使用 scaleSize/scaleRatio 代替】 压缩质量，取值 0, 1 默认 0.92 */
   quality?: number,
   /** 缩放后的大小（以短边计算），默认不缩放 */
   scaleSize?: number;
+  /** 缩放比例，0-1, 默认 1 不缩放 */
+  scaleRatio?: number;
 } & ({
   imgFile?: File,
   imgUrl: string,
@@ -33,6 +36,11 @@ export const compressImage = ({
 
     const fileURL = imgUrl || URL.createObjectURL(imgFile);
 
+    if (!Number.isFinite(scaleSize) && scaleRatio === 1) {
+      resolve({ file: imgFile, url: fileURL });
+      return;
+    }
+
     // 创建一个图片元素
     const img = new Image();
 
@@ -43,14 +51,14 @@ export const compressImage = ({
       const ctx = canvas.getContext('2d');
       // 计算缩放后的宽高
 
-      let scaledWidth = Math.min(scaleSize, img.width);
+      let scaledWidth = scaleRatio > 0 && scaleRatio < 1 ? scaleRatio * img.width : Math.min(scaleSize, img.width);
       let scaledHeight = Math.min(
         (scaledWidth / img.width) * img.height,
         img.height
       );
 
       if (img.width < img.height) {
-        scaledHeight = Math.min(scaleSize, img.height);
+        scaledHeight = scaleRatio > 0 && scaleRatio < 1 ? scaleRatio * img.height : Math.min(scaleSize, img.height);
         scaledWidth = Math.min((scaledHeight / img.height) * img.width, img.width);
       }
 

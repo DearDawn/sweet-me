@@ -89,6 +89,10 @@ export const Image = (props: IProps) => {
     };
   }, [lazyLoad, src, lazyRoot, imgDomRef]);
 
+  useEffect(() => {
+    setImgSrc((_src) => (_src ? src : _src));
+  }, [src]);
+
   return (
     <>
       {isFullScreen &&

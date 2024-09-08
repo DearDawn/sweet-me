@@ -23,7 +23,7 @@ export const compressImage = ({
 } | {
   imgFile: File,
   imgUrl?: string,
-})) => {
+})): Promise<{ file: File, url: string; }> => {
   return new Promise((resolve, reject) => {
     if (!imgFile && !imgUrl) {
       reject('请传入图片文件或图片URL');
@@ -79,7 +79,7 @@ export const compressImage = ({
       });
 
       // 调用回调函数，传递压缩后的文件对象
-      resolve(compressedFile);
+      resolve({ file: compressedFile, url: URL.createObjectURL(compressedFile) });
     };
 
     img.onerror = function (e) {

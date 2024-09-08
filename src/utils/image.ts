@@ -12,15 +12,18 @@ export const compressImage = ({
   outputFileName,
   quality,
   scaleSize = Number.POSITIVE_INFINITY,
-  scaleRatio = 1
+  scaleRatio = 1,
+  targetType = 'png'
 }: {
   outputFileName: string,
-  /** 【无效，请使用 scaleSize/scaleRatio 代替】 压缩质量，取值 0, 1 默认 0.92 */
+  /** 【目标为 png 时无效，请使用 scaleSize/scaleRatio 代替】 压缩质量，取值 0, 1 默认 0.92 */
   quality?: number,
   /** 缩放后的大小（以短边计算），默认不缩放 */
   scaleSize?: number;
   /** 缩放比例，0-1, 默认 1 不缩放 */
   scaleRatio?: number;
+  /** 输出文件类型，默认 png */
+  targetType?: 'png' | 'jpg' | 'jpeg' | 'webp';
 } & ({
   imgFile?: File,
   imgUrl: string,
@@ -28,6 +31,7 @@ export const compressImage = ({
   imgFile: File,
   imgUrl?: string,
 })): Promise<{ file: File, url: string; }> => {
+  const targetMIME = `image/${targetType}`;
   return new Promise((resolve, reject) => {
     if (!imgFile && !imgUrl) {
       reject('请传入图片文件或图片URL');
@@ -71,7 +75,7 @@ export const compressImage = ({
 
       // 使用canvas的toDataURL方法来压缩图像
       // 第二个参数为压缩质量，范围为0到1之间
-      const compressedDataUrl = canvas.toDataURL('image/png', quality);
+      const compressedDataUrl = canvas.toDataURL(targetMIME, quality);
 
       // 将Data URL转换为Blob对象
       const byteString = atob(compressedDataUrl.split(',')[1]);
@@ -80,11 +84,11 @@ export const compressImage = ({
       for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
       }
-      const blob = new Blob([ab], { type: 'image/png' });
+      const blob = new Blob([ab], { type: targetMIME });
 
       // 构造一个新的File对象
       const compressedFile = new File([blob], changeExtToPNG(outputFileName), {
-        type: 'image/png',
+        type: targetMIME,
       });
 
       // 调用回调函数，传递压缩后的文件对象

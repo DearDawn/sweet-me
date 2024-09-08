@@ -6,7 +6,7 @@ export const convertFileSize = (bytes: number) => {
   if (bytes >= megabyte) {
     return (bytes / megabyte).toFixed(2) + ' MB';
   } else if (bytes >= kilobyte) {
-    return (bytes / kilobyte) + ' KB';
+    return (bytes / kilobyte).toFixed(2) + ' KB';
   } else if (bytes > 0) {
     return bytes + ' bytes';
   } else {

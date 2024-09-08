@@ -11,11 +11,12 @@ export const compressImage = ({
   imgUrl,
   outputFileName,
   quality,
-  scaleSize = 100
+  scaleSize = Number.MAX_VALUE
 }: {
   outputFileName: string,
   /** 压缩质量，取值 0, 1 默认 0.92 */
   quality?: number,
+  /** 缩放后的大小（以短边计算），默认不缩放 */
   scaleSize?: number;
 } & ({
   imgFile?: File,
@@ -44,13 +45,13 @@ export const compressImage = ({
 
       let scaledWidth = Math.min(scaleSize, img.width);
       let scaledHeight = Math.min(
-        (scaleSize / img.width) * img.height,
+        (scaledWidth / img.width) * img.height,
         img.height
       );
 
       if (img.width < img.height) {
         scaledHeight = Math.min(scaleSize, img.height);
-        scaledWidth = Math.min((scaleSize / img.height) * img.width, img.width);
+        scaledWidth = Math.min((scaledHeight / img.height) * img.width, img.width);
       }
 
       // 设置canvas的宽高与图片一致

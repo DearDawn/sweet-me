@@ -22,6 +22,7 @@ import {
   showMdViewer,
   Tag,
   Slider,
+  Switch,
 } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
@@ -315,6 +316,13 @@ export const App = () => {
           ]}
         />
       </div>
+      <Title>Switch</Title>
+      <Space padding='0 10px' className={styles.switchWrap}>
+        正常: <Switch />
+        <Switch checked />
+        禁用: <Switch disabled />
+        <Switch checked disabled />
+      </Space>
       <Title>Radio</Title>
       <div className={styles.radioWrap}>
         <Radio
@@ -427,6 +435,14 @@ export const App = () => {
             max={50}
             step={1}
           />
+        </Form.Item>
+        <Form.Item
+          label='饥饿'
+          field='hungry'
+          defaultValue={true}
+          className={styles.formItem}
+        >
+          <Switch />
         </Form.Item>
         <Form.Item label='文件' field='file' className={styles.formItem}>
           <Input.File></Input.File>

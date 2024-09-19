@@ -30,6 +30,7 @@ TODO LIST
 | <input type="checkbox" checked /> MdViewer   | `2024-05-01` | 需要插件支持 md 转换<br />parcel: parcel-transformer-markdown |
 | <input type="checkbox" checked /> Tag        | `2024-06-19` |                                                               |
 | <input type="checkbox" checked /> Slider        | `2024-09-06` |                                                               |
+| <input type="checkbox" checked /> Switch        | `2024-09-19` |                                                               |
 
 </div>
 </div

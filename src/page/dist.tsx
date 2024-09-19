@@ -24,9 +24,10 @@ export const {
   Select,
   Slider,
   Radio,
+  Switch,
   Space,
   Image,
   MdViewer,
   showMdViewer,
-  Tag
+  Tag,
 } = Target;

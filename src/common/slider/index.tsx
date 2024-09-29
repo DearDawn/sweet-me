@@ -20,6 +20,8 @@ interface IProps {
   defaultValue?: number;
   /** 是否隐藏尾部数值 */
   hideValue?: boolean;
+  /** 是否禁用 */
+  disabled?: boolean;
 }
 
 export const Slider = (props: IProps) => {
@@ -32,6 +34,7 @@ export const Slider = (props: IProps) => {
     min = 0,
     max = 100,
     value: propsValue,
+    disabled,
     defaultValue,
   } = props || {};
   const [value, setValue] = useState(propsValue ?? defaultValue ?? min);
@@ -56,7 +59,7 @@ export const Slider = (props: IProps) => {
   useEffect(() => {
     const root = sliderRef.current;
 
-    if (!root) return;
+    if (!root || disabled) return;
 
     const rect = sliderRef.current.getBoundingClientRect();
 
@@ -99,7 +102,7 @@ export const Slider = (props: IProps) => {
       document.removeEventListener('touchend', handleTouchEnd);
       document.removeEventListener('touchcancel', handleTouchEnd);
     };
-  }, [setVal]);
+  }, [setVal, disabled]);
 
   useEffect(() => {
     setValue(propsValue ?? defaultValue);
@@ -114,6 +117,8 @@ export const Slider = (props: IProps) => {
   };
 
   const handleClick = (event) => {
+    if (disabled) return;
+
     const rect = sliderRef.current.getBoundingClientRect();
     let offsetX = event.clientX - rect.left;
     if (offsetX < 0) offsetX = 0;
@@ -123,7 +128,9 @@ export const Slider = (props: IProps) => {
 
   return (
     <div
-      className={clsx(styles.sliderContainer, className)}
+      className={clsx(styles.sliderContainer, className, {
+        [styles.disabled]: disabled,
+      })}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
       onClick={handleClick}

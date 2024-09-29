@@ -47,7 +47,7 @@ export const Switch = (props: IProps) => {
 
   return (
     <div
-      className={clsx(styles.switch, className, {
+      className={clsx(styles.switchWrap, className, {
         [styles.on]: isOn,
         [styles.off]: !isOn,
         [styles.disabled]: disabled,

@@ -363,6 +363,14 @@ export const App = () => {
           max={50}
           step={1}
         />
+        <Slider
+          className={styles.slider}
+          defaultValue={0}
+          disabled
+          min={-50}
+          max={50}
+          step={1}
+        />
       </div>
       <Title>File</Title>
       <Space padding='0 10px'>

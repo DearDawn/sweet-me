@@ -317,7 +317,7 @@ export const App = () => {
         />
       </div>
       <Title>Switch</Title>
-      <Space padding='0 10px' className={styles.switchWrap}>
+      <Space padding='0 10px'>
         正常: <Switch />
         <Switch checked />
         禁用: <Switch disabled />

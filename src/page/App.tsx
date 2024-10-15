@@ -42,10 +42,7 @@ export const App = () => {
   });
   const { data, refreshing, onLoadMore, onRefresh } = useListRequest<{
     id: number;
-  }>({
-    url: 'https://dododawn.com:7020/api/test/list',
-    loadingFn: () => loading('列表加载中...', undefined, false),
-  });
+  }>({ url: 'https://dododawn.com:7020/api/test/list' });
   const { list: dataList } = data || {};
   const loadingRef = React.useRef(() => {});
   const [modalVisible, openModal, closeModal] = useBoolean(false);
@@ -479,6 +476,7 @@ export const App = () => {
           onPullDownRefresh={onRefresh}
           onLoadMore={onLoadMore}
           refreshing={refreshing}
+          resistance={0.2}
         >
           {dataList?.map((it) => (
             <div className={styles.scrollListItem} key={it.id}>

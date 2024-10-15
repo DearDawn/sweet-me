@@ -10,11 +10,15 @@ type IProps = ICommonProps<HTMLDivElement> & {
   enableLoadMore?: boolean;
   /** 触底阈值, 默认 200, 单位px */
   loadMoreThreshold?: number;
+  /** 刷新阈值, 默认 35, 单位px */
+  refreshThreshold?: number;
   children?: any;
   /** 没有更多时的占位符, 默认不显示 */
   noMoreHolder?: boolean;
   /** 是否刷新中（用于 api 自动触发的情况） */
   refreshing?: boolean;
+  /** 阻力，0-1，默认 0.5 */
+  resistance?: number;
   /** 加载更多数据的方法 */
   onLoadMore?: () => Promise<{ hasMore?: boolean; error?: any }>;
   /** 下拉刷新数据的方法 */
@@ -27,6 +31,8 @@ export const ScrollContainer = (props: IProps) => {
     enablePullDownRefresh = true,
     enableLoadMore = true,
     loadMoreThreshold = 200,
+    refreshThreshold = 35,
+    resistance = 0.5,
     children,
     noMoreHolder = true,
     refreshing,
@@ -57,8 +63,10 @@ export const ScrollContainer = (props: IProps) => {
     isPressDown: false,
   });
 
-  const DISTANCE_Y_MIN_LIMIT = 35 * window.devicePixelRatio;
-  const Y_FACTOR = 20;
+  const Y_FACTOR =
+    refreshThreshold -
+    (refreshThreshold - 1) * Math.max(Math.min(1, resistance), 0);
+  const DISTANCE_Y_MIN_LIMIT = refreshThreshold * window.devicePixelRatio;
   const DEG_LIMIT = 40;
 
   const handleLoadMore = () => {

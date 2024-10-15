@@ -13,3 +13,8 @@ export const safeParse = (jsonString: string, defaultValue?: any) => {
     return defaultValue ?? jsonString;
   }
 };
+
+/** 等待一段时间 */
+
+export const waitTime = (timeout = 1000) =>
+  new Promise((resolve) => setTimeout(() => resolve(true), timeout));

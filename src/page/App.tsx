@@ -23,10 +23,11 @@ import {
   Tag,
   Slider,
   Switch,
+  ScrollContainer,
 } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
-import { useBoolean, useFormState, useRequest } from '../hooks';
+import { useBoolean, useFormState, useListRequest, useRequest } from '../hooks';
 import { Storage } from './components/storage';
 import { FileList } from './components/fileList';
 import WallImage from './wallpaper.jpg';
@@ -39,6 +40,13 @@ export const App = () => {
     url: 'https://dododawn.com:7020/api/',
     params: {},
   });
+  const { data, refreshing, onLoadMore, onRefresh } = useListRequest<{
+    id: number;
+  }>({
+    url: 'https://dododawn.com:7020/api/test/list',
+    loadingFn: () => loading('列表加载中...', undefined, false),
+  });
+  const { list: dataList } = data || {};
   const loadingRef = React.useRef(() => {});
   const [modalVisible, openModal, closeModal] = useBoolean(false);
   const { form } = useFormState();
@@ -477,6 +485,20 @@ export const App = () => {
           lazyRoot={pageRef.current}
         />
       </Space>
+      <Title>ScrollContainer</Title>
+      <div className={styles.scrollListWrap}>
+        <ScrollContainer
+          onPullDownRefresh={onRefresh}
+          onLoadMore={onLoadMore}
+          refreshing={refreshing}
+        >
+          {dataList?.map((it) => (
+            <div className={styles.scrollListItem} key={it.id}>
+              {it.id}
+            </div>
+          ))}
+        </ScrollContainer>
+      </div>
     </Page>
   );
 };

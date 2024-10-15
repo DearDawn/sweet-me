@@ -25,6 +25,7 @@ export const {
   Slider,
   Radio,
   Switch,
+  ScrollContainer,
   Space,
   Image,
   MdViewer,

@@ -15,6 +15,7 @@ export { Switch } from './switch';
 export { Slider } from './slider';
 export { Space } from './space';
 export { Image } from './image';
+export { ScrollContainer } from './scrollContainer';
 export { MdViewer, showMdViewer } from './mdViewer';
 export { Form, FormItem, FormContext } from './form';
 export { Tag, type ETagColor } from './tag';

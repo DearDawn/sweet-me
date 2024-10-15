@@ -33,6 +33,8 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
   });
 
   const onRefresh = async (manual = false) => {
+    if (refreshing) return;
+
     setPage(0);
     await waitTime(0);
     try {

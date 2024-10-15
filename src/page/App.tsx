@@ -472,6 +472,13 @@ export const App = () => {
       </Form>
       <Title>ScrollContainer</Title>
       <div className={styles.scrollListWrap}>
+        <Button
+          className={styles.refreshBtn}
+          disabled={refreshing}
+          onClick={() => onRefresh()}
+        >
+          主动刷新
+        </Button>
         <ScrollContainer
           onPullDownRefresh={onRefresh}
           onLoadMore={onLoadMore}

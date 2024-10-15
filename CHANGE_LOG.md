@@ -1,3 +1,9 @@
+v0.0.232 - 2024-10-15 16:20:38
+--------------------
+- 新增: ScrollContainer 组件,支持下拉刷新,触底加载更多
+- 新增: useListRequest, 分页请求 Hook, 配合 ScrollContainer 使用会很方便
+- 新增: waitTime 延时,可使用 await 进行等待
+
 v0.0.227 - 2024-09-29 11:58:06
 --------------------
 - 修复: Switch 打包样式异常 Slider disabled

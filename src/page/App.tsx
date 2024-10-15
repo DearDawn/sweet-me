@@ -473,18 +473,6 @@ export const App = () => {
           </Button>
         </div>
       </Form>
-      <Title>Storage</Title>
-      <Storage />
-      <Title>Image & Preview</Title>
-      <Space stretch padding='0 10px'>
-        <Image
-          src={WallImage}
-          alt='壁纸'
-          className={styles.image}
-          lazyLoad
-          lazyRoot={pageRef.current}
-        />
-      </Space>
       <Title>ScrollContainer</Title>
       <div className={styles.scrollListWrap}>
         <ScrollContainer
@@ -499,6 +487,18 @@ export const App = () => {
           ))}
         </ScrollContainer>
       </div>
+      <Title>Storage</Title>
+      <Storage />
+      <Title>Image & Preview</Title>
+      <Space stretch padding='0 10px'>
+        <Image
+          src={WallImage}
+          alt='壁纸'
+          className={styles.image}
+          lazyLoad
+          lazyRoot={pageRef.current}
+        />
+      </Space>
     </Page>
   );
 };

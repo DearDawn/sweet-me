@@ -33,6 +33,12 @@ import { FileList } from './components/fileList';
 import WallImage from './wallpaper.jpg';
 import README from '../../README.md';
 import CHANGE_LOG from '../../CHANGE_LOG.md';
+import { waitTime } from '../utils';
+
+const uploader = async (file) => {
+  await waitTime(1000);
+  return URL.createObjectURL(file);
+};
 
 export const App = () => {
   const [url, setUrl] = React.useState('');
@@ -386,7 +392,7 @@ export const App = () => {
       </div>
       <Title>Image</Title>
       <Space padding='0 10px'>
-        <Input.Image></Input.Image>
+        <Input.Image uploader={uploader}></Input.Image>
       </Space>
       <Title>Form</Title>
       <Form form={form} onSubmit={handleFormSubmit}>
@@ -457,8 +463,11 @@ export const App = () => {
         >
           <Switch />
         </Form.Item>
+        <Form.Item label='头像' field='avatar' className={styles.formItem}>
+          <Input.Image uploader={uploader} />
+        </Form.Item>
         <Form.Item label='文件' field='file' className={styles.formItem}>
-          <Input.File></Input.File>
+          <Input.File />
         </Form.Item>
         <FileList onDelete={handleDeleteFile} />
         <div className={styles.btnWrap}>

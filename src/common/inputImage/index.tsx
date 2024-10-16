@@ -4,22 +4,26 @@ import { ICommonProps } from '../../types';
 import { Image } from '../image';
 import { ICON, Icon } from '../icon';
 import { convertFileSize, toast } from '../../utils';
+import { useBoolean } from 'src/hooks';
+import { ERROR_IMAGE } from 'src/constants';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 type IProps = Omit<ICommonProps<HTMLInputElement>, 'value'> & {
   /** 内容值变化 */
-  onValueChange?: (file?: File) => void;
+  onValueChange?: ({ file, url }: { file?: File; url: string }) => void;
   /** 与 FormItem 配合时，供 FormItem 使用，请用 onValueChange 替代 */
-  onInput?: (file?: File) => void;
+  onInput?: ({ file, url }: { file?: File; url: string }) => void;
   /** 图片文件 */
-  value?: File;
+  value?: { file: File; url: string };
   /** 图片选择器大小 */
   size?: number;
   /** 图片大小限制，默认 10MB */
   maxSize?: number;
   /** 自定义图片选择器 */
   holder?: React.ReactElement;
+  /** 上传文件，一个函数，返回图片 url 链接 */
+  uploader?: (file: File) => Promise<string>;
 };
 
 /** 输入框-图片类型 */
@@ -27,6 +31,7 @@ export const InputImage = ({
   className,
   onValueChange,
   onInput,
+  uploader,
   value,
   size = 100,
   maxSize = 10 * 1024 * 1024,
@@ -41,10 +46,11 @@ export const InputImage = ({
   const inputFileRef = React.useRef<HTMLInputElement>(null);
   const currentFile = React.useRef<File>();
   const [previewUrl, setPreviewUrl] = React.useState('');
+  const [loading, startLoading, endLoading] = useBoolean();
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> =
     React.useCallback(
-      (e) => {
+      async (e) => {
         const file = e ? e.target?.files[0] : undefined;
 
         if (file && file.size >= MAX_FILE_SIZE) {
@@ -53,17 +59,30 @@ export const InputImage = ({
         }
 
         currentFile.current = file;
-        onValueChange?.(file);
-        onInput?.(file);
+        const res = { file, url: '' };
 
         if (file) {
           const imgURL = URL.createObjectURL(file);
+          res.url = imgURL;
           setPreviewUrl(imgURL);
         } else {
           setPreviewUrl('');
         }
+
+        if (uploader && file) {
+          try {
+            startLoading();
+            res.url = await uploader(file);
+            setPreviewUrl(res.url || ERROR_IMAGE);
+          } finally {
+            endLoading();
+          }
+        }
+
+        onValueChange?.(res);
+        onInput?.(res);
       },
-      [onInput, onValueChange]
+      [endLoading, onInput, onValueChange, startLoading, uploader]
     );
 
   const onDelete = React.useCallback(() => {
@@ -101,6 +120,7 @@ export const InputImage = ({
             type={ICON.delete}
             size={20}
           />
+          {loading && <div className={styles.loading} />}
         </div>
       );
     }
@@ -110,11 +130,12 @@ export const InputImage = ({
 
   React.useEffect(() => {
     if (inputFileRef.current) {
+      const { file } = value || {};
       const dataTransfer = new DataTransfer();
-      const needDispatch = value !== currentFile.current;
+      const needDispatch = file !== currentFile.current;
 
-      if (value) {
-        dataTransfer.items.add(value);
+      if (file) {
+        dataTransfer.items.add(file);
       } else {
         dataTransfer.items.clear();
       }

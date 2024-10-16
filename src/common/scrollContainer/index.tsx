@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as styles from './index.module.less';
 import clsx from 'clsx';
-import { ICommonProps } from 'src/types';
+import { ICommonProps } from '../../types';
 
 type IProps = ICommonProps<HTMLDivElement> & {
   /** 是否启用下拉刷新 */

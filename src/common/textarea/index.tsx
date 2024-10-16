@@ -24,6 +24,7 @@ export const Textarea = ({
 }: IProps & React.ButtonHTMLAttributes<HTMLTextAreaElement>) => {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const preValue = React.useRef<any>();
+  const withValue = !!value;
 
   const adjustTextareaHeight = useCallbackRef(() => {
     if (value === preValue.current) return;
@@ -48,7 +49,7 @@ export const Textarea = ({
 
   React.useEffect(() => {
     const textarea = textareaRef.current;
-    if (!textarea || !autoFitHeight) return;
+    if (!textarea) return;
 
     const submitOnEnter = (event: KeyboardEvent) => {
       if (event.code === 'Enter' && !event.shiftKey) {
@@ -64,13 +65,21 @@ export const Textarea = ({
       }
     };
 
-    const handleResize = () => {
-      adjustTextareaHeight.current();
-    };
-
     if (enterAsSubmit && textareaRef.current?.form) {
       textarea.addEventListener('keydown', submitOnEnter);
     }
+    return () => {
+      textarea.removeEventListener('keydown', submitOnEnter);
+    };
+  }, [adjustTextareaHeight, autoFitHeight, enterAsSubmit]);
+
+  React.useEffect(() => {
+    const textarea = textareaRef.current;
+    if (!textarea || !autoFitHeight) return;
+
+    const handleResize = () => {
+      adjustTextareaHeight.current();
+    };
 
     textarea.addEventListener('input', handleResize);
     window.addEventListener('resize', handleResize);
@@ -78,17 +87,10 @@ export const Textarea = ({
     handleResize();
 
     return () => {
-      textarea.removeEventListener('keydown', submitOnEnter);
       textarea.removeEventListener('input', handleResize);
       window.removeEventListener('resize', handleResize);
     };
-  }, [adjustTextareaHeight, autoFitHeight, enterAsSubmit]);
-
-  React.useEffect(() => {
-    if (!value) {
-      adjustTextareaHeight.current();
-    }
-  }, [adjustTextareaHeight, value]);
+  }, [adjustTextareaHeight, autoFitHeight, enterAsSubmit, withValue]);
 
   return (
     <textarea

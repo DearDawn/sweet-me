@@ -108,6 +108,10 @@
     .optionList {
       display: block;
     }
+
+    .optionItem {
+      animation: fadeIn 0.2s ease-out forwards;
+    }
   }
 
   &:not(.visible) {
@@ -154,7 +158,6 @@
     padding: 0 10px;
     box-sizing: border-box;
     opacity: 0;
-    animation: fadeIn 0.2s ease-out forwards;
 
     &:hover {
       background-color: #f1f3f5;
@@ -168,6 +171,32 @@
       --target-opacity: 0.3;
       background-color: #fff;
       cursor: not-allowed;
+    }
+  }
+
+  .createItem {
+    display: flex;
+    align-items: center;
+
+    .input {
+      flex: 1;
+      min-width: 80px;
+      height: 30px;
+      padding: 0;
+      font-size: 14px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      min-width: 0;
+      font-size: 14px;
     }
   }
 }

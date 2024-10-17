@@ -15,6 +15,7 @@ export { Switch } from './switch';
 export { Slider } from './slider';
 export { Space } from './space';
 export { Image } from './image';
+export { MultiInput } from './multiInput';
 export { ScrollContainer } from './scrollContainer';
 export { MdViewer, showMdViewer } from './mdViewer';
 export { Form, FormItem, FormContext } from './form';

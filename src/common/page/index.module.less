@@ -11,4 +11,26 @@
   box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
   position: relative;
   background-color: #fff;
+
+  @media (any-hover: hover) {
+
+    &,
+    * {
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        /* 滑块颜色 */
+        border-radius: 4px;
+        /* 滑块圆角 */
+      }
+    }
+  }
 }

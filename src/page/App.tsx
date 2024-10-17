@@ -24,6 +24,8 @@ import {
   Slider,
   Switch,
   ScrollContainer,
+  MultiInput,
+  InputImage,
 } from './dist';
 import clsx from 'clsx';
 import { ICON } from '../common/icon';
@@ -408,6 +410,28 @@ export const App = () => {
       <Space padding='0 10px'>
         <Input.Image uploader={uploader}></Input.Image>
       </Space>
+      <Title>MultiInput</Title>
+      <Space padding='0 10px'>输入模式</Space>
+      <div className={styles.multiInputWrap}>
+        <MultiInput maxCount={2}>
+          <Input placeholder='固定数量' />
+        </MultiInput>
+        <MultiInput creatable>
+          <Input placeholder='可创建' />
+        </MultiInput>
+      </div>
+      <Space padding='0 10px'>图片模式</Space>
+      <Space padding='0 10px'>
+        <MultiInput layout='horizontal' maxCount={3}>
+          <InputImage />
+        </MultiInput>
+      </Space>
+      <Space padding='0 10px'>图片模式（可创建）</Space>
+      <Space padding='0 10px'>
+        <MultiInput layout='horizontal' maxCount={3} creatable>
+          <InputImage />
+        </MultiInput>
+      </Space>
       <Title>Form</Title>
       <Form form={form} onSubmit={handleFormSubmit}>
         <Form.Item
@@ -423,6 +447,16 @@ export const App = () => {
         </Form.Item>
         <Form.Item label='备注' field='remark' className={styles.formItem}>
           <Textarea placeholder='请输入备注' className={styles.formItemInput} />
+        </Form.Item>
+        <Form.Item
+          label='爱好'
+          field='hobby'
+          className={styles.formItem}
+          defaultValue={['画画']}
+        >
+          <MultiInput creatable maxCount={3}>
+            <Input placeholder='请输入备注' className={styles.formItemInput} />
+          </MultiInput>
         </Form.Item>
         <Form.Item
           label='血型'
@@ -441,6 +475,19 @@ export const App = () => {
           />
         </Form.Item>
         <Form.Item
+          label='心情'
+          field='mood'
+          defaultValue={0}
+          className={styles.formItem}
+        >
+          <Slider
+            className={styles.formItemSlider}
+            min={-50}
+            max={50}
+            step={1}
+          />
+        </Form.Item>
+        <Form.Item
           label='性别'
           field='sex'
           defaultValue={0}
@@ -454,19 +501,6 @@ export const App = () => {
               { label: '女', value: 2 },
               { label: '保密', value: 3 },
             ]}
-          />
-        </Form.Item>
-        <Form.Item
-          label='心情'
-          field='mood'
-          defaultValue={0}
-          className={styles.formItem}
-        >
-          <Slider
-            className={styles.formItemSlider}
-            min={-50}
-            max={50}
-            step={1}
           />
         </Form.Item>
         <Form.Item

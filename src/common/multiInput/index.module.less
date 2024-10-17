@@ -1,0 +1,61 @@
+.multiLineWrap {
+
+  flex: 1;
+
+  &.layout_vertical {
+    .lineItem {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: stretch;
+
+      &>* {
+        flex: 1;
+      }
+
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
+    }
+
+    .removeLineItem {
+      flex: none;
+      padding: 0;
+      min-width: 40px;
+      margin-left: 10px;
+    }
+
+    .addLineItem {
+      margin-top: 10px;
+      width: 100%;
+    }
+  }
+
+  &.layout_horizontal {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .lineItem {
+      width: fit-content;
+      position: relative;
+      flex: none;
+    }
+
+    .removeLineItem {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: 0;
+      min-width: 40px;
+    }
+
+    .addLineItem {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+
+}

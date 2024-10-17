@@ -27,6 +27,9 @@ export enum ICON {
   download = '&#xe628;',
   close = '&#xe62a;',
   delete = '&#xe7e8;',
+  /** 垃圾桶删除 */
+  garbageCan = '&#xe718;',
+  add = '&#xe610;',
 }
 
 type IProps = ICommonProps & {

@@ -30,5 +30,6 @@ export const {
   Image,
   MdViewer,
   showMdViewer,
+  MultiInput,
   Tag,
 } = Target;

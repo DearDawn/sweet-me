@@ -32,6 +32,7 @@ TODO LIST
 | <input type="checkbox" checked /> Slider        | `2024-09-06` |                                                               |
 | <input type="checkbox" checked /> Switch        | `2024-09-19` |                                                               |
 | <input type="checkbox" checked /> ScrollContainer        | `2024-10-15` |                                                               |
+| <input type="checkbox" checked /> MultiInput        | `2024-10-17` |                                                               |
 
 </div>
 </div

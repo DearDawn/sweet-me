@@ -29,7 +29,7 @@ class Notice {
 
     const dom = document.createElement('div');
     dom.className = 'dodo-notice ' + type;
-    dom.innerHTML = `<div class="dodo-notice-title">${type}${title}</div>`;
+    dom.innerHTML = `<div class="dodo-notice-title">${title}</div>`;
 
     this.addNotice({ dom, title, type, duration, ...rest });
   }

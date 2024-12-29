@@ -2,7 +2,7 @@ import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import ReactDom from 'react-dom';
-import React, { ReactNode, useCallback, useEffect } from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { createRoot } from 'react-dom/client';
 
@@ -19,6 +19,8 @@ type IProps = ICommonProps & {
   footer?: ReactNode;
   /** 关闭弹窗 */
   onClose?: VoidFunction;
+  /** 方向 */
+  direction?: 'left' | 'right' | 'top' | 'bottom';
 };
 
 /** 弹窗组件 */
@@ -31,8 +33,10 @@ export const Modal = ({
   maskClosable = false,
   escClosable = true,
   rootElement = document.body,
+  direction,
   ...rest
 }: IProps) => {
+  const [selfVisible, setSelfVisible] = useState(visible);
   const modalRef = React.useRef<HTMLDivElement>(null);
   const handleContentClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -66,6 +70,12 @@ export const Modal = ({
     };
   }, [escClosable, onClose]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setSelfVisible(visible);
+    }, 0);
+  }, [visible]);
+
   if (!visible) return null;
 
   return ReactDom.createPortal(
@@ -73,7 +83,8 @@ export const Modal = ({
       className={cs(
         styles.modal,
         {
-          [styles.visible]: visible,
+          [styles.visible]: selfVisible,
+          [styles[direction]]: direction,
         },
         className
       )}

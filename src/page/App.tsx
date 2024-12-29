@@ -54,9 +54,20 @@ export const App = () => {
   const { list: dataList } = data || {};
   const loadingRef = React.useRef(() => {});
   const [modalVisible, openModal, closeModal] = useBoolean(false);
+  const [drawerVisible, openDrawer, closeDrawer] = useBoolean(false);
+  const [drawerDir, setDrawerDir] =
+    React.useState<React.ComponentProps<typeof Modal>['direction']>();
   const { form } = useFormState();
   const pageRef = React.useRef<HTMLDivElement>(null);
   const [tempFile, setTempFile] = React.useState<File>();
+
+  const handleOpenDrawer = React.useCallback(
+    (dir) => () => {
+      openDrawer();
+      setDrawerDir(dir);
+    },
+    [openDrawer]
+  );
 
   const openModalWithApi = React.useCallback(async () => {
     await showModal(({ onClose }) => (
@@ -271,8 +282,31 @@ export const App = () => {
       <Button className={styles.ml10} onClick={openModalWithApi}>
         showModal Api
       </Button>
+      <Title>Modal (Drawer Mode)</Title>
+      <Button className={styles.ml10} onClick={handleOpenDrawer('top')}>
+        打开抽屉 (上)
+      </Button>
+      <Button className={styles.ml10} onClick={handleOpenDrawer('bottom')}>
+        打开抽屉 (下)
+      </Button>
+      <Button className={styles.ml10} onClick={handleOpenDrawer('left')}>
+        打开抽屉 (左)
+      </Button>
+      <Button className={styles.ml10} onClick={handleOpenDrawer('right')}>
+        打开抽屉 (右)
+      </Button>
       <Modal visible={modalVisible} maskClosable onClose={closeModal}>
         <Button className={styles.closeModalBtn} onClick={closeModal}>
+          关闭弹窗
+        </Button>
+      </Modal>
+      <Modal
+        visible={drawerVisible}
+        maskClosable
+        onClose={closeDrawer}
+        direction={drawerDir}
+      >
+        <Button className={styles.closeModalBtn} onClick={closeDrawer}>
           关闭弹窗
         </Button>
       </Modal>

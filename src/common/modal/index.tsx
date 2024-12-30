@@ -93,7 +93,7 @@ export const Modal = ({
       {...rest}
     >
       <div className={styles.modalContent} onClick={handleContentClick}>
-        <div className={styles.content}>{children}</div>
+        <div className={cs(styles.content, 'dodo-modal-content')}>{children}</div>
         {footer && (
           <div className={clsx(styles.footer, 'dodo-modal-footer')}>
             {footer}

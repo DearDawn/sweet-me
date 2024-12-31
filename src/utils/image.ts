@@ -40,7 +40,7 @@ export const compressImage = ({
 
     const fileURL = imgUrl || URL.createObjectURL(imgFile);
 
-    if (!Number.isFinite(scaleSize) && scaleRatio === 1) {
+    if (!Number.isFinite(scaleSize) && scaleRatio === 1 && quality === 1) {
       resolve({ file: imgFile, url: fileURL });
       return;
     }

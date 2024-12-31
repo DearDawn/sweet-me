@@ -5,6 +5,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss';
 import eslint from '@rollup/plugin-eslint';
+import { terser } from 'rollup-plugin-terser';
 // import analyze from 'rollup-plugin-analyzer';
 
 export const file = (type) => `dist/index.${type}.js`;
@@ -61,5 +62,6 @@ export default {
     babel({
       exclude: 'node_modules/**', // 忽略 node_modules 下的文件
     }),
+    terser(), // 压缩代码 157.237 -> 101.879, 165804 -> 103347
   ],
 };

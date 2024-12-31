@@ -87,7 +87,7 @@ export const compressImage = ({
       const blob = new Blob([ab], { type: targetMIME });
 
       // 构造一个新的File对象
-      const compressedFile = new File([blob], changeExtToPNG(outputFileName), {
+      const compressedFile = new File([blob], outputFileName, {
         type: targetMIME,
       });
 

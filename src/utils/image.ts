@@ -130,6 +130,7 @@ export const getFileFromUrl = async (url, fileName) => {
   // 使用 fetch 获取图像数据
   const blobRes = await fetch(url)
     .then((res) => res.blob())
+    // eslint-disable-next-line no-console
     .catch(console.error);
 
   if (!blobRes) {

@@ -1,4 +1,4 @@
-export function changeExtToPNG (imageUrl = '') {
+export function changeExtToPNG(imageUrl = '') {
   // 使用正则表达式替换文件名后缀
   const newUrl = imageUrl.replace(/(\.[^./]+$)/, '.png');
 
@@ -123,4 +123,21 @@ export const getBlob = (imgPath: string): Promise<Blob> => {
     image.onerror = reject;
     image.src = imgPath;
   });
+};
+
+/** 从 URL 获取 File 类型 */
+export const getFileFromUrl = async (url, fileName) => {
+  // 使用 fetch 获取图像数据
+  const blobRes = await fetch(url)
+    .then((res) => res.blob())
+    .catch(console.error);
+
+  if (!blobRes) {
+    return null;
+  }
+
+  // 创建 File 对象
+  const file = new File([blobRes], fileName, { type: blobRes.type });
+
+  return file;
 };

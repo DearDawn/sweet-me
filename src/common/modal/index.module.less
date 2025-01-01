@@ -12,15 +12,24 @@
   justify-content: center;
   z-index: 10000;
   overflow: visible;
+  background-color: rgba(0, 0, 0, 0);
 
   &.left,
   &.right,
   &.top,
   &.bottom {
+    transition-duration: 0.2s;
+
+    &.visible {
+      transition-duration: 0.2s;
+    }
+
     .modalContent {
+      transition-duration: 0.2s;
       position: absolute;
       max-width: unset;
       max-height: unset;
+      opacity: 1;
     }
   }
 
@@ -69,10 +78,13 @@
   }
 
   &.visible {
-    animation: bgFadeIn 0.1s linear forwards;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: all 0.1s ease-out;
 
     .modalContent {
+      transition: all 0.1s ease-out;
       transform: translate(0, 0);
+      opacity: 1;
     }
   }
 }
@@ -90,7 +102,7 @@
   justify-content: center;
   box-sizing: border-box;
   flex-direction: column;
-  transition: all 0.3s ease-out;
+  opacity: 0;
 }
 
 .content {
@@ -113,18 +125,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@keyframes bgFadeIn {
-  0% {
-    background-color: rgba(0, 0, 0, 0);
-  }
-
-  100% {
-    background-color: rgba(0, 0, 0, 0.7);
-  }
-}
-
-.modal {
-  transition: transform 0.3s ease-out;
 }

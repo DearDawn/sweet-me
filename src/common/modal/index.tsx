@@ -36,7 +36,7 @@ export const Modal = ({
   direction,
   ...rest
 }: IProps) => {
-  const [selfVisible, setSelfVisible] = useState(visible);
+  const [selfVisible, setSelfVisible] = useState(false);
   const modalRef = React.useRef<HTMLDivElement>(null);
   const handleContentClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -71,19 +71,18 @@ export const Modal = ({
   }, [escClosable, onClose]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setSelfVisible(visible);
-    }, 0);
+    const timer = setTimeout(() => setSelfVisible(visible), visible ? 0 : 300);
+    return () => clearTimeout(timer);
   }, [visible]);
 
-  if (!visible) return null;
+  if (!visible && !selfVisible) return null;
 
   return ReactDom.createPortal(
     <div
       className={cs(
         styles.modal,
         {
-          [styles.visible]: selfVisible,
+          [styles.visible]: selfVisible && visible,
           [styles[direction]]: direction,
         },
         className
@@ -92,8 +91,13 @@ export const Modal = ({
       ref={modalRef}
       {...rest}
     >
-      <div className={styles.modalContent} onClick={handleContentClick}>
-        <div className={cs(styles.content, 'dodo-modal-content')}>{children}</div>
+      <div
+        className={styles.modalContent}
+        onClick={handleContentClick}
+      >
+        <div className={cs(styles.content, 'dodo-modal-content')}>
+          {children}
+        </div>
         {footer && (
           <div className={clsx(styles.footer, 'dodo-modal-footer')}>
             {footer}
@@ -130,7 +134,12 @@ export const showModal = async (
   };
 
   root.render(
-    <Modal onClose={onClose} visible maskClosable={maskClosable} {...rest}>
+    <Modal
+      onClose={onClose}
+      visible
+      maskClosable={maskClosable}
+      {...rest}
+    >
       {renderFn({ onClose })}
     </Modal>
   );

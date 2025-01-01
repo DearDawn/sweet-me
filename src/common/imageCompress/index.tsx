@@ -155,7 +155,7 @@ export const ImageCompress: FC<IProps> = (props) => {
   }, [resFile, resUrl]);
 
   useEffect(() => {
-    if (initUrl) {
+    if (initUrl && !initFile) {
       const image = new window.Image();
       image.src = initUrl;
 
@@ -163,7 +163,7 @@ export const ImageCompress: FC<IProps> = (props) => {
         setInitFile(file);
       });
     }
-  }, [initUrl]);
+  }, [initUrl, initFile]);
 
   return (
     <div

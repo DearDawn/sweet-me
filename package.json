@@ -3,7 +3,7 @@
   "version": "0.1.23",
   "description": "可爱糖的React&TS组件库（2020-09-02）",
   "scripts": {
-    "clean": "rm -rf dist && rm -rf .parcel-cache",
+    "clean": "",
     "build": "npm run clean && rollup -c",
     "start": "npm run build && parcel src/page/index.html",
     "build-page": "npm run build; parcel build --target page",

@@ -48,7 +48,9 @@ export const ImageCompress: FC<IProps> = (props) => {
     className,
     ...rest
   } = props || {};
-  const [initUrl] = useState(_imgUrl || URL.createObjectURL(_imgFile));
+  const [initUrl] = useState(
+    _imgFile ? URL.createObjectURL(_imgFile) : _imgUrl
+  );
   const [initFile, setInitFile] = useState(_imgFile);
   const isPngImg = initFile?.type === 'image/png';
   const [resUrl, setResUrl] = useState(initUrl);
@@ -62,6 +64,7 @@ export const ImageCompress: FC<IProps> = (props) => {
   const [noCompress, setNoCompress] = useState(false);
   const timer = useRef(null);
   const imageWrapRef = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef(false);
 
   const compress = useCallback(
     (scaleRatio = defaultScale, qualityRatio = defaultQuality) => {
@@ -147,43 +150,38 @@ export const ImageCompress: FC<IProps> = (props) => {
   useEffect(() => {
     const img = new window.Image();
 
-    img.src = resUrl || URL.createObjectURL(resFile);
+    img.src = resUrl;
     img.onload = () => {
-      URL.revokeObjectURL(img.src); // 释放内存
       setSize([img.width, img.height]);
     };
-  }, [resFile, resUrl]);
+  }, [resUrl]);
 
   useEffect(() => {
+    if (loadingRef.current) {
+      return;
+    }
+
     if (initUrl && !initFile) {
       const image = new window.Image();
       image.src = initUrl;
 
-      getFileFromUrl(initUrl, initUrl).then((file) => {
-        setInitFile(file);
-      });
+      loadingRef.current = true;
+      getFileFromUrl(initUrl, initUrl)
+        .then((file) => {
+          setInitFile(file);
+        })
+        .finally(() => {
+          loadingRef.current = false;
+        });
     }
   }, [initUrl, initFile]);
 
   return (
-    <div
-      className={clsx(styles.card, className)}
-      {...rest}
-    >
-      <div
-        className={styles.imageWrap}
-        ref={imageWrapRef}
-      >
-        <Image
-          className={styles.codeImg}
-          src={resUrl}
-          onLoad={onImageLoad}
-        />
+    <div className={clsx(styles.card, className)} {...rest}>
+      <div className={styles.imageWrap} ref={imageWrapRef}>
+        <Image className={styles.codeImg} src={resUrl} onLoad={onImageLoad} />
       </div>
-      <Space
-        padding='10px'
-        className={styles.desc}
-      >
+      <Space padding='10px' className={styles.desc}>
         <div>压缩比: {Number(resFile?.size / initFile?.size).toFixed(2)}</div>
         <div>{`尺寸: ${size[0]} x ${size[1]} `}</div>
         <div>
@@ -192,17 +190,10 @@ export const ImageCompress: FC<IProps> = (props) => {
       </Space>
 
       <Space>
-        原图:{' '}
-        <Switch
-          onValueChange={handleSwitchChange}
-          checked={noCompress}
-        />
+        原图: <Switch onValueChange={handleSwitchChange} checked={noCompress} />
       </Space>
       {!isPngImg && !noCompress && (
-        <Space
-          className={styles.sliderWrap}
-          padding='10px'
-        >
+        <Space className={styles.sliderWrap} padding='10px'>
           质量:
           <Slider
             className={styles.slider}
@@ -215,10 +206,7 @@ export const ImageCompress: FC<IProps> = (props) => {
         </Space>
       )}
       {!noCompress && (
-        <Space
-          className={styles.sliderWrap}
-          padding='10px'
-        >
+        <Space className={styles.sliderWrap} padding='10px'>
           缩放:
           <Slider
             className={styles.slider}
@@ -231,11 +219,7 @@ export const ImageCompress: FC<IProps> = (props) => {
         </Space>
       )}
 
-      <Space
-        className={styles.sliderWrap}
-        padding='10px 0 0'
-        isColumn
-      >
+      <Space className={styles.sliderWrap} padding='10px 0 0' isColumn>
         <Button
           status='success'
           size='long'
@@ -244,10 +228,7 @@ export const ImageCompress: FC<IProps> = (props) => {
         >
           发送
         </Button>
-        <Button
-          size='long'
-          onClick={handleClose}
-        >
+        <Button size='long' onClick={handleClose}>
           关闭
         </Button>
       </Space>

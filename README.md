@@ -69,6 +69,7 @@ TODO LIST
 | <input type="checkbox" checked /> compressImage               | `2024-09-06` |      |
 | <input type="checkbox" checked /> waitTime                    | `2024-10-15` |      |
 | <input type="checkbox" checked /> getFileFromUrl              | `2025-01-01` |      |
+| <input type="checkbox" checked /> action              | `2025-01-06` | 简易埋点     |
 
 </div>
 </div

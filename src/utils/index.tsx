@@ -7,5 +7,6 @@ export * from './storage';
 export * from './common';
 export * from './color';
 export * from './dom';
+export * from './action';
 export * from './file';
 export * from './image';

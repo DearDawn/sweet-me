@@ -1,6 +1,6 @@
 {
   "name": "sweet-me",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "description": "可爱糖的React&TS组件库（2020-09-02）",
   "scripts": {
     "clean": "rm -rf dist && rm -rf .parcel-cache",

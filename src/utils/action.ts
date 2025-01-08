@@ -10,6 +10,8 @@ export class Action {
   private did = '';
   /** 请求地址 */
   private requestUrl = '';
+  /** 请求地址 */
+  private requestLoggerUrl = '';
   /** 单例实例 */
   private static instance: Action;
 
@@ -39,9 +41,10 @@ export class Action {
    * 配置埋点
    * @param url - 请求地址
    */
-  config ({ url }) {
+  config ({ url, loggerUrl }) {
     this.did = this.generateId();
     this.requestUrl = url;
+    this.requestLoggerUrl = loggerUrl;
   }
 
   /**
@@ -92,6 +95,16 @@ export class Action {
     return this.request('click', { obj_id, extra });
   }
 
+  /** 上报业务日志 */
+  log (message = '', extra?: { meta: Record<string, any>; }) {
+    return this.requestLogger('info', { message, ...extra });
+  }
+
+  /** 上报错误日志 */
+  error (message = '', extra?: { stack?: string, meta: Record<string, any>; }) {
+    return this.requestLogger('error', { message, ...extra });
+  }
+
   /**
    * 发送请求
    * @param type - 事件类型
@@ -111,6 +124,33 @@ export class Action {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ ...this.baseData, ...data }),
+    })
+      .then((res) => res.json())
+      // eslint-disable-next-line no-console
+      .catch(console.error);
+  }
+
+  /**
+   * 发送请求
+   * @param type - 事件类型
+   * @param data - 事件数据
+   * @returns Promise
+   */
+  private requestLogger (type = '', data: Record<string, any>) {
+    if (!this.requestLoggerUrl) {
+      // eslint-disable-next-line no-console
+      console.log('[dodo] ', '请先使用 action.config 配置请求地址');
+      return;
+    }
+
+    const { meta, ...rest } = data || {};
+
+    return fetch(`${this.requestLoggerUrl}/${type}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ meta: { ...this.baseData, ...meta }, ...rest }),
     })
       .then((res) => res.json())
       // eslint-disable-next-line no-console

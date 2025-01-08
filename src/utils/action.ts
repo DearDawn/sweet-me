@@ -41,7 +41,7 @@ export class Action {
    * 配置埋点
    * @param url - 请求地址
    */
-  config ({ url, loggerUrl }) {
+  config ({ url, loggerUrl = '' }) {
     this.did = this.generateId();
     this.requestUrl = url;
     this.requestLoggerUrl = loggerUrl;
@@ -143,14 +143,12 @@ export class Action {
       return;
     }
 
-    const { meta, ...rest } = data || {};
-
     return fetch(`${this.requestLoggerUrl}/${type}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ meta: { ...this.baseData, ...meta }, ...rest }),
+      body: JSON.stringify({ ...this.baseData, ...data }),
     })
       .then((res) => res.json())
       // eslint-disable-next-line no-console

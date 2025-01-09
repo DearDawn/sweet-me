@@ -97,12 +97,12 @@ export class Action {
   }
 
   /** 上报业务日志 */
-  log (message = '', extra: Record<string, any>) {
+  log (message = '', extra?: Record<string, any>) {
     return this.requestLogger('info', { message, extra });
   }
 
   /** 上报错误日志 */
-  error (message = '', stack = '', extra: Record<string, any>) {
+  error (message = '', stack = '', extra?: Record<string, any>) {
     return this.requestLogger('error', { message, stack, extra });
   }
 

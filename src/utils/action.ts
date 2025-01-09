@@ -5,7 +5,7 @@
 export class Action {
   /** 设备ID存储的 localStorage key */
   private didKey = 'dododawn_action_did';
-
+  private extraParams = {};
   /** 当前设备ID */
   private did = '';
   /** 请求地址 */
@@ -41,10 +41,11 @@ export class Action {
    * 配置埋点
    * @param url - 请求地址
    */
-  config ({ url, loggerUrl = '' }) {
+  config ({ url, loggerUrl = '', commonParams = {} }) {
     this.did = this.generateId();
     this.requestUrl = url;
     this.requestLoggerUrl = loggerUrl;
+    this.extraParams = { ...commonParams };
   }
 
   /**
@@ -96,13 +97,13 @@ export class Action {
   }
 
   /** 上报业务日志 */
-  log (message = '', extra?: { meta: Record<string, any>; }) {
-    return this.requestLogger('info', { message, ...extra });
+  log (message = '', extra: Record<string, any>) {
+    return this.requestLogger('info', { message, extra });
   }
 
   /** 上报错误日志 */
-  error (message = '', extra?: { stack?: string, meta: Record<string, any>; }) {
-    return this.requestLogger('error', { message, ...extra });
+  error (message = '', stack = '', extra: Record<string, any>) {
+    return this.requestLogger('error', { message, stack, extra });
   }
 
   /**
@@ -111,7 +112,7 @@ export class Action {
    * @param data - 事件数据
    * @returns Promise
    */
-  private request (type = '', data: Record<string, any>) {
+  private request (type = '', data: { obj_id: string, extra: Record<string, any>; }) {
     if (!this.requestUrl) {
       // eslint-disable-next-line no-console
       console.log('[dodo] ', '请先使用 action.config 配置请求地址');
@@ -123,7 +124,7 @@ export class Action {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...this.baseData, ...data }),
+      body: JSON.stringify({ ...this.baseData, ...data, extra: { ...data.extra, ...this.extraParams } }),
     })
       .then((res) => res.json())
       // eslint-disable-next-line no-console
@@ -136,7 +137,7 @@ export class Action {
    * @param data - 事件数据
    * @returns Promise
    */
-  private requestLogger (type = '', data: Record<string, any>) {
+  private requestLogger (type = '', data: { message: string, stack?: string, extra?: Record<string, any>; }) {
     if (!this.requestLoggerUrl) {
       // eslint-disable-next-line no-console
       console.log('[dodo] ', '请先使用 action.config 配置请求地址');
@@ -148,7 +149,7 @@ export class Action {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...this.baseData, ...data }),
+      body: JSON.stringify({ ...this.baseData, ...data, extra: { ...data.extra, ...this.extraParams } }),
     })
       .then((res) => res.json())
       // eslint-disable-next-line no-console

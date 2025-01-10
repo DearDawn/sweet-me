@@ -3,14 +3,19 @@
  * 使用前需调用 config 方法进行配置
  */
 export class Action {
-  /** 设备ID存储的 localStorage key */
+  /** localStorage 中存储设备ID的键名 */
   private didKey = 'dododawn_action_did';
-  private extraParams = {};
+  /** 额外的公共参数 */
+  private extraParams: Record<string, any> = {};
+  /** 是否为开发环境 */
+  private isDev = false;
+  /** 是否禁用开发环境日志 */
+  private disableDevLog = true;
   /** 当前设备ID */
   private did = '';
-  /** 请求地址 */
+  /** 埋点请求地址 */
   private requestUrl = '';
-  /** 请求地址 */
+  /** 日志请求地址 */
   private requestLoggerUrl = '';
   /** 单例实例 */
   private static instance: Action;
@@ -39,11 +44,29 @@ export class Action {
 
   /**
    * 配置埋点
-   * @param url - 请求地址
    */
-  config ({ url, loggerUrl = '', commonParams = {} }) {
+  config ({
+    url,
+    loggerUrl = '',
+    commonParams = {},
+    isDev = false,
+    disableDevLog = true
+  }: {
+    /** 请求地址 */
+    url: string;
+    /** 日志请求地址 */
+    loggerUrl?: string;
+    /** 公共参数 */
+    commonParams?: Record<string, any>;
+    /** 是否为开发环境 */
+    isDev?: boolean;
+    /** 是否禁用开发环境日志 */
+    disableDevLog?: boolean;
+  }) {
     this.did = this.generateId();
     this.requestUrl = url;
+    this.isDev = isDev;
+    this.disableDevLog = disableDevLog;
     this.requestLoggerUrl = loggerUrl;
     this.extraParams = { ...commonParams };
   }
@@ -64,6 +87,28 @@ export class Action {
     const UUID = crypto.randomUUID();
     localStorage.setItem(this.didKey, UUID);
     return UUID;
+  }
+
+  /**
+   * 开发环境日志输出
+   * @param info - 要输出的日志信息
+   */
+  private consoleLog (...info: any) {
+    if (!this.disableDevLog) return;
+
+    // eslint-disable-next-line no-console
+    console.log('[sweet-me action] ', ...info);
+  }
+
+  /**
+   * 开发环境错误输出
+   * @param info - 要输出的错误信息
+   */
+  private consoleError (...info: any) {
+    if (!this.disableDevLog) return;
+
+    // eslint-disable-next-line no-console
+    console.error('[sweet-me action] ', ...info);
   }
 
   /**
@@ -115,8 +160,14 @@ export class Action {
   private request (type = '', data: { obj_id: string, extra: Record<string, any>; }) {
     if (!this.requestUrl) {
       // eslint-disable-next-line no-console
-      console.log('[dodo] ', '请先使用 action.config 配置请求地址');
+      this.consoleError('请先使用 action.config 配置请求地址');
       return;
+    }
+
+    const body = { ...this.baseData, ...data, extra: { ...data.extra, ...this.extraParams } };
+
+    if (this.isDev) {
+      this.consoleLog(body);
     }
 
     return fetch(`${this.requestUrl}/${type}`, {
@@ -124,7 +175,7 @@ export class Action {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...this.baseData, ...data, extra: { ...data.extra, ...this.extraParams } }),
+      body: JSON.stringify(body),
     })
       .then((res) => res.json())
       // eslint-disable-next-line no-console
@@ -140,8 +191,18 @@ export class Action {
   private requestLogger (type = '', data: { message: string, stack?: string, extra?: Record<string, any>; }) {
     if (!this.requestLoggerUrl) {
       // eslint-disable-next-line no-console
-      console.log('[dodo] ', '请先使用 action.config 配置请求地址');
+      this.consoleError('请先使用 action.config 配置请求地址');
       return;
+    }
+
+    const body = { ...this.baseData, ...data, extra: { ...data.extra, ...this.extraParams } };
+
+    if (this.isDev) {
+      if (type === 'error') {
+        this.consoleError(body);
+      } else {
+        this.consoleLog(body);
+      }
     }
 
     return fetch(`${this.requestLoggerUrl}/${type}`, {
@@ -149,7 +210,7 @@ export class Action {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...this.baseData, ...data, extra: { ...data.extra, ...this.extraParams } }),
+      body: JSON.stringify(body),
     })
       .then((res) => res.json())
       // eslint-disable-next-line no-console

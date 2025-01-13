@@ -13,6 +13,8 @@ type IProps = ICommonProps & {
   maskClosable?: boolean;
   /** esc键是否可关闭 */
   escClosable?: boolean;
+  /** back是否可关闭 */
+  backClosable?: boolean;
   /** 弹窗挂载的根节点, 默认 document.body */
   rootElement?: Element;
   /** 弹窗底部内容 */
@@ -32,6 +34,7 @@ export const Modal = ({
   visible = false,
   maskClosable = false,
   escClosable = true,
+  backClosable = true,
   rootElement = document.body,
   direction,
   ...rest
@@ -71,6 +74,31 @@ export const Modal = ({
   }, [escClosable, onClose]);
 
   useEffect(() => {
+    if (!backClosable) return;
+
+    if (selfVisible) {
+      // 弹窗打开时，添加一条历史记录
+      window.history.pushState({}, '', window.location.href);
+
+      // 监听返回操作
+      const handlePopstate = () => {
+        if (selfVisible) {
+          onClose?.(); // 关闭弹窗
+        } else {
+          window.history.back(); // 返回上一页
+        }
+      };
+
+      window.addEventListener('popstate', handlePopstate);
+
+      // 清理函数
+      return () => {
+        window.removeEventListener('popstate', handlePopstate);
+      };
+    }
+  }, [backClosable, onClose, selfVisible]);
+
+  useEffect(() => {
     const timer = setTimeout(() => setSelfVisible(visible), visible ? 0 : 300);
     return () => clearTimeout(timer);
   }, [visible]);
@@ -91,10 +119,7 @@ export const Modal = ({
       ref={modalRef}
       {...rest}
     >
-      <div
-        className={styles.modalContent}
-        onClick={handleContentClick}
-      >
+      <div className={styles.modalContent} onClick={handleContentClick}>
         <div className={cs(styles.content, 'dodo-modal-content')}>
           {children}
         </div>
@@ -134,12 +159,7 @@ export const showModal = async (
   };
 
   root.render(
-    <Modal
-      onClose={onClose}
-      visible
-      maskClosable={maskClosable}
-      {...rest}
-    >
+    <Modal onClose={onClose} visible maskClosable={maskClosable} {...rest}>
       {renderFn({ onClose })}
     </Modal>
   );

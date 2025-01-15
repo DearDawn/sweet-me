@@ -34,6 +34,7 @@ TODO LIST
 | <input type="checkbox" checked /> ScrollContainer | `2024-10-15` |                                                               |
 | <input type="checkbox" checked /> MultiInput      | `2024-10-17` |                                                               |
 | <input type="checkbox" checked /> ImageCompress   | `2025-01-01` |                                                               |
+| <input type="checkbox" checked /> IconLogo   | `2025-01-15` |                                                               |
 
 </div>
 </div

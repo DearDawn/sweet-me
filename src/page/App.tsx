@@ -26,9 +26,12 @@ import {
   ScrollContainer,
   MultiInput,
   InputImage,
+  ICON,
+  ICON_LOGO,
+  IconLogo,
+  showImageCompressModal,
 } from './dist';
 import clsx from 'clsx';
-import { ICON } from '../common/icon';
 import { useBoolean, useFormState, useListRequest, useRequest } from '../hooks';
 import { Storage } from './components/storage';
 import { FileList } from './components/fileList';
@@ -36,7 +39,6 @@ import WallImage from './wallpaper.jpg';
 import README from '../../README.md';
 import CHANGE_LOG from '../../CHANGE_LOG.md';
 import { waitTime } from '../utils';
-import { showImageCompressModal } from '../common';
 
 const uploader = async (file) => {
   await waitTime(1000);
@@ -72,10 +74,7 @@ export const App = () => {
 
   const openModalWithApi = React.useCallback(async () => {
     await showModal(({ onClose }) => (
-      <Button
-        className={styles.closeModalBtn}
-        onClick={onClose}
-      >
+      <Button className={styles.closeModalBtn} onClick={onClose}>
         关闭弹窗
       </Button>
     ));
@@ -143,15 +142,8 @@ export const App = () => {
   }, [url]);
 
   return (
-    <Page
-      className={styles.app}
-      fontSize='18px'
-      pageRef={pageRef}
-    >
-      <Header
-        title='小糖的组件库'
-        isSticky
-      />
+    <Page className={styles.app} fontSize='18px' pageRef={pageRef}>
+      <Header title='小糖的组件库' isSticky />
       <div className={styles.buttonWrap}>
         <div className={styles.helpBtnList}>
           <Button
@@ -160,10 +152,7 @@ export const App = () => {
             status='success'
             onClick={() => showMdViewer(README)}
           >
-            <Icon
-              type={ICON.pc}
-              className={styles.buttonIcon}
-            />
+            <Icon type={ICON.pc} className={styles.buttonIcon} />
             开发进展
           </Button>
           <Button
@@ -172,11 +161,7 @@ export const App = () => {
             status='success'
             onClick={() => showMdViewer(CHANGE_LOG)}
           >
-            <Icon
-              type={ICON.log}
-              size={26}
-              className={styles.buttonIcon}
-            />
+            <Icon type={ICON.log} size={26} className={styles.buttonIcon} />
             CHANGE LOG
           </Button>
           <Button
@@ -185,68 +170,38 @@ export const App = () => {
             status='success'
             onClick={handleHelp}
           >
-            <Icon
-              type={ICON.book}
-              className={styles.buttonIcon}
-            />
+            <Icon type={ICON.book} className={styles.buttonIcon} />
             使用文档
           </Button>
         </div>
       </div>
       <Title>按钮</Title>
       <div className={styles.buttonWrap}>
-        <Button
-          className={styles.button}
-          size='large'
-        >
+        <Button className={styles.button} size='large'>
           大按钮
         </Button>
-        <Button
-          className={styles.button}
-          size='normal'
-        >
+        <Button className={styles.button} size='normal'>
           中按钮
         </Button>
-        <Button
-          className={styles.button}
-          size='small'
-        >
+        <Button className={styles.button} size='small'>
           小按钮
         </Button>
-        <Button
-          className={styles.button}
-          size='mini'
-        >
+        <Button className={styles.button} size='mini'>
           迷你钮
         </Button>
-        <Button
-          className={clsx(styles.button, styles.long)}
-          size='long'
-        >
+        <Button className={clsx(styles.button, styles.long)} size='long'>
           长按钮
         </Button>
-        <Button
-          className={styles.button}
-          status='default'
-        >
+        <Button className={styles.button} status='default'>
           默认
         </Button>
-        <Button
-          className={styles.button}
-          status='success'
-        >
+        <Button className={styles.button} status='success'>
           成功
         </Button>
-        <Button
-          className={styles.button}
-          status='warning'
-        >
+        <Button className={styles.button} status='warning'>
           警告
         </Button>
-        <Button
-          className={styles.button}
-          status='error'
-        >
+        <Button className={styles.button} status='error'>
           错误
         </Button>
         <Button
@@ -260,11 +215,13 @@ export const App = () => {
       <Title>Icon</Title>
       <div className={styles.iconWrap}>
         {Object.values(ICON).map((value) => (
-          <Icon
-            className={styles.iconItem}
-            key={value}
-            type={value}
-          />
+          <Icon className={styles.iconItem} key={value} type={value} />
+        ))}
+      </div>
+      <Title>IconLogo</Title>
+      <div className={styles.iconWrap}>
+        {Object.values(ICON_LOGO).map((value) => (
+          <IconLogo className={styles.iconItem} key={value} type={value} />
         ))}
       </div>
       <Title>Tag</Title>
@@ -286,10 +243,7 @@ export const App = () => {
       />
       <Title>Toast & Notice</Title>
       <div>
-        <Button
-          onClick={handleToast}
-          className={styles.ml10}
-        >
+        <Button onClick={handleToast} className={styles.ml10}>
           Toast
         </Button>
         <Button
@@ -316,16 +270,10 @@ export const App = () => {
       </div>
       <Title>Loading</Title>
       <div>
-        <Button
-          onClick={handleLoading(1000, true)}
-          className={styles.ml10}
-        >
+        <Button onClick={handleLoading(1000, true)} className={styles.ml10}>
           1s Loading
         </Button>
-        <Button
-          onClick={handleLoading(5000)}
-          className={styles.ml10}
-        >
+        <Button onClick={handleLoading(5000)} className={styles.ml10}>
           5s Loading
         </Button>
         <Button
@@ -337,52 +285,27 @@ export const App = () => {
         </Button>
       </div>
       <Title>Modal</Title>
-      <Button
-        className={styles.ml10}
-        onClick={openModal}
-      >
+      <Button className={styles.ml10} onClick={openModal}>
         打开弹窗
       </Button>
-      <Button
-        className={styles.ml10}
-        onClick={openModalWithApi}
-      >
+      <Button className={styles.ml10} onClick={openModalWithApi}>
         showModal Api
       </Button>
       <Title>Modal (Drawer Mode)</Title>
-      <Button
-        className={styles.ml10}
-        onClick={handleOpenDrawer('top')}
-      >
+      <Button className={styles.ml10} onClick={handleOpenDrawer('top')}>
         打开抽屉 (上)
       </Button>
-      <Button
-        className={styles.ml10}
-        onClick={handleOpenDrawer('bottom')}
-      >
+      <Button className={styles.ml10} onClick={handleOpenDrawer('bottom')}>
         打开抽屉 (下)
       </Button>
-      <Button
-        className={styles.ml10}
-        onClick={handleOpenDrawer('left')}
-      >
+      <Button className={styles.ml10} onClick={handleOpenDrawer('left')}>
         打开抽屉 (左)
       </Button>
-      <Button
-        className={styles.ml10}
-        onClick={handleOpenDrawer('right')}
-      >
+      <Button className={styles.ml10} onClick={handleOpenDrawer('right')}>
         打开抽屉 (右)
       </Button>
-      <Modal
-        visible={modalVisible}
-        maskClosable
-        onClose={closeModal}
-      >
-        <Button
-          className={styles.closeModalBtn}
-          onClick={closeModal}
-        >
+      <Modal visible={modalVisible} maskClosable onClose={closeModal}>
+        <Button className={styles.closeModalBtn} onClick={closeModal}>
           关闭弹窗
         </Button>
       </Modal>
@@ -392,10 +315,7 @@ export const App = () => {
         onClose={closeDrawer}
         direction={drawerDir}
       >
-        <Button
-          className={styles.closeModalBtn}
-          onClick={closeDrawer}
-        >
+        <Button className={styles.closeModalBtn} onClick={closeDrawer}>
           关闭弹窗
         </Button>
       </Modal>
@@ -452,30 +372,15 @@ export const App = () => {
           type='icon'
           options={[
             {
-              label: (
-                <Icon
-                  type={ICON.home}
-                  className={styles.selectIcon}
-                />
-              ),
+              label: <Icon type={ICON.home} className={styles.selectIcon} />,
               value: '1',
             },
             {
-              label: (
-                <Icon
-                  type={ICON.rocket}
-                  className={styles.selectIcon}
-                />
-              ),
+              label: <Icon type={ICON.rocket} className={styles.selectIcon} />,
               value: '2',
             },
             {
-              label: (
-                <Icon
-                  type={ICON.sugar}
-                  className={styles.selectIcon}
-                />
-              ),
+              label: <Icon type={ICON.sugar} className={styles.selectIcon} />,
               value: '3',
             },
           ]}
@@ -486,10 +391,7 @@ export const App = () => {
         正常: <Switch />
         <Switch checked />
         禁用: <Switch disabled />
-        <Switch
-          checked
-          disabled
-        />
+        <Switch checked disabled />
       </Space>
       <Title>Radio</Title>
       <div className={styles.radioWrap}>
@@ -545,10 +447,7 @@ export const App = () => {
         <Input.File onValueChange={(file) => setTempFile(file)}></Input.File>
       </Space>
       <div style={{ padding: '0 10px' }}>
-        <FileList
-          onDelete={() => setTempFile(undefined)}
-          file={tempFile}
-        />
+        <FileList onDelete={() => setTempFile(undefined)} file={tempFile} />
       </div>
       <Title>Image</Title>
       <Space padding='0 10px'>
@@ -575,58 +474,31 @@ export const App = () => {
       </div>
       <Space padding='0 10px'>图片模式</Space>
       <Space padding='0 10px'>
-        <MultiInput
-          layout='horizontal'
-          maxCount={3}
-        >
+        <MultiInput layout='horizontal' maxCount={3}>
           <InputImage />
         </MultiInput>
       </Space>
       <Space padding='0 10px'>图片模式（可创建）</Space>
       <Space padding='0 10px'>
-        <MultiInput
-          layout='horizontal'
-          maxCount={3}
-          creatable
-        >
+        <MultiInput layout='horizontal' maxCount={3} creatable>
           <InputImage />
         </MultiInput>
       </Space>
       <Title>Form</Title>
-      <Form
-        form={form}
-        onSubmit={handleFormSubmit}
-      >
+      <Form form={form} onSubmit={handleFormSubmit}>
         <Form.Item
           label='姓名'
           field='name'
           defaultValue='小糖'
           className={styles.formItem}
         >
-          <Input
-            placeholder='请输入姓名'
-            className={styles.formItemInput}
-          />
+          <Input placeholder='请输入姓名' className={styles.formItemInput} />
         </Form.Item>
-        <Form.Item
-          label='年龄'
-          field='age'
-          className={styles.formItem}
-        >
-          <Input
-            placeholder='请输入年龄'
-            className={styles.formItemInput}
-          />
+        <Form.Item label='年龄' field='age' className={styles.formItem}>
+          <Input placeholder='请输入年龄' className={styles.formItemInput} />
         </Form.Item>
-        <Form.Item
-          label='备注'
-          field='remark'
-          className={styles.formItem}
-        >
-          <Textarea
-            placeholder='请输入备注'
-            className={styles.formItemInput}
-          />
+        <Form.Item label='备注' field='remark' className={styles.formItem}>
+          <Textarea placeholder='请输入备注' className={styles.formItemInput} />
         </Form.Item>
         <Form.Item
           label='爱好'
@@ -634,14 +506,8 @@ export const App = () => {
           className={styles.formItem}
           defaultValue={['画画']}
         >
-          <MultiInput
-            creatable
-            maxCount={3}
-          >
-            <Input
-              placeholder='请输入备注'
-              className={styles.formItemInput}
-            />
+          <MultiInput creatable maxCount={3}>
+            <Input placeholder='请输入备注' className={styles.formItemInput} />
           </MultiInput>
         </Form.Item>
         <Form.Item
@@ -697,34 +563,18 @@ export const App = () => {
         >
           <Switch />
         </Form.Item>
-        <Form.Item
-          label='头像'
-          field='avatar'
-          className={styles.formItem}
-        >
+        <Form.Item label='头像' field='avatar' className={styles.formItem}>
           <Input.Image uploader={uploader} />
         </Form.Item>
-        <Form.Item
-          label='文件'
-          field='file'
-          className={styles.formItem}
-        >
+        <Form.Item label='文件' field='file' className={styles.formItem}>
           <Input.File />
         </Form.Item>
         <FileList onDelete={handleDeleteFile} />
         <div className={styles.btnWrap}>
-          <Button
-            size='long'
-            type='submit'
-            loading={isLoading}
-          >
+          <Button size='long' type='submit' loading={isLoading}>
             提交
           </Button>
-          <Button
-            size='long'
-            onClick={handleFormReset}
-            loading={isLoading}
-          >
+          <Button size='long' onClick={handleFormReset} loading={isLoading}>
             重置
           </Button>
         </div>
@@ -745,10 +595,7 @@ export const App = () => {
           resistance={0.2}
         >
           {dataList?.map((it) => (
-            <div
-              className={styles.scrollListItem}
-              key={it.id}
-            >
+            <div className={styles.scrollListItem} key={it.id}>
               {it.id}
             </div>
           ))}
@@ -757,10 +604,7 @@ export const App = () => {
       <Title>Storage</Title>
       <Storage />
       <Title>Image & Preview</Title>
-      <Space
-        stretch
-        padding='0 10px'
-      >
+      <Space stretch padding='0 10px'>
         <Image
           src={WallImage}
           alt='壁纸'

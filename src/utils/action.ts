@@ -10,7 +10,7 @@ export class Action {
   /** 是否为开发环境 */
   private isDev = false;
   /** 是否禁用开发环境日志 */
-  private disableDevLog = true;
+  private disableDevLog = false;
   /** 当前设备ID */
   private did = '';
   /** 埋点请求地址 */
@@ -50,7 +50,7 @@ export class Action {
     loggerUrl = '',
     commonParams = {},
     isDev = false,
-    disableDevLog = true
+    disableDevLog = false
   }: {
     /** 请求地址 */
     url: string;
@@ -168,6 +168,7 @@ export class Action {
 
     if (this.isDev) {
       this.consoleLog(body);
+      return;
     }
 
     return fetch(`${this.requestUrl}/${type}`, {
@@ -203,6 +204,7 @@ export class Action {
       } else {
         this.consoleLog(body);
       }
+      return;
     }
 
     return fetch(`${this.requestLoggerUrl}/${type}`, {

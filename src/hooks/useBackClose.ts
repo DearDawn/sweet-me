@@ -25,8 +25,9 @@ export const useBackIntercept = ({ disabled = false, interceptStart = false, onB
           onBack?.(); // 关闭弹窗
         } else if (pushedRef.current) {
           window.history.back(); // 返回上一页
-          pushedRef.current = false;
         }
+
+        pushedRef.current = false;
       };
 
       window.addEventListener('popstate', handlePopstate);

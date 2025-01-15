@@ -5,6 +5,7 @@ import ReactDom from 'react-dom';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { createRoot } from 'react-dom/client';
+import { useBackIntercept } from '../../hooks';
 
 type IProps = ICommonProps & {
   /** 弹窗是否可见 */
@@ -73,30 +74,11 @@ export const Modal = ({
     };
   }, [escClosable, onClose]);
 
-  useEffect(() => {
-    if (!backClosable) return;
-
-    if (selfVisible) {
-      // 弹窗打开时，添加一条历史记录
-      window.history.pushState({}, '', window.location.href);
-
-      // 监听返回操作
-      const handlePopstate = () => {
-        if (selfVisible) {
-          onClose?.(); // 关闭弹窗
-        } else {
-          window.history.back(); // 返回上一页
-        }
-      };
-
-      window.addEventListener('popstate', handlePopstate);
-
-      // 清理函数
-      return () => {
-        window.removeEventListener('popstate', handlePopstate);
-      };
-    }
-  }, [backClosable, onClose, selfVisible]);
+  useBackIntercept({
+    disabled: !backClosable,
+    interceptStart: selfVisible,
+    onBack: onClose,
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => setSelfVisible(visible), visible ? 0 : 300);

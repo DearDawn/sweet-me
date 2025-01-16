@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import * as styles from './index.module.less';
+import styles from './index.module.less';
 import clsx from 'clsx';
 import { createPortal } from 'react-dom';
 import { findClosestScrollableParent } from 'src/utils';

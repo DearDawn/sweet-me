@@ -1,5 +1,4 @@
-import cs from 'clsx';
-import * as styles from './index.module.less';
+import styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import ReactDom from 'react-dom';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
@@ -89,7 +88,7 @@ export const Modal = ({
 
   return ReactDom.createPortal(
     <div
-      className={cs(
+      className={clsx(
         styles.modal,
         {
           [styles.visible]: selfVisible && visible,
@@ -102,7 +101,7 @@ export const Modal = ({
       {...rest}
     >
       <div className={styles.modalContent} onClick={handleContentClick}>
-        <div className={cs(styles.content, 'dodo-modal-content')}>
+        <div className={clsx(styles.content, 'dodo-modal-content')}>
           {children}
         </div>
         {footer && (

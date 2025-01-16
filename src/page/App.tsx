@@ -30,7 +30,7 @@ import {
   ICON_LOGO,
   IconLogo,
   showImageCompressModal,
-} from './dist';
+} from '../../dist';
 import clsx from 'clsx';
 import { useBoolean, useFormState, useListRequest, useRequest } from '../hooks';
 import { Storage } from './components/storage';

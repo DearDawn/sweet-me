@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
-import * as styles from './index.module.less';
-import { Button, Space, Storage as CStorage } from '../../dist';
+import styles from './index.module.less';
+import { Button, Space, Storage as CStorage } from '../../../../dist';
 
 const storage = new CStorage();
 storage.config({ namespace: 'sweet-me', sync: true, params: { dodokey: 123 } });

@@ -1,6 +1,6 @@
 {
   "name": "sweet-me",
-  "version": "0.1.48",
+  "version": "0.2.0",
   "description": "可爱糖的React&TS组件库（2020-09-02）",
   "scripts": {
     "clean": "rm -rf dist && rm -rf .parcel-cache",
@@ -10,8 +10,7 @@
     "prepublishOnly": "npm run build && npm version patch",
     "postpublish": "node ./scripts/initChangeLog.js"
   },
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.esm.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "targets": {
     "page": {
@@ -21,6 +20,9 @@
       "publicUrl": "./"
     }
   },
+  "sideEffects": [
+    "**/*.less"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/DearDawn/sweet-me.git"

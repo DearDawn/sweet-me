@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import * as styles from './index.module.less';
+import styles from './index.module.less';
 import clsx from 'clsx';
 import { ICommonProps } from '../../types';
 

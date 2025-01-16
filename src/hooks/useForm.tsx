@@ -26,7 +26,7 @@ export const useFormState = <T = Record<string, never>,>() => {
   const [stateMap, setStateMap] = React.useState<Record<keyof T | any, IState>>(
     {}
   );
-  const formRef = React.useRef<HTMLFormElement>(null);
+  const formRef = React.useRef<HTMLFormElement>(null as HTMLFormElement);
   const defaultValueMap = React.useRef<Record<keyof T | any, any>>({});
   const stateMapRef = React.useRef<typeof stateMap>({});
 

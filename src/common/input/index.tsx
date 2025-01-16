@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cs from 'clsx';
-import * as styles from './index.module.less';
+import styles from './index.module.less';
 import { ICommonBaseInputCompoProps } from '../../types';
 import { InputFile } from '../inputFile';
 import { InputImage } from '../inputImage';

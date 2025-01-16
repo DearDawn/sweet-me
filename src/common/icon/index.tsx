@@ -1,5 +1,5 @@
 import cs from 'clsx';
-import * as styles from './index.module.less';
+import styles from './index.module.less';
 import { ICommonProps } from '../../types';
 
 /** 图标枚举 */

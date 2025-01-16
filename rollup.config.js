@@ -11,40 +11,34 @@ import { terser } from 'rollup-plugin-terser';
 export const file = (type) => `dist/index.${type}.js`;
 
 export default {
-  input: 'src/index.tsx', // 入口文件路径
+  input: {
+    index: 'src/index.tsx',
+  },
   output: [
     {
       name,
-      file: file("umd"),
-      format: "umd",
-      globals: {
-        react: "React",
-        "react-dom": "ReactDom",
-        "react/jsx-runtime": "jsxRuntime",
-        "react-dom/client": "Client",
-      },
-    },
-    {
-      file: file("esm"),
+      dir: 'dist',
       format: "es",
+      preserveModules: true,
+      preserveModulesRoot: 'src',
       globals: {
         react: "React",
         "react-dom": "ReactDom",
         "react/jsx-runtime": "jsxRuntime",
         "react-dom/client": "Client",
       },
-    },
+    }
   ],
   external: ['react', 'react-dom', 'react-dom/client', 'react-is', 'react-router', 'react/jsx-runtime'],
   plugins: [
     // analyze(),
     postcss({
-      extract: false, // 独立导出css文件 ，使用组件时需要单独引入
+      extract: false,
       namedExports: true,
       minimize: true,
       inject: {
         insertAt: 'top'
-      }
+      },
     }),
     resolve(),
     commonjs(),

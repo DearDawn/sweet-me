@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as styles from './index.module.less';
+import styles from './index.module.less';
 import clsx from 'clsx';
 
 export type IRadioOption = {

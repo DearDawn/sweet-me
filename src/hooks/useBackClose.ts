@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { sweetMeConfig } from "../utils/config";
 
 /** 返回时拦截并执行操作 */
 export const useBackIntercept = ({ disabled = false, interceptStart = false, onBack }: {
@@ -10,9 +11,10 @@ export const useBackIntercept = ({ disabled = false, interceptStart = false, onB
   onBack?: () => void;
 }) => {
   const pushedRef = useRef(false);
+  const { disableBackIntercept } = sweetMeConfig.globalConfig;
 
   useEffect(() => {
-    if (disabled) return;
+    if (disabled || disableBackIntercept) return;
 
     if (interceptStart) {
       // 弹窗打开时，添加一条历史记录
@@ -42,6 +44,6 @@ export const useBackIntercept = ({ disabled = false, interceptStart = false, onB
         pushedRef.current = false;
       }
     }
-  }, [disabled, interceptStart, onBack]);
+  }, [disableBackIntercept, disabled, interceptStart, onBack]);
 
 };

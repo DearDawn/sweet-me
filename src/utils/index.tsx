@@ -10,3 +10,4 @@ export * from './dom';
 export * from './action';
 export * from './file';
 export * from './image';
+export * from './config';

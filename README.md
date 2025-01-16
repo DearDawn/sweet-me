@@ -72,7 +72,7 @@ TODO LIST
 | <input type="checkbox" checked /> waitTime                    | `2024-10-15` |      |
 | <input type="checkbox" checked /> getFileFromUrl              | `2025-01-01` |      |
 | <input type="checkbox" checked /> action              | `2025-01-06` | 简易埋点     |
-| <input type="checkbox" checked /> globalConfig              | `2025-01-16` | 组件库全局配置     |
+| <input type="checkbox" checked /> sweetMeConfig              | `2025-01-16` | 组件库全局配置     |
 
 </div>
 </div

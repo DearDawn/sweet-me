@@ -6,19 +6,9 @@
     "clean": "rm -rf dist && rm -rf .parcel-cache",
     "build": "npm run clean && rollup -c",
     "start": "npm run build && parcel src/page/index.html",
-    "build-page": "npm run build; parcel build --target page",
+    "build-page": "npm run build && parcel build src/page/index.html --public-url ./ --no-source-maps --dist-dir=dist/page",
     "prepublishOnly": "npm run build && npm version patch",
     "postpublish": "node ./scripts/initChangeLog.js"
-  },
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "targets": {
-    "page": {
-      "source": "src/page/index.html",
-      "distDir": "./dist/page",
-      "isLibrary": false,
-      "publicUrl": "./"
-    }
   },
   "sideEffects": [
     "**/*.less"
@@ -47,7 +37,7 @@
     "@types/react-dom": "^18.2.18",
     "clsx": "^2.1.0",
     "github-markdown-css": "^5.5.1",
-    "parcel": "^2.10.3",
+    "parcel": "^2.12.0",
     "postcss": "^8.4.32",
     "postcss-modules": "^4.3.1",
     "react": "^18.2.0",
@@ -55,10 +45,9 @@
     "rollup-plugin-typescript2": "^0.36.0"
   },
   "devDependencies": {
-    "@parcel/packager-ts": "^2.10.3",
-    "@parcel/transformer-less": "^2.10.3",
-    "@parcel/transformer-typescript-tsc": "^2.10.3",
-    "@parcel/transformer-typescript-types": "^2.10.3",
+    "@parcel/config-default": "^2.12.0",
+    "@parcel/core": "^2.12.0",
+    "@parcel/transformer-less": "^2.12.0",
     "@types/react": "^18.2.47",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",

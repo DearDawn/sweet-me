@@ -4,7 +4,7 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "target": "es5",
-    "module": "es6",
+    "module": "ESNext",
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "jsxImportSource": "react",

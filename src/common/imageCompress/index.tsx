@@ -1,5 +1,5 @@
 import { useBoolean } from 'src/hooks';
-import styles from './index.module.less';
+import * as styles from './index.module.less';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
   compressImage,

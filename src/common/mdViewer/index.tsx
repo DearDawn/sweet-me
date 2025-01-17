@@ -1,4 +1,4 @@
-import styles from './index.module.less';
+import * as styles from './index.module.less';
 import 'github-markdown-css/github-markdown-light.css';
 import clsx from 'clsx';
 import { Modal } from '../modal';

@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import styles from './index.module.less';
+import * as styles from './index.module.less';
 import { Button, Space, Storage as CStorage } from '../../../../dist';
 
 const storage = new CStorage();

@@ -1,5 +1,5 @@
 import cs from 'clsx';
-import styles from './index.module.less';
+import * as styles from './index.module.less';
 import { ICommonBaseProps, ICommonProps } from '../../types';
 import { FormInstant, FormState } from '../../hooks/useForm';
 import React, {

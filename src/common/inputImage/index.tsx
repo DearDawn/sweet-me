@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styles from './index.module.less';
+import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import { Image } from '../image';
 import { ICON, Icon } from '../icon';

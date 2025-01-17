@@ -1,4 +1,4 @@
-import styles from './index.module.less';
+import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
 import ReactDom from 'react-dom';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';

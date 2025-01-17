@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './index.module.less';
+import * as styles from './index.module.less';
 import clsx from 'clsx';
 
 type IProps = {

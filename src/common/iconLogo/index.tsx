@@ -9,6 +9,7 @@ export enum ICON_LOGO {
   redBook = '&#xeb79;',
   cloud = '&#xeb7d;',
   youKu = '&#xe600;',
+  douYin = '&#xe684;',
   link = '&#xe7c7;',
 }
 

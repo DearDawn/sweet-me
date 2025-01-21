@@ -309,6 +309,16 @@ export const App = () => {
           关闭弹窗
         </Button>
       </Modal>
+      <Title>MdViewer</Title>
+      <Button className={styles.ml10} onClick={() => showMdViewer(CHANGE_LOG)}>
+        打开 Markdown
+      </Button>
+      <Button
+        className={styles.ml10}
+        onClick={() => showMdViewer(CHANGE_LOG, { direction: 'left' })}
+      >
+        打开 Markdown (抽屉模式)
+      </Button>
       <Modal
         visible={drawerVisible}
         maskClosable

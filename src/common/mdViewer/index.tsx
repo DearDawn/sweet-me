@@ -5,6 +5,8 @@ import { Modal } from '../modal';
 import { Button } from '../button';
 import { createRoot } from 'react-dom/client';
 
+type ModalProps = Omit<Parameters<typeof Modal>[0], 'visible'>;
+
 interface IProps {
   /** 转换后的 html 字符串 */
   mdContent: string;
@@ -12,6 +14,7 @@ interface IProps {
   visible?: boolean;
   /** 关闭弹窗 */
   onClose?: VoidFunction;
+  modalProps?: ModalProps;
 }
 
 /**
@@ -21,7 +24,7 @@ interface IProps {
  * parcel: parcel-transformer-markdown
  */
 export const MdViewer = (props: IProps) => {
-  const { mdContent, visible, onClose } = props || {};
+  const { mdContent, visible, onClose, modalProps } = props || {};
 
   return (
     <Modal
@@ -33,6 +36,7 @@ export const MdViewer = (props: IProps) => {
           关闭
         </Button>
       }
+      {...modalProps}
     >
       <div
         className={clsx(styles.progress, 'markdown-body')}
@@ -42,7 +46,10 @@ export const MdViewer = (props: IProps) => {
   );
 };
 
-export const showMdViewer = async (mdContent: string) => {
+export const showMdViewer = async (
+  mdContent: string,
+  modalProps?: ModalProps
+) => {
   let resolve = (_) => {};
 
   const promise = new Promise((res) => {
@@ -58,7 +65,14 @@ export const showMdViewer = async (mdContent: string) => {
     resolve(true);
   };
 
-  root.render(<MdViewer mdContent={mdContent} visible onClose={onClose} />);
+  root.render(
+    <MdViewer
+      mdContent={mdContent}
+      visible
+      onClose={onClose}
+      modalProps={modalProps}
+    />
+  );
 
   return promise;
 };

@@ -4,8 +4,8 @@ import { ICommonProps } from '../../types';
 import { Image } from '../image';
 import { ICON, Icon } from '../icon';
 import { convertFileSize, toast } from '../../utils';
-import { useBoolean } from 'src/hooks';
-import { ERROR_IMAGE } from 'src/constants';
+import { useBoolean } from '../../hooks';
+import { ERROR_IMAGE } from '../../constants';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 

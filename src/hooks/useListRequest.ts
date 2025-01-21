@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RequestUrl, waitTime } from 'src/utils';
+import { RequestUrl, waitTime } from '../utils';
 import { useBoolean } from './useBoolean';
 import { useRequest } from './useRequest';
 

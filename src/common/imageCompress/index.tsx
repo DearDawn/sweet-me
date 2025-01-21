@@ -1,4 +1,4 @@
-import { useBoolean } from 'src/hooks';
+import { useBoolean } from '../../hooks';
 import * as styles from './index.module.less';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -6,7 +6,7 @@ import {
   toast,
   convertFileSize,
   getFileFromUrl,
-} from 'src/utils';
+} from '../../utils';
 import { Button } from '../button';
 import { showModal } from '../modal';
 import { Slider } from '../slider';

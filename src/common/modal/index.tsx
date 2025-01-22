@@ -100,7 +100,7 @@ export const Modal = ({
       ref={modalRef}
       {...rest}
     >
-      <div className={styles.modalContent} onClick={handleContentClick}>
+      <div className={clsx(styles.modalContent, 'dodo-modal-content-wrap')} onClick={handleContentClick}>
         <div className={clsx(styles.content, 'dodo-modal-content')}>
           {children}
         </div>

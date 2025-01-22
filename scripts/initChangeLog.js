@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const readline = require('readline');
 const fs = require('fs');
@@ -15,6 +16,14 @@ function gitCommit () {
     console.log('CHANGE_LOG 更新已提交到 Git 仓库');
     execSync('git push'); // 提交更改
     console.log('已推送到远端仓库');
+    console.log('同步淘宝镜像源中...');
+    fetch('https://registry-direct.npmmirror.com/-/package/sweet-me/syncs', {
+      method: 'PUT'
+    }).then(res => res.json()).then(res => {
+      console.log('✅ 请求发起成功');
+    }).catch(err => {
+      console.log('❌ 请求发起失败');
+    });
   } catch (error) {
     console.error('无法提交 CHANGE_LOG 更新至 Git 仓库:', error.message);
   }

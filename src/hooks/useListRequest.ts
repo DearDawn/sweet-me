@@ -21,13 +21,14 @@ type ListRequest<T> = {
 /** 请求 */
 export const useListRequest = <T = any> (props: ListRequestProps) => {
   const { url = '/', params = {}, init = {}, loadingFn, pageSize = 20 } = props || {};
+  const { page: _page, ...rest } = params || {};
   const [data, setData] = useState<ListRequest<T>>();
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(_page || 0);
   const [refreshing, startRefreshing, endRefreshing] = useBoolean(false);
   const isFirstRequest = !data?.list?.length;
   const { runApi, loading, error } = useRequest({
     url,
-    params: { page, limit: pageSize, ...params },
+    params: { page, limit: pageSize, ...rest },
     init,
     loadingFn: isFirstRequest ? loadingFn : undefined,
   });

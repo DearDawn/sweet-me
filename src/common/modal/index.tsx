@@ -105,13 +105,17 @@ export const Modal = ({
         className={clsx(styles.modalContent, 'dodo-modal-content-wrap')}
         onClick={handleContentClick}
       >
-        <div className={clsx(styles.content, 'dodo-modal-content')}>
+        <div
+          className={clsx(styles.content, 'dodo-modal-content', {
+            [styles.paddingBig]: isIOS && !footer,
+          })}
+        >
           {children}
         </div>
         {footer && (
           <div
             className={clsx(styles.footer, 'dodo-modal-footer', {
-              [styles.isIOS]: isIOS,
+              [styles.paddingBig]: isIOS,
             })}
           >
             {footer}

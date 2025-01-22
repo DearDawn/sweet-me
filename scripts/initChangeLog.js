@@ -13,7 +13,7 @@ function gitCommit (noUpdate = false) {
   try {
     execSync('git add CHANGE_LOG.md'); // 添加 CHANGELOG.md 到暂存区
     if (!noUpdate) {
-      execSync(`git commit -m "v${version} CHANGE_LOG" --amend"`); // 提交更改
+      execSync(`git commit -m "v${version} CHANGE_LOG" --amend`); // 提交更改
     }
     console.log('CHANGE_LOG 更新已提交到 Git 仓库');
     execSync('git push'); // 提交更改

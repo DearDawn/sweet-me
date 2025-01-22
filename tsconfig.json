@@ -19,7 +19,12 @@
     ],
     "types": [
       "./global.d.ts"
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
   "exclude": [
     "src/page"

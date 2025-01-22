@@ -5,6 +5,7 @@ import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { createRoot } from 'react-dom/client';
 import { useBackIntercept } from '../../hooks';
+import { isIOS } from '@/utils';
 
 type IProps = ICommonProps & {
   /** 弹窗是否可见 */
@@ -100,12 +101,19 @@ export const Modal = ({
       ref={modalRef}
       {...rest}
     >
-      <div className={clsx(styles.modalContent, 'dodo-modal-content-wrap')} onClick={handleContentClick}>
+      <div
+        className={clsx(styles.modalContent, 'dodo-modal-content-wrap')}
+        onClick={handleContentClick}
+      >
         <div className={clsx(styles.content, 'dodo-modal-content')}>
           {children}
         </div>
         {footer && (
-          <div className={clsx(styles.footer, 'dodo-modal-footer')}>
+          <div
+            className={clsx(styles.footer, 'dodo-modal-footer', {
+              [styles.isIOS]: isIOS,
+            })}
+          >
             {footer}
           </div>
         )}

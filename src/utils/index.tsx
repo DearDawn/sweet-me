@@ -9,5 +9,6 @@ export * from './color';
 export * from './dom';
 export * from './action';
 export * from './file';
+export * from './env';
 export * from './image';
 export * from './config';

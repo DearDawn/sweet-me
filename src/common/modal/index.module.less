@@ -29,6 +29,7 @@
       position: absolute;
       max-width: unset;
       max-height: unset;
+      height: auto;
       opacity: 1;
     }
   }
@@ -125,4 +126,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.isIOS {
+    padding-bottom: 30px;
+  }
 }

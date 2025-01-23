@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 /** useBoolean */
 export const useBoolean = (initFlag = false): [
@@ -9,9 +9,17 @@ export const useBoolean = (initFlag = false): [
 ] => {
   const [flag, setFlag] = useState(initFlag);
 
-  const setTrue = useRef(() => setFlag(true));
-  const setFalse = useRef(() => setFlag(false));
-  const setToggle = useRef(() => setFlag(_flag => !_flag));
+  const setTrue = useCallback(() => {
+    setFlag(true);
+  }, []);
 
-  return [flag, setTrue.current, setFalse.current, setToggle.current];
+  const setFalse = useCallback(() => {
+    setFlag(false);
+  }, []);
+
+  const setToggle = useCallback(() => {
+    setFlag((prev) => !prev);
+  }, []);
+
+  return [flag, setTrue, setFalse, setToggle];
 };

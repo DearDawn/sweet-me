@@ -145,13 +145,16 @@ export const Select = ({
       )}
       {...rest}
     >
-      <div className={styles.input} onClick={handleToggle}>
+      <div
+        className={clsx(styles.input, 'dodo-select-input')}
+        onClick={handleToggle}
+      >
         {activeItem?.label || placeholder}
       </div>
-      <div className={styles.optionList}>
+      <div className={clsx(styles.optionList, 'dodo-select-option-list')}>
         {selfOptions.map((it) => (
           <div
-            className={clsx(styles.optionItem, {
+            className={clsx(styles.optionItem, 'dodo-select-option-item', {
               [styles.active]: value === it.value,
               [styles.disabled]: it.disabled,
             })}

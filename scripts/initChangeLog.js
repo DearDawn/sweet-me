@@ -16,6 +16,7 @@ function gitCommit (noUpdate = false) {
       execSync(`git commit -m "v${version} CHANGE_LOG" --amend`); // 提交更改
     }
     console.log('CHANGE_LOG 更新已提交到 Git 仓库');
+    console.log('正在 push 到远端仓库...');
     execSync('git push'); // 提交更改
     console.log('已推送到远端仓库');
     console.log('同步淘宝镜像源中...');

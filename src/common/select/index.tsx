@@ -21,6 +21,8 @@ type IProps = ICommonProps & {
   onInput?: (value?: any) => void;
   /** 值改变 */
   onValueChange?: (it?: IOption) => void;
+  /** 打开选择面板 */
+  onVisibleChange?: (visible?: boolean) => void;
   /** 选择框类型：文字，图标 */
   type?: 'text' | 'icon';
   /** 对齐方式 */
@@ -39,6 +41,7 @@ type IProps = ICommonProps & {
 export const Select = ({
   className,
   onValueChange,
+  onVisibleChange,
   onInput,
   value: propsValue,
   placeholder = '请选择',
@@ -56,6 +59,8 @@ export const Select = ({
   const [inputValue, setInputValue] = React.useState<string>('');
   const value = selfVal || propsValue;
   const selectWrapRef = React.useRef<HTMLDivElement>(null);
+  const onVisibleChangeRef = React.useRef(onVisibleChange);
+  onVisibleChangeRef.current = onVisibleChange;
 
   const handleSelect = React.useCallback(
     (it: IOption) => () => {
@@ -116,16 +121,26 @@ export const Select = ({
       }
     };
 
-    document.addEventListener('click', handler);
+    document.addEventListener('mousedown', handler);
+    document.addEventListener('touchstart', handler);
 
     return () => {
-      document.removeEventListener('click', handler);
+      document.removeEventListener('mousedown', handler);
+      document.removeEventListener('touchend', handler);
     };
   }, [closePanel]);
 
   React.useEffect(() => {
     setSelfOptions(options);
   }, [options]);
+
+  React.useEffect(() => {
+    setSelfVal(propsValue || undefined);
+  }, [propsValue]);
+
+  React.useEffect(() => {
+    onVisibleChangeRef.current?.(visible);
+  }, [visible]);
 
   const activeItem = selfOptions.find((it) => it.value === value);
 

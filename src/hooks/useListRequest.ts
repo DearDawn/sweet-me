@@ -16,6 +16,7 @@ export type ListRequestProps = {
 type ListRequest<T> = {
   list: T[];
   has_more: boolean;
+  has_later: boolean;
 };
 
 /** 请求 */
@@ -42,8 +43,8 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
       !manual && startRefreshing();
       await waitTime(300);
       const res = await runApi();
-      const { list, has_more } = res;
-      setData({ list, has_more });
+      const { list, has_more, has_later } = res;
+      setData({ list, has_more, has_later });
       setPage((p) => p + 1);
     } catch (error) {
       return false;
@@ -59,11 +60,12 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
       setData((_data) => ({
         list: [...(_data?.list || []), ...res.list],
         has_more: res.has_more,
+        has_later: res.has_later,
       }));
       setPage((p) => p + 1);
-      return { hasMore: res.has_more };
+      return { hasMore: res.has_more, hasLater: res.has_later };
     } catch (error) {
-      return { hasMore: true, error };
+      return { hasMore: true, hasLater: true, error };
     }
   };
 

@@ -5,7 +5,7 @@ import { useRequest } from './useRequest';
 
 export type ListRequestProps = {
   url: RequestUrl;
-  params?: Record<string, any>;
+  params?: Record<string, any> & { pageRewrite?: number; };
   init?: RequestInit;
   autoRun?: boolean;
   loadingFn?: () => VoidFunction;
@@ -22,7 +22,7 @@ type ListRequest<T> = {
 /** 请求 */
 export const useListRequest = <T = any> (props: ListRequestProps) => {
   const { url = '/', params = {}, init = {}, loadingFn, pageSize = 20 } = props || {};
-  const { page: _page, ...rest } = params || {};
+  const { page: _page, pageRewrite, ...rest } = params || {};
   const [data, setData] = useState<ListRequest<T>>();
   const [page, setPage] = useState(_page || 0);
   const pageRef = useRef(page);
@@ -31,7 +31,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
   const isFirstRequest = !data?.list?.length;
   const { runApi, loading, error } = useRequest({
     url,
-    params: { page, limit: pageSize, ...rest },
+    params: { page: pageRewrite ?? page, limit: pageSize, ...rest },
     init,
     loadingFn: isFirstRequest ? loadingFn : undefined,
   });

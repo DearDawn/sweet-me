@@ -78,7 +78,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
 
   const onLoadLater = useCallback(async () => {
     try {
-      setPage(pageRef.current);
+      setPage(pageLaterRef.current);
       await waitTime(0);
       const res = await runApi();
 

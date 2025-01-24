@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { RequestUrl, waitTime } from '../utils';
 import { useBoolean } from './useBoolean';
 import { useRequest } from './useRequest';
@@ -25,6 +25,8 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
   const { page: _page, ...rest } = params || {};
   const [data, setData] = useState<ListRequest<T>>();
   const [page, setPage] = useState(_page || 0);
+  const pageRef = useRef(page);
+  const pageLaterRef = useRef(page);
   const [refreshing, startRefreshing, endRefreshing] = useBoolean(false);
   const isFirstRequest = !data?.list?.length;
   const { runApi, loading, error } = useRequest({
@@ -34,10 +36,12 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     loadingFn: isFirstRequest ? loadingFn : undefined,
   });
 
-  const onRefresh = async (manual = false) => {
+  const onRefresh = useCallback(async (manual = false) => {
     if (refreshing) return;
 
     setPage(0);
+    pageRef.current = 0;
+    pageLaterRef.current = 0;
     await waitTime(0);
     try {
       !manual && startRefreshing();
@@ -45,16 +49,19 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
       const res = await runApi();
       const { list, has_more, has_later } = res;
       setData({ list, has_more, has_later });
-      setPage((p) => p + 1);
+      setPage((p) => { pageRef.current = p + 1; return pageRef.current; });
     } catch (error) {
       return false;
     } finally {
       !manual && endRefreshing();
     }
-  };
+  }, [endRefreshing, refreshing, runApi, startRefreshing]);
 
-  const onLoadMore = async () => {
+  const onLoadMore = useCallback(async () => {
     try {
+
+      setPage(pageRef.current);
+      await waitTime(0);
       const res = await runApi();
 
       setData((_data) => ({
@@ -62,12 +69,30 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
         has_more: res.has_more,
         has_later: res.has_later,
       }));
-      setPage((p) => p + 1);
+      setPage((p) => { pageRef.current = p + 1; return pageRef.current; });
       return { hasMore: res.has_more, hasLater: res.has_later };
     } catch (error) {
       return { hasMore: true, hasLater: true, error };
     }
-  };
+  }, [runApi]);
+
+  const onLoadLater = useCallback(async () => {
+    try {
+      setPage(pageRef.current);
+      await waitTime(0);
+      const res = await runApi();
+
+      setData((_data) => ({
+        list: [...res.list, ...(_data?.list || [])],
+        has_more: res.has_more,
+        has_later: res.has_later,
+      }));
+      setPage((p) => { pageLaterRef.current = p + 1; return pageLaterRef.current; });
+      return { hasMore: res.has_more, hasLater: res.has_later };
+    } catch (error) {
+      return { hasMore: true, hasLater: true, error };
+    }
+  }, [runApi]);
 
   useEffect(() => {
     if (!loading || !loadingFn) return;
@@ -89,5 +114,6 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     runApi,
     onRefresh,
     onLoadMore,
+    onLoadLater
   };
 };

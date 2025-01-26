@@ -50,10 +50,13 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
       await waitTime(300);
       const res = await runApi();
       const { ...rest } = res;
+
       setData({ ...rest });
       setPage((p) => { pageRef.current = p + 1; return pageRef.current; });
+
+      return { hasMore: res.has_more, hasLater: res.has_later, res };
     } catch (error) {
-      return false;
+      return { hasMore: true, hasLater: true, error };
     } finally {
       !manual && endRefreshing();
     }
@@ -72,6 +75,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
         return { list: [...(list || []), ...newList], ...origin, ...rest };
       });
       setPage((p) => { pageRef.current = p + 1; return pageRef.current; });
+
       return { hasMore: res.has_more, hasLater: res.has_later, res };
     } catch (error) {
       return { hasMore: true, hasLater: true, error };
@@ -90,6 +94,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
         return { list: [...newList, ...(list || [])], ...origin, ...rest };
       });
       setPage((p) => { pageLaterRef.current = p + 1; return pageLaterRef.current; });
+
       return { hasMore: res.has_more, hasLater: res.has_later, res };
     } catch (error) {
       return { hasMore: true, hasLater: true, error };

@@ -37,7 +37,7 @@ type IProps = ICommonProps & {
   createPlaceholder?: string;
 };
 
-/** 下拉选择框 */
+/** 下拉选择框，高度通过 css 变量 --height 设置 */
 export const Select = ({
   className,
   onValueChange,

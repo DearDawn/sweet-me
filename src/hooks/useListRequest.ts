@@ -16,7 +16,9 @@ export type ListRequestProps = {
 type ListRequest<T> = {
   list: T[];
   has_more: boolean;
-  has_later: boolean;
+  has_later?: boolean;
+  first?: T;
+  last?: T;
 };
 
 /** 请求 */
@@ -47,8 +49,8 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
       !manual && startRefreshing();
       await waitTime(300);
       const res = await runApi();
-      const { list, has_more, has_later } = res;
-      setData({ list, has_more, has_later });
+      const { ...rest } = res;
+      setData({ ...rest });
       setPage((p) => { pageRef.current = p + 1; return pageRef.current; });
     } catch (error) {
       return false;
@@ -63,12 +65,12 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
       setPage(pageRef.current);
       await waitTime(0);
       const res = await runApi();
+      const { list: newList, ...rest } = res || {};
 
-      setData((_data) => ({
-        list: [...(_data?.list || []), ...res.list],
-        has_more: res.has_more,
-        has_later: res.has_later,
-      }));
+      setData((_data) => {
+        const { list, ...origin } = _data || {};
+        return { list: [...(list || []), ...newList], ...origin, ...rest };
+      });
       setPage((p) => { pageRef.current = p + 1; return pageRef.current; });
       return { hasMore: res.has_more, hasLater: res.has_later };
     } catch (error) {
@@ -81,12 +83,12 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
       setPage(pageLaterRef.current);
       await waitTime(0);
       const res = await runApi();
+      const { list: newList, ...rest } = res || {};
 
-      setData((_data) => ({
-        list: [...res.list, ...(_data?.list || [])],
-        has_more: res.has_more,
-        has_later: res.has_later,
-      }));
+      setData((_data) => {
+        const { list, ...origin } = _data || {};
+        return { list: [...newList, ...(list || [])], ...origin, ...rest };
+      });
       setPage((p) => { pageLaterRef.current = p + 1; return pageLaterRef.current; });
       return { hasMore: res.has_more, hasLater: res.has_later };
     } catch (error) {

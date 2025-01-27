@@ -175,7 +175,7 @@ export const ScrollContainer = (props: IProps) => {
       return;
     }
 
-    onPullDownRefresh?.(true).finally(() => {
+    onPullDownRefresh?.().finally(() => {
       setIsPulling(false);
       boxRef.current!.style.transform = 'translateY(0px)';
       boxRef.current!.style.transition = 'all 0.3s linear';

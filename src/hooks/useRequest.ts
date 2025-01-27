@@ -17,22 +17,23 @@ export const useRequest = <T = any> (props: RequestProps) => {
   const [data, setData] = useState<T>();
   const [error, setError] = useState<any>();
   const [loading, startLoading, endLoading] = useBoolean(false);
-  const doRequest = useRef<() => Promise<T>>(() => Promise.resolve(data));
+  const doRequest = useRef<(p?: RequestProps['params']) => Promise<T>>(() => Promise.resolve(data));
+  const reqPromise = useRef<Promise<T>>();
   const cacheDataMap = useRef<Record<string, T>>({});
   const cacheKey = `${url}-${JSON.stringify(params)}`;
 
-  const doRequestFn = () => {
+  const doRequestFn = (_params?: RequestProps['params']) => {
     const cacheData = cacheDataMap.current[cacheKey];
 
     if (cache && cacheData) {
       return Promise.resolve(cacheData);
     }
 
-    startLoading();
-    return new Promise<T>((resolve, reject) => {
-      if (loading) return doRequestFn;
+    if (loading) return reqPromise.current;
 
-      apiGet<T>(url, params, init).then(res => {
+    startLoading();
+    reqPromise.current = new Promise<T>((resolve, reject) => {
+      apiGet<T>(url, { ...params, ..._params }, init).then(res => {
         cacheDataMap.current[cacheKey] = res;
         setData(res);
         resolve(res);
@@ -41,12 +42,14 @@ export const useRequest = <T = any> (props: RequestProps) => {
         reject(err);
       }).finally(endLoading);
     });
+
+    return reqPromise.current;
   };
 
   doRequest.current = doRequestFn;
 
-  const runApi = useCallback(() => {
-    return doRequest.current();
+  const runApi = useCallback((params?: RequestProps['params']) => {
+    return doRequest.current(params);
   }, [doRequest]);
 
   useEffect(() => {

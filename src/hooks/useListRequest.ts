@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { RequestUrl, waitTime } from '../utils';
 import { useBoolean } from './useBoolean';
-import { useRequest } from './useRequest';
+import { RequestProps, useRequest } from './useRequest';
 
 export type ListRequestProps = {
   url: RequestUrl;
@@ -39,7 +39,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     loadingFn: isFirstRequest ? loadingFn : undefined,
   });
 
-  const onRefresh = useCallback(async (manual = false) => {
+  const onRefresh = useCallback(async (params?: RequestProps['params']) => {
     if (refreshing) return;
 
     setPage(0);
@@ -47,9 +47,9 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     pageLaterRef.current = 0;
     await waitTime(0);
     try {
-      !manual && startRefreshing();
+      startRefreshing();
       await waitTime(300);
-      const res = await runApi();
+      const res = await runApi(params);
       const { ...rest } = res;
 
       setData({ ...rest });
@@ -59,16 +59,16 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     } catch (error) {
       return { hasMore: true, hasLater: true, error };
     } finally {
-      !manual && endRefreshing();
+      endRefreshing();
     }
   }, [endRefreshing, refreshing, runApi, startRefreshing]);
 
-  const onLoadMore = useCallback(async () => {
+  const onLoadMore = useCallback(async (params?: RequestProps['params']) => {
     try {
 
       setPage(pageRef.current);
       await waitTime(0);
-      const res = await runApi();
+      const res = await runApi(params);
       const { list: newList, ...rest } = res || {};
 
       setData((_data) => {
@@ -83,11 +83,11 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     }
   }, [runApi]);
 
-  const onLoadLater = useCallback(async () => {
+  const onLoadLater = useCallback(async (params?: RequestProps['params']) => {
     try {
       setPage(pageLaterRef.current);
       await waitTime(0);
-      const res = await runApi();
+      const res = await runApi(params);
       const { list: newList, ...rest } = res || {};
 
       setData((_data) => {

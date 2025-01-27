@@ -17,6 +17,7 @@ type ListRequest<T> = {
   list: T[];
   has_more: boolean;
   has_later?: boolean;
+  total?: number;
   first?: T;
   last?: T;
 };

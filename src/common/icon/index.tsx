@@ -30,6 +30,7 @@ export enum ICON {
   /** 垃圾桶删除 */
   garbageCan = '&#xe718;',
   add = '&#xe610;',
+  jump = '&#xe823;',
 }
 
 type IProps = ICommonProps & {

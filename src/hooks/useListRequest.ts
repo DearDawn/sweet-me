@@ -41,6 +41,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
 
   const resetQuery = useCallback(async () => {
     setPage(0);
+    setData(undefined);
     pageRef.current = 0;
     pageLaterRef.current = 0;
   }, []);

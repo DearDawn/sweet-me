@@ -1,14 +1,35 @@
-export type EColor = "red" | "orange" | "yellow" | "green" | "cyan" | "blue" | "purple" | "gray";
+export type EColor = "red" | "pink" | "orange" | "yellow" | "lime" | "green" | "teal" | "cyan" | "blue" | "indigo" | "grape" | "purple" | "gray";
 
-const COLOR_RGB_MAP: Record<EColor, [number, number, number]> = {
+export const COLOR_RGB_MAP: Record<EColor, [number, number, number]> = {
+  gray: [134, 142, 150],
   red: [250, 82, 82],
-  orange: [253, 126, 20],
-  yellow: [250, 176, 5],
-  green: [64, 192, 87],
-  cyan: [21, 170, 191],
-  blue: [34, 139, 230],
+  pink: [230, 73, 128],
+  grape: [190, 75, 219],
   purple: [121, 80, 242],
-  gray: [134, 142, 150]
+  indigo: [76, 110, 245],
+  blue: [34, 139, 230],
+  cyan: [21, 170, 191],
+  teal: [18, 184, 134],
+  green: [64, 192, 87],
+  lime: [130, 201, 30],
+  yellow: [250, 176, 5],
+  orange: [253, 126, 20],
+};
+
+export const COLOR_NAME: Record<EColor, string> = {
+  red: "红色",
+  pink: "粉色",
+  orange: "橙色",
+  yellow: "黄色",
+  lime: "青柠色",
+  green: "绿色",
+  teal: "蓝绿色",
+  cyan: "青色",
+  blue: "蓝色",
+  indigo: "靛青色",
+  grape: "葡萄色",
+  purple: "紫色",
+  gray: "灰色"
 };
 
 /**

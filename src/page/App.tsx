@@ -38,7 +38,7 @@ import { FileList } from './components/fileList';
 import WallImage from './wallpaper.jpg';
 import README from '../../README.md';
 import CHANGE_LOG from '../../CHANGE_LOG.md';
-import { waitTime } from '../utils';
+import { COLOR_NAME, COLOR_RGB_MAP, waitTime } from '../utils';
 
 const uploader = async (file) => {
   await waitTime(1000);
@@ -226,14 +226,11 @@ export const App = () => {
       </div>
       <Title>Tag</Title>
       <div className={styles.tagWrap}>
-        <Tag color='red'>红色</Tag>
-        <Tag color='orange'>橙色</Tag>
-        <Tag color='yellow'>黄色</Tag>
-        <Tag color='green'>绿色</Tag>
-        <Tag color='cyan'>青色</Tag>
-        <Tag color='blue'>蓝色</Tag>
-        <Tag color='purple'>紫色</Tag>
-        <Tag color='gray'>灰色</Tag>
+        {Object.keys(COLOR_RGB_MAP).map((key: any, idx) => (
+          <Tag color={key} key={`${key}-${idx}`}>
+            {COLOR_NAME[key]}
+          </Tag>
+        ))}
       </div>
       <Title>Header</Title>
       <Header

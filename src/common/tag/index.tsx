@@ -2,16 +2,8 @@ import * as React from 'react';
 import cs from 'clsx';
 import * as styles from './index.module.less';
 import { ICommonProps } from '../../types';
-import { getColorRGB, rgbToHsl } from '../../utils';
-export type ETagColor =
-  | 'red'
-  | 'orange'
-  | 'yellow'
-  | 'green'
-  | 'cyan'
-  | 'blue'
-  | 'purple'
-  | 'gray';
+import { EColor, getColorRGB, rgbToHsl } from '../../utils';
+export type ETagColor = EColor;
 
 type IProps = ICommonProps & {
   /** tag 颜色：红橙黄绿青蓝紫灰 */

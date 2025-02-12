@@ -41,9 +41,12 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
 
   const resetQuery = useCallback(async () => {
     setPage(0);
-    setData(undefined);
     pageRef.current = 0;
     pageLaterRef.current = 0;
+  }, []);
+
+  const resetList = useCallback(async () => {
+    setData(undefined);
   }, []);
 
   const onRefresh = useCallback(async (params?: RequestProps['params']) => {
@@ -125,6 +128,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     error,
     loading,
     runApi,
+    resetList,
     resetQuery,
     onRefresh,
     onLoadMore,

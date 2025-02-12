@@ -39,12 +39,16 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     loadingFn: isFirstRequest ? loadingFn : undefined,
   });
 
-  const onRefresh = useCallback(async (params?: RequestProps['params']) => {
-    if (refreshing) return;
-
+  const resetQuery = useCallback(async () => {
     setPage(0);
     pageRef.current = 0;
     pageLaterRef.current = 0;
+  }, []);
+
+  const onRefresh = useCallback(async (params?: RequestProps['params']) => {
+    if (refreshing) return;
+
+    resetQuery();
     await waitTime(0);
     try {
       startRefreshing();
@@ -61,7 +65,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     } finally {
       endRefreshing();
     }
-  }, [endRefreshing, refreshing, runApi, startRefreshing]);
+  }, [endRefreshing, refreshing, resetQuery, runApi, startRefreshing]);
 
   const onLoadMore = useCallback(async (params?: RequestProps['params']) => {
     try {
@@ -120,6 +124,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     error,
     loading,
     runApi,
+    resetQuery,
     onRefresh,
     onLoadMore,
     onLoadLater

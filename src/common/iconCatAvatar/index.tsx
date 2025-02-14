@@ -39,7 +39,7 @@ export const IconCatAvatar = ({ className, type, size, ...rest }: IProps) => {
     <i
       style={size ? { fontSize: size } : {}}
       className={cs(styles.iconfont, 'dodo-icon-cat-avatar', className)}
-      dangerouslySetInnerHTML={{ __html: type || ICON_CAT_AVATAR['&#xe62a;'] }}
+      dangerouslySetInnerHTML={{ __html: type || ICON_CAT_AVATAR['黑猫'] }}
       {...rest}
     ></i>
   );

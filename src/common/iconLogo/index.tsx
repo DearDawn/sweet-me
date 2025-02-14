@@ -45,7 +45,7 @@ export const IconLogo = ({
   return (
     <i
       style={size ? { fontSize: size } : {}}
-      className={cs(styles.iconfont, 'dodo-logo-icon', className)}
+      className={cs(styles.iconfont, 'dodo-icon-logo', className)}
       dangerouslySetInnerHTML={{ __html: type }}
       {...rest}
     ></i>

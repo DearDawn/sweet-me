@@ -11,6 +11,7 @@ export { ImageCompress, showImageCompressModal } from './imageCompress';
 export { Modal, showModal } from './modal';
 export { Icon, ICON } from './icon';
 export { IconLogo, ICON_LOGO } from './iconLogo';
+export { IconCatAvatar, ICON_CAT_AVATAR } from './iconCatAvatar';
 export { Select } from './select';
 export { Radio } from './radio';
 export { Switch } from './switch';

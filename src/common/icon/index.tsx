@@ -23,7 +23,7 @@ export enum ICON {
   book = '&#xe622;',
   copy = '&#xe62d;',
   file = '&#xe638;',
-  paste = '&#xed8b;',
+  image = '&#xfb84;',
   download = '&#xe628;',
   close = '&#xe62a;',
   delete = '&#xe7e8;',

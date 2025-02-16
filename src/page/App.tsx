@@ -30,6 +30,8 @@ import {
   ICON_LOGO,
   IconLogo,
   showImageCompressModal,
+  ICON_CAT_AVATAR,
+  IconCatAvatar,
 } from '../../dist';
 import clsx from 'clsx';
 import { useBoolean, useFormState, useListRequest, useRequest } from '../hooks';
@@ -222,6 +224,12 @@ export const App = () => {
       <div className={styles.iconWrap}>
         {Object.values(ICON_LOGO).map((value) => (
           <IconLogo className={styles.iconItem} key={value} type={value} />
+        ))}
+      </div>
+      <Title>IconCatAvatar</Title>
+      <div className={styles.iconWrap}>
+        {Object.values(ICON_CAT_AVATAR).map((value) => (
+          <IconCatAvatar className={styles.iconItem} key={value} type={value} />
         ))}
       </div>
       <Title>Tag</Title>

@@ -113,6 +113,7 @@ export const Modal = ({
           <Icon
             type={ICON.delete}
             size={20}
+            onClick={onClose}
             className={clsx(
               styles.closeButton,
               'dodo-modal-content-close-button'

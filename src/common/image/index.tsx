@@ -2,7 +2,6 @@ import React, {
   MouseEventHandler,
   useCallback,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -83,7 +82,6 @@ export const Image = (props: IProps) => {
   );
 
   const handleWheel = useCallback((event: WheelEvent) => {
-    event.preventDefault();
     setScale((prevScale) => {
       const newScale = prevScale + event.deltaY * -0.01;
       return Math.min(Math.max(0.5, newScale), 3); // 限制缩放范围
@@ -117,8 +115,6 @@ export const Image = (props: IProps) => {
 
   const handleTouchMove = useCallback(
     (event: TouchEvent) => {
-      event.stopPropagation();
-
       if (event.touches.length === 2) {
         singleTouchMode.current = false;
         const touch1 = event.touches[0];
@@ -130,9 +126,7 @@ export const Image = (props: IProps) => {
 
         const newScale = scale * (distance / initialDistance.current);
         clearTimeout(moveTimer.current);
-        moveTimer.current = setTimeout(() => {
-          setScale(Math.min(Math.max(0.25, newScale), 4)); // 限制缩放范围
-        }, 30);
+        setScale(Math.min(Math.max(0.25, newScale), 4)); // 限制缩放范围
         initialDistance.current = distance;
       } else if (event.touches.length === 1 && singleTouchMode.current) {
         const touch = event.touches[0];
@@ -154,8 +148,6 @@ export const Image = (props: IProps) => {
 
   const handleMouseMove = useCallback(
     (event: MouseEvent) => {
-      event.stopPropagation();
-
       if (!isTouching.current) {
         return;
       }
@@ -177,16 +169,12 @@ export const Image = (props: IProps) => {
   );
 
   const handleTouchEnd = useCallback((event: TouchEvent) => {
-    if (isTouching.current) {
-      isTouching.current = false;
-      singleTouchMode.current = false;
-    }
+    isTouching.current = false;
+    singleTouchMode.current = false;
   }, []);
 
   const handleMouseUp = useCallback((event: MouseEvent) => {
-    if (isTouching.current) {
-      isTouching.current = false;
-    }
+    isTouching.current = false;
   }, []);
 
   useEffect(() => {
@@ -226,7 +214,7 @@ export const Image = (props: IProps) => {
     setImgSrc((_src) => (_src ? src : _src));
   }, [src]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isFullScreen) {
       const imgElement = fullImgDomWrapRef.current;
 

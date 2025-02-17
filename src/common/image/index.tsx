@@ -47,7 +47,7 @@ export const Image = (props: IProps) => {
   const [translate, setTranslate] = useState({ x: 0, y: 0 });
   const selfRef = useRef<HTMLImageElement>(null);
   const imgDomRef = imgRef || selfRef;
-  const fullImgDomRef = useRef<HTMLImageElement>(null);
+  const fullImgDomWrapRef = useRef<HTMLImageElement>(null);
   const touchData = useRef({ startX: 0, startY: 0 });
   const initialDistance = useRef(0);
   const isTouching = useRef(false);
@@ -218,7 +218,7 @@ export const Image = (props: IProps) => {
 
   useEffect(() => {
     if (isFullScreen) {
-      const imgElement = fullImgDomRef.current;
+      const imgElement = fullImgDomWrapRef.current;
 
       if (imgElement) {
         imgElement.addEventListener('wheel', handleWheel);
@@ -265,12 +265,15 @@ export const Image = (props: IProps) => {
     <>
       {isFullScreen &&
         createPortal(
-          <div className={styles.fullImgWrap} onClick={handleFullScreenClick}>
+          <div
+            ref={fullImgDomWrapRef}
+            className={styles.fullImgWrap}
+            onClick={handleFullScreenClick}
+          >
             <Button onClick={handleFullScreenClick} className={styles.closeBtn}>
               <Icon type={ICON.close} size={30} />
             </Button>
             <img
-              ref={fullImgDomRef}
               className={styles.img}
               src={imgSrc}
               style={{

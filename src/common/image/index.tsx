@@ -49,6 +49,7 @@ export const Image = (props: IProps) => {
   const imgDomRef = imgRef || selfRef;
   const fullImgDomWrapRef = useRef<HTMLImageElement>(null);
   const touchData = useRef({ startX: 0, startY: 0 });
+  const singleTouchMode = useRef(false);
   const initialDistance = useRef(0);
   const isTouching = useRef(false);
   const translateRef = useRef(translate);
@@ -97,6 +98,7 @@ export const Image = (props: IProps) => {
       );
       initialDistance.current = distance;
     } else if (event.touches.length === 1) {
+      singleTouchMode.current = true;
       const touch = event.touches[0];
       touchData.current.startX = touch.clientX;
       touchData.current.startY = touch.clientY;
@@ -125,7 +127,8 @@ export const Image = (props: IProps) => {
 
         const newScale = scale * (distance / initialDistance.current);
         setScale(Math.min(Math.max(0.25, newScale), 4)); // 限制缩放范围
-      } else if (event.touches.length === 1) {
+        initialDistance.current = distance;
+      } else if (event.touches.length === 1 && singleTouchMode.current) {
         const touch = event.touches[0];
 
         setTranslate({
@@ -170,6 +173,7 @@ export const Image = (props: IProps) => {
   const handleTouchEnd = useCallback((event: TouchEvent) => {
     if (isTouching.current) {
       isTouching.current = false;
+      singleTouchMode.current = false;
     }
   }, []);
 

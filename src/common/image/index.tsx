@@ -49,6 +49,7 @@ export const Image = (props: IProps) => {
   const imgDomRef = imgRef || selfRef;
   const fullImgDomRef = useRef<HTMLImageElement>(null);
   const touchData = useRef({ startX: 0, startY: 0 });
+  const initialDistance = useRef(0);
   const isTouching = useRef(false);
   const translateRef = useRef(translate);
   translateRef.current = translate;
@@ -94,8 +95,7 @@ export const Image = (props: IProps) => {
         touch2.clientX - touch1.clientX,
         touch2.clientY - touch1.clientY
       );
-      const target = event.target as HTMLElement;
-      target.dataset.distance = distance as any;
+      initialDistance.current = distance;
     } else if (event.touches.length === 1) {
       const touch = event.touches[0];
       touchData.current.startX = touch.clientX;
@@ -122,10 +122,8 @@ export const Image = (props: IProps) => {
           touch2.clientX - touch1.clientX,
           touch2.clientY - touch1.clientY
         );
-        const initialDistance = parseFloat(
-          (event.target as HTMLElement).dataset.distance
-        );
-        const newScale = scale * (distance / initialDistance);
+
+        const newScale = scale * (distance / initialDistance.current);
         setScale(Math.min(Math.max(0.25, newScale), 4)); // 限制缩放范围
       } else if (event.touches.length === 1) {
         const touch = event.touches[0];
@@ -277,7 +275,6 @@ export const Image = (props: IProps) => {
               src={imgSrc}
               style={{
                 transform: `scale(${scale}) translate(${translate.x}px, ${translate.y}px)`,
-                transition: 'transform 0.05s',
               }}
               draggable={false}
               onClick={handleImageClick}

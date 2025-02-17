@@ -1,9 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import * as styles from './index.module.less';
 import clsx from 'clsx';
 import { createPortal } from 'react-dom';
 import { findClosestScrollableParent } from '../../utils';
 import { ERROR_IMAGE } from '../../constants';
+import { ICON, Icon } from '../icon';
+import { Button } from '../button';
 
 type IProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   onClick?: VoidFunction;
@@ -35,11 +43,24 @@ export const Image = (props: IProps) => {
   } = props;
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [imgSrc, setImgSrc] = useState(lazyLoad ? undefined : src);
+  const [scale, setScale] = useState(1);
+  const [translate, setTranslate] = useState({ x: 0, y: 0 });
   const selfRef = useRef<HTMLImageElement>(null);
   const imgDomRef = imgRef || selfRef;
+  const fullImgDomRef = useRef<HTMLImageElement>(null);
+  const touchData = useRef({ startX: 0, startY: 0 });
+  const isTouching = useRef(false);
+  const translateRef = useRef(translate);
+  translateRef.current = translate;
 
-  const handleFullScreenClick = useCallback(() => {
+  const handleFullScreenClick: MouseEventHandler = useCallback((e) => {
+    e.stopPropagation();
+
     setIsFullScreen(false);
+  }, []);
+
+  const handleImageClick: MouseEventHandler = useCallback((e) => {
+    e.stopPropagation();
   }, []);
 
   const handleClick = useCallback(() => {
@@ -56,6 +77,109 @@ export const Image = (props: IProps) => {
     },
     [errorHolder]
   );
+
+  const handleWheel = useCallback((event: WheelEvent) => {
+    event.preventDefault();
+    setScale((prevScale) => {
+      const newScale = prevScale + event.deltaY * -0.01;
+      return Math.min(Math.max(0.5, newScale), 3); // 限制缩放范围
+    });
+  }, []);
+
+  const handleTouchStart = useCallback((event: TouchEvent) => {
+    if (event.touches.length === 2) {
+      const touch1 = event.touches[0];
+      const touch2 = event.touches[1];
+      const distance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      );
+      const target = event.target as HTMLElement;
+      target.dataset.distance = distance as any;
+    } else if (event.touches.length === 1) {
+      const touch = event.touches[0];
+      touchData.current.startX = touch.clientX;
+      touchData.current.startY = touch.clientY;
+    }
+  }, []);
+
+  const handleMouseDown = useCallback((event: MouseEvent) => {
+    isTouching.current = true;
+
+    const touch = event;
+    touchData.current.startX = touch.clientX;
+    touchData.current.startY = touch.clientY;
+  }, []);
+
+  const handleTouchMove = useCallback(
+    (event: TouchEvent) => {
+      event.stopPropagation();
+
+      if (event.touches.length === 2) {
+        const touch1 = event.touches[0];
+        const touch2 = event.touches[1];
+        const distance = Math.hypot(
+          touch2.clientX - touch1.clientX,
+          touch2.clientY - touch1.clientY
+        );
+        const initialDistance = parseFloat(
+          (event.target as HTMLElement).dataset.distance
+        );
+        const newScale = scale * (distance / initialDistance);
+        setScale(Math.min(Math.max(0.25, newScale), 4)); // 限制缩放范围
+      } else if (event.touches.length === 1) {
+        const touch = event.touches[0];
+
+        setTranslate({
+          x:
+            (touch.clientX - touchData.current.startX) / scale +
+            translateRef.current.x,
+          y:
+            (touch.clientY - touchData.current.startY) / scale +
+            translateRef.current.y,
+        });
+        touchData.current.startX = touch.clientX;
+        touchData.current.startY = touch.clientY;
+      }
+    },
+    [scale]
+  );
+
+  const handleMouseMove = useCallback(
+    (event: MouseEvent) => {
+      event.stopPropagation();
+
+      if (!isTouching.current) {
+        return;
+      }
+
+      const touch = event;
+
+      setTranslate({
+        x:
+          (touch.clientX - touchData.current.startX) / scale +
+          translateRef.current.x,
+        y:
+          (touch.clientY - touchData.current.startY) / scale +
+          translateRef.current.y,
+      });
+      touchData.current.startX = touch.clientX;
+      touchData.current.startY = touch.clientY;
+    },
+    [scale]
+  );
+
+  const handleTouchEnd = useCallback((event: TouchEvent) => {
+    if (isTouching.current) {
+      isTouching.current = false;
+    }
+  }, []);
+
+  const handleMouseUp = useCallback((event: MouseEvent) => {
+    if (isTouching.current) {
+      isTouching.current = false;
+    }
+  }, []);
 
   useEffect(() => {
     if (!lazyLoad) return;
@@ -94,12 +218,71 @@ export const Image = (props: IProps) => {
     setImgSrc((_src) => (_src ? src : _src));
   }, [src]);
 
+  useEffect(() => {
+    if (isFullScreen) {
+      const imgElement = fullImgDomRef.current;
+
+      if (imgElement) {
+        imgElement.addEventListener('wheel', handleWheel);
+        imgElement.addEventListener('touchstart', handleTouchStart);
+        imgElement.addEventListener('mousedown', handleMouseDown);
+        imgElement.addEventListener('touchmove', handleTouchMove);
+        imgElement.addEventListener('mousemove', handleMouseMove);
+        imgElement.addEventListener('touchend', handleTouchEnd);
+        imgElement.addEventListener('touchcancel', handleTouchEnd);
+        imgElement.addEventListener('mouseup', handleMouseUp);
+        imgElement.addEventListener('mouseleave', handleMouseUp);
+      }
+
+      return () => {
+        if (imgElement) {
+          imgElement.removeEventListener('wheel', handleWheel);
+          imgElement.removeEventListener('touchstart', handleTouchStart);
+          imgElement.removeEventListener('mousedown', handleMouseDown);
+          imgElement.removeEventListener('touchmove', handleTouchMove);
+          imgElement.removeEventListener('mousemove', handleMouseMove);
+          imgElement.removeEventListener('touchend', handleTouchEnd);
+          imgElement.removeEventListener('touchcancel', handleTouchEnd);
+          imgElement.removeEventListener('mouseup', handleMouseUp);
+          imgElement.removeEventListener('mouseleave', handleMouseUp);
+        }
+      };
+    } else {
+      setTranslate({ x: 0, y: 0 });
+      setScale(1);
+    }
+  }, [
+    isFullScreen,
+    handleWheel,
+    handleTouchStart,
+    handleTouchMove,
+    imgDomRef,
+    handleMouseDown,
+    handleMouseMove,
+    handleTouchEnd,
+    handleMouseUp,
+  ]);
+
   return (
     <>
       {isFullScreen &&
         createPortal(
           <div className={styles.fullImgWrap} onClick={handleFullScreenClick}>
-            <img className={styles.img} src={imgSrc} {...rest} />
+            <Button onClick={handleFullScreenClick} className={styles.closeBtn}>
+              <Icon type={ICON.close} size={30} />
+            </Button>
+            <img
+              ref={fullImgDomRef}
+              className={styles.img}
+              src={imgSrc}
+              style={{
+                transform: `scale(${scale}) translate(${translate.x}px, ${translate.y}px)`,
+                transition: 'transform 0.05s',
+              }}
+              draggable={false}
+              onClick={handleImageClick}
+              {...rest}
+            />
           </div>,
           document.body
         )}

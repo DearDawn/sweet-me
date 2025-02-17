@@ -32,7 +32,7 @@ import {
   showImageCompressModal,
   ICON_CAT_AVATAR,
   IconCatAvatar,
-} from '../../src';
+} from '../../dist';
 import clsx from 'clsx';
 import { useBoolean, useFormState, useListRequest, useRequest } from '../hooks';
 import { Storage } from './components/storage';

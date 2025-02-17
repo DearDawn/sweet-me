@@ -118,6 +118,7 @@ export const Image = (props: IProps) => {
       event.stopPropagation();
 
       if (event.touches.length === 2) {
+        singleTouchMode.current = false;
         const touch1 = event.touches[0];
         const touch2 = event.touches[1];
         const distance = Math.hypot(

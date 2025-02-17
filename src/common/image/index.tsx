@@ -2,6 +2,7 @@ import React, {
   MouseEventHandler,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -52,6 +53,7 @@ export const Image = (props: IProps) => {
   const singleTouchMode = useRef(false);
   const initialDistance = useRef(0);
   const isTouching = useRef(false);
+  const moveTimer = useRef(0);
   const translateRef = useRef(translate);
   translateRef.current = translate;
 
@@ -127,7 +129,10 @@ export const Image = (props: IProps) => {
         );
 
         const newScale = scale * (distance / initialDistance.current);
-        setScale(Math.min(Math.max(0.25, newScale), 4)); // 限制缩放范围
+        clearTimeout(moveTimer.current);
+        moveTimer.current = setTimeout(() => {
+          setScale(Math.min(Math.max(0.25, newScale), 4)); // 限制缩放范围
+        }, 30);
         initialDistance.current = distance;
       } else if (event.touches.length === 1 && singleTouchMode.current) {
         const touch = event.touches[0];
@@ -221,7 +226,7 @@ export const Image = (props: IProps) => {
     setImgSrc((_src) => (_src ? src : _src));
   }, [src]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isFullScreen) {
       const imgElement = fullImgDomWrapRef.current;
 
@@ -238,17 +243,15 @@ export const Image = (props: IProps) => {
       }
 
       return () => {
-        if (imgElement) {
-          imgElement.removeEventListener('wheel', handleWheel);
-          imgElement.removeEventListener('touchstart', handleTouchStart);
-          imgElement.removeEventListener('mousedown', handleMouseDown);
-          imgElement.removeEventListener('touchmove', handleTouchMove);
-          imgElement.removeEventListener('mousemove', handleMouseMove);
-          imgElement.removeEventListener('touchend', handleTouchEnd);
-          imgElement.removeEventListener('touchcancel', handleTouchEnd);
-          imgElement.removeEventListener('mouseup', handleMouseUp);
-          imgElement.removeEventListener('mouseleave', handleMouseUp);
-        }
+        imgElement.removeEventListener('wheel', handleWheel);
+        imgElement.removeEventListener('touchstart', handleTouchStart);
+        imgElement.removeEventListener('mousedown', handleMouseDown);
+        imgElement.removeEventListener('touchmove', handleTouchMove);
+        imgElement.removeEventListener('mousemove', handleMouseMove);
+        imgElement.removeEventListener('touchend', handleTouchEnd);
+        imgElement.removeEventListener('touchcancel', handleTouchEnd);
+        imgElement.removeEventListener('mouseup', handleMouseUp);
+        imgElement.removeEventListener('mouseleave', handleMouseUp);
       };
     } else {
       setTranslate({ x: 0, y: 0 });

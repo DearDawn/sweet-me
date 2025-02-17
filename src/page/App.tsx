@@ -329,6 +329,7 @@ export const App = () => {
         maskClosable
         onClose={closeDrawer}
         direction={drawerDir}
+        closeButton={drawerDir === 'bottom'}
       >
         <Button className={styles.closeModalBtn} onClick={closeDrawer}>
           关闭弹窗

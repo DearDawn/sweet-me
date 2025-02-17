@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { createRoot } from 'react-dom/client';
 import { useBackIntercept } from '../../hooks';
 import { isIOS } from '@/utils';
+import { ICON, Icon } from '../icon';
 
 type IProps = ICommonProps & {
   /** 弹窗是否可见 */
@@ -16,6 +17,8 @@ type IProps = ICommonProps & {
   escClosable?: boolean;
   /** back是否可关闭 */
   backClosable?: boolean;
+  /** 关闭按钮 */
+  closeButton?: boolean;
   /** 弹窗挂载的根节点, 默认 document.body */
   rootElement?: Element;
   /** 弹窗底部内容 */
@@ -36,6 +39,7 @@ export const Modal = ({
   maskClosable = false,
   escClosable = true,
   backClosable = true,
+  closeButton = false,
   rootElement = document.body,
   direction,
   ...rest
@@ -105,6 +109,15 @@ export const Modal = ({
         className={clsx(styles.modalContent, 'dodo-modal-content-wrap')}
         onClick={handleContentClick}
       >
+        {closeButton && (
+          <Icon
+            type={ICON.delete}
+            className={clsx(
+              styles.closeButton,
+              'dodo-modal-content-close-button'
+            )}
+          />
+        )}
         <div
           className={clsx(styles.content, 'dodo-modal-content', {
             [styles.paddingBig]: isIOS && !footer,

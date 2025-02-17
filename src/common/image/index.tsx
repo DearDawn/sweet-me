@@ -42,6 +42,8 @@ export const Image = (props: IProps) => {
     ...rest
   } = props;
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [cursorMode, setCursorMode] =
+    useState<React.CSSProperties['cursor']>('default');
   const [imgSrc, setImgSrc] = useState(lazyLoad ? undefined : src);
   const [scale, setScale] = useState(1);
   const [translate, setTranslate] = useState({ x: 0, y: 0 });
@@ -84,6 +86,7 @@ export const Image = (props: IProps) => {
   const handleWheel = useCallback((event: WheelEvent) => {
     setScale((prevScale) => {
       const newScale = prevScale + event.deltaY * -0.01;
+      setCursorMode(newScale > prevScale ? 'zoom-in' : 'zoom-out');
       return Math.min(Math.max(0.5, newScale), 3); // 限制缩放范围
     });
   }, []);
@@ -107,6 +110,7 @@ export const Image = (props: IProps) => {
 
   const handleMouseDown = useCallback((event: MouseEvent) => {
     isTouching.current = true;
+    setCursorMode('grab');
 
     const touch = event;
     touchData.current.startX = touch.clientX;
@@ -154,6 +158,8 @@ export const Image = (props: IProps) => {
 
       const touch = event;
 
+      setCursorMode('grabbing');
+
       setTranslate({
         x:
           (touch.clientX - touchData.current.startX) / scale +
@@ -174,6 +180,7 @@ export const Image = (props: IProps) => {
   }, []);
 
   const handleMouseUp = useCallback((event: MouseEvent) => {
+    setCursorMode('default');
     isTouching.current = false;
   }, []);
 
@@ -244,6 +251,7 @@ export const Image = (props: IProps) => {
     } else {
       setTranslate({ x: 0, y: 0 });
       setScale(1);
+      setCursorMode('default');
     }
   }, [
     isFullScreen,
@@ -265,6 +273,7 @@ export const Image = (props: IProps) => {
             ref={fullImgDomWrapRef}
             className={styles.fullImgWrap}
             onClick={handleFullScreenClick}
+            style={{ cursor: cursorMode }}
           >
             <Button onClick={handleFullScreenClick} className={styles.closeBtn}>
               <Icon type={ICON.close} size={30} />

@@ -93,9 +93,9 @@ export const Image = (props: IProps) => {
     setScale((prevScale) => {
       const newScale = prevScale + event.deltaY * -0.01;
       setCursorMode(newScale > prevScale ? 'zoom-in' : 'zoom-out');
-      return Math.min(Math.max(0.5, newScale), 3); // 限制缩放范围
+      return Math.min(Math.max(previewMinScale, newScale), previewMaxScale); // 限制缩放范围
     });
-  }, []);
+  }, [previewMaxScale, previewMinScale]);
 
   const handleTouchStart = useCallback((event: TouchEvent) => {
     if (event.touches.length === 2) {

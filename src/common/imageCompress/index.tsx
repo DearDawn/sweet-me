@@ -61,7 +61,7 @@ export const ImageCompress: FC<IProps> = (props) => {
   const defaultQuality = isPngImg ? 100 : 70;
   const [scale, setScale] = useState(defaultScale);
   const [quality, setQuality] = useState(defaultQuality);
-  const [noCompress, setNoCompress] = useState(false);
+  const [noCompress, setNoCompress] = useState(true);
   const timer = useRef(null);
   const imageWrapRef = useRef<HTMLDivElement>(null);
   const loadingRef = useRef(false);

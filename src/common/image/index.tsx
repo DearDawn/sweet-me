@@ -25,6 +25,8 @@ type IProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   imgRef?: React.MutableRefObject<HTMLImageElement>;
   /** 加载失败的兜底图片 */
   errorHolder?: string;
+  previewMinScale?: number;
+  previewMaxScale?: number,
 };
 
 /** 图片组件 */
@@ -33,6 +35,8 @@ export const Image = (props: IProps) => {
     onClick,
     className,
     withPreview = true,
+    previewMinScale = 0.25,
+    previewMaxScale = 6,
     imgRef,
     lazyLoad,
     lazyRoot,
@@ -130,7 +134,7 @@ export const Image = (props: IProps) => {
 
         const newScale = scale * (distance / initialDistance.current);
         clearTimeout(moveTimer.current);
-        setScale(Math.min(Math.max(0.25, newScale), 4)); // 限制缩放范围
+        setScale(Math.min(Math.max(previewMinScale, newScale), previewMaxScale)); // 限制缩放范围
         initialDistance.current = distance;
       } else if (event.touches.length === 1 && singleTouchMode.current) {
         const touch = event.touches[0];
@@ -147,7 +151,7 @@ export const Image = (props: IProps) => {
         touchData.current.startY = touch.clientY;
       }
     },
-    [scale]
+    [previewMaxScale, previewMinScale, scale]
   );
 
   const handleMouseMove = useCallback(

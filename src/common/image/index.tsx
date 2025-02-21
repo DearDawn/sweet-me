@@ -25,7 +25,9 @@ type IProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   imgRef?: React.MutableRefObject<HTMLImageElement>;
   /** 加载失败的兜底图片 */
   errorHolder?: string;
+  /** 预览模式下最小缩放比例 */
   previewMinScale?: number;
+  /** 预览模式下最大缩放比例 */
   previewMaxScale?: number,
 };
 

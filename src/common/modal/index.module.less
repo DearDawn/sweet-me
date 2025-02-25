@@ -88,6 +88,24 @@
   }
 }
 
+@supports (-webkit-touch-callout: none) {
+  .modal {
+    transition-duration: 0s;
+
+    .modalContent {
+      transition-duration: 0s;
+    }
+
+    &.visible {
+      transition-duration: 0.2s;
+
+      &.modalContent {
+        transition-duration: 0.2s;
+      }
+    }
+  }
+}
+
 .modalContent {
   border-radius: 10px;
   background-color: #fff;

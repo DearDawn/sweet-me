@@ -22,7 +22,7 @@ type IProps = ICommonProps<HTMLDivElement> & {
   /** 加载更多数据的方法 */
   onLoadMore?: () => Promise<{ hasMore?: boolean; error?: any }>;
   /** 下拉刷新数据的方法 */
-  onPullDownRefresh?: (manual?: boolean) => Promise<any>;
+  onPullDownRefresh?: () => Promise<any>;
 };
 
 /** 滚动容器，具备下拉刷新和触底加载更多的功能 */

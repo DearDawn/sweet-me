@@ -130,7 +130,13 @@ export const InputImage = ({
 
   React.useEffect(() => {
     if (inputFileRef.current) {
-      const { file } = value || {};
+      const { file, url } = value || {};
+
+      if (url) {
+        setPreviewUrl(url);
+        return;
+      }
+
       const dataTransfer = new DataTransfer();
       const needDispatch = file !== currentFile.current;
 

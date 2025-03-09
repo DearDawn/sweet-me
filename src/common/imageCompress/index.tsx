@@ -21,20 +21,20 @@ type IProps = React.HTMLAttributes<HTMLDivElement> & {
   /** 最大文件大小 */
   maxSize?: number;
   /** 压缩完成 */
-  onClose?: (data?: { file: File; url: string }) => void;
+  onClose?: (data?: { file: File; url: string; }) => void;
 } & (
     | {
-        /** 图片 Url */
-        imgUrl: string;
-        /** 图片 File */
-        imgFile?: File;
-      }
+      /** 图片 Url */
+      imgUrl: string;
+      /** 图片 File */
+      imgFile?: File;
+    }
     | {
-        /** 图片 Url */
-        imgUrl?: string;
-        /** 图片 File */
-        imgFile: File;
-      }
+      /** 图片 Url */
+      imgUrl?: string;
+      /** 图片 File */
+      imgFile: File;
+    }
   );
 
 /** 图片压缩组件 */
@@ -57,11 +57,11 @@ export const ImageCompress: FC<IProps> = (props) => {
   const [resFile, setResFile] = useState(initFile);
   const [size, setSize] = useState([0, 0]);
   const [loading, startLoading, endLoading] = useBoolean(false);
+  const [noCompress, setNoCompress] = useState(true);
   const defaultScale = 70;
   const defaultQuality = isPngImg ? 100 : 70;
-  const [scale, setScale] = useState(defaultScale);
-  const [quality, setQuality] = useState(defaultQuality);
-  const [noCompress, setNoCompress] = useState(true);
+  const [scale, setScale] = useState(noCompress ? 100 : defaultScale);
+  const [quality, setQuality] = useState(noCompress ? 100 : defaultQuality);
   const timer = useRef(null);
   const imageWrapRef = useRef<HTMLDivElement>(null);
   const loadingRef = useRef(false);

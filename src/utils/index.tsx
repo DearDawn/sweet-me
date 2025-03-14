@@ -1,6 +1,6 @@
 export * from './toast';
 export * from './loading';
-export * from './notice';
+export * from './notice/index';
 export * from './math';
 export * from './request';
 export * from './storage';

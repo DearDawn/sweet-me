@@ -129,6 +129,7 @@ export const App = () => {
 
   const handleNotice = React.useCallback(
     (type: 'info' | 'error' | 'success') => () => {
+      console.log('[dodo] ', 'notice', notice);
       notice[type](type, 1000);
     },
     []

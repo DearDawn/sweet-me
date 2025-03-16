@@ -36,6 +36,7 @@ export default {
       extract: false,
       namedExports: true,
       minimize: true,
+      autoModules: true,
       inject: {
         insertAt: 'top'
       },

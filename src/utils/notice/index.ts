@@ -1,4 +1,4 @@
-import './index.less';
+import styles from './index.less';
 
 interface NoticeItem {
   title?: string;
@@ -13,13 +13,18 @@ class Notice {
   private root: HTMLElement;
   private noticeList: NoticeItem[];
   private counter: number;
-  constructor(root = document.body) {
+  constructor (root = document.body) {
     this.root = root;
     this.noticeList = [];
     this.counter = 0;
+    document.head.appendChild(
+      Object.assign(document.createElement('style'), {
+        textContent: styles
+      })
+    );
   }
 
-  private init(config?: Pick<NoticeItem, 'title' | 'duration' | 'type'>) {
+  private init (config?: Pick<NoticeItem, 'title' | 'duration' | 'type'>) {
     const {
       title = '这是一个提示',
       type = 'info',
@@ -34,13 +39,13 @@ class Notice {
     this.addNotice({ dom, title, type, duration, ...rest });
   }
 
-  private refactor() {
+  private refactor () {
     this.noticeList.forEach((notice, id) => {
       notice.dom.style.top = `${id * 80 + 20}px`;
     });
   }
 
-  private addNotice(noticeItem: Omit<NoticeItem, 'id'>) {
+  private addNotice (noticeItem: Omit<NoticeItem, 'id'>) {
     const { dom, duration } = noticeItem;
     const id = this.counter;
     this.counter += 1;
@@ -52,7 +57,7 @@ class Notice {
     }, duration);
   }
 
-  private removeNotice(id: number) {
+  private removeNotice (id: number) {
     const index = this.noticeList.findIndex((it) => it.id === id);
     const noticeItem = this.noticeList[index];
 
@@ -64,17 +69,17 @@ class Notice {
   }
 
   /** 通知 */
-  info(title = '', duration = 1500) {
+  info (title = '', duration = 1500) {
     this.init({ title, duration });
   }
 
   /** 成功 */
-  success(title = '', duration = 1500) {
+  success (title = '', duration = 1500) {
     this.init({ title, duration, type: 'success' });
   }
 
   /** 错误 */
-  error(title = '', duration = 1500) {
+  error (title = '', duration = 1500) {
     this.init({ title, duration, type: 'error' });
   }
 }

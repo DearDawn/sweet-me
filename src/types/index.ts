@@ -1,6 +1,9 @@
+import React from "react";
+
 export type ICommonBaseProps = {
   className?: string;
   children?: any;
+  style?: React.CSSProperties;
 };
 
 export type ICommonBaseInputCompoProps<T> = {

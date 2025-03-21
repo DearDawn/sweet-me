@@ -18,9 +18,9 @@ export type ICommonBaseInputCompoProps<T> = {
   /** 占位符 */
   placeholder?: T;
   children?: any;
-} & ICommonBaseProps;
+} & ICommonBaseProps & ICommonProps<HTMLInputElement>;
 
 export type ICommonProps<T = HTMLDivElement> = Omit<
   React.HTMLAttributes<T> & React.InputHTMLAttributes<T>,
-  'size' | 'form' | 'onSubmit'
+  'size' | 'form' | 'onSubmit' | 'onInput' | 'disabled' | 'placeholder' | 'value'
 > & ICommonBaseProps;

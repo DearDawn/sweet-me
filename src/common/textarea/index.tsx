@@ -21,7 +21,7 @@ export const Textarea = ({
   onValueChange,
   value,
   ...rest
-}: IProps & React.ButtonHTMLAttributes<HTMLTextAreaElement>) => {
+}: IProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>) => {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const preValue = React.useRef<any>();
   const withValue = !!value;

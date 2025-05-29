@@ -26,15 +26,15 @@ export const Textarea = ({
   const preValue = React.useRef<any>();
   const withValue = !!value;
 
-  const adjustTextareaHeight = useCallbackRef(() => {
-    if (value === preValue.current) return;
+  const adjustTextareaHeight = useCallbackRef((val = value) => {
+    if (val === preValue.current) return;
 
     const textarea = textareaRef.current;
     textarea.style.height = 'auto';
     const computedHeight = textarea.scrollHeight;
     textarea.style.height = `${computedHeight}px`;
 
-    preValue.current = value;
+    preValue.current = val;
   });
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> =
@@ -42,7 +42,7 @@ export const Textarea = ({
       (e) => {
         const val = e.target.value;
         onValueChange?.(val);
-        adjustTextareaHeight.current();
+        adjustTextareaHeight.current(val);
       },
       [adjustTextareaHeight, onValueChange]
     );

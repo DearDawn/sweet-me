@@ -25,6 +25,7 @@ export const Page = ({
   minWidth = '300px',
   maxWidth = '750px',
   pageRef,
+  style,
   ...rest
 }: IProps) => {
 
@@ -39,7 +40,7 @@ export const Page = ({
 
   return (
     <div
-      style={{ fontSize, minWidth, maxWidth }}
+      style={{ fontSize, minWidth, maxWidth, ...style }}
       className={cs(styles.page, className)}
       ref={pageRef}
       {...rest}

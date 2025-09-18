@@ -27,8 +27,8 @@ export const Textarea = ({
   const preValue = React.useRef<any>();
   const withValue = !!value || !!defaultValue;
 
-  const adjustTextareaHeight = useCallbackRef((val = value) => {
-    if (val === preValue.current) return;
+  const adjustTextareaHeight = useCallbackRef((val = value, force = false) => {
+    if (val === preValue.current && !force) return;
 
     preValue.current = val;
     const textarea = textareaRef.current;
@@ -80,7 +80,7 @@ export const Textarea = ({
     if (!textarea || !autoFitHeight) return;
 
     const handleResize = () => {
-      adjustTextareaHeight.current();
+      adjustTextareaHeight.current(undefined, true);
     };
 
     textarea.addEventListener('input', handleResize);
@@ -92,7 +92,7 @@ export const Textarea = ({
       textarea.removeEventListener('input', handleResize);
       window.removeEventListener('resize', handleResize);
     };
-  }, [adjustTextareaHeight, autoFitHeight, enterAsSubmit, withValue]);
+  }, [adjustTextareaHeight, autoFitHeight, withValue]);
 
   React.useEffect(() => {
     if (autoFitHeight) {

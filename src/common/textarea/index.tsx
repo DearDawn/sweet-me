@@ -19,22 +19,25 @@ export const Textarea = ({
   autoFitHeight = true,
   enterAsSubmit = true,
   onValueChange,
+  defaultValue,
   value,
   ...rest
 }: IProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>) => {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const preValue = React.useRef<any>();
-  const withValue = !!value;
+  const withValue = !!value || !!defaultValue;
 
   const adjustTextareaHeight = useCallbackRef((val = value) => {
     if (val === preValue.current) return;
 
+    preValue.current = val;
     const textarea = textareaRef.current;
+
+    if (!textarea) return;
+
     textarea.style.height = 'auto';
     const computedHeight = textarea.scrollHeight;
     textarea.style.height = `${computedHeight}px`;
-
-    preValue.current = val;
   });
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> =
@@ -42,9 +45,8 @@ export const Textarea = ({
       (e) => {
         const val = e.target.value;
         onValueChange?.(val);
-        adjustTextareaHeight.current(val);
       },
-      [adjustTextareaHeight, onValueChange]
+      [onValueChange]
     );
 
   React.useEffect(() => {
@@ -92,11 +94,18 @@ export const Textarea = ({
     };
   }, [adjustTextareaHeight, autoFitHeight, enterAsSubmit, withValue]);
 
+  React.useEffect(() => {
+    if (autoFitHeight) {
+      adjustTextareaHeight.current(value || defaultValue);
+    }
+  }, [adjustTextareaHeight, autoFitHeight, defaultValue, value]);
+
   return (
     <textarea
       ref={textareaRef}
       onChange={handleChange}
       className={cs(styles.textarea, className)}
+      defaultValue={defaultValue}
       value={value}
       {...rest}
     />

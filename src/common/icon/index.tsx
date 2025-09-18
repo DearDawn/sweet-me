@@ -33,7 +33,7 @@ export enum ICON {
   jump = '&#xe823;',
 }
 
-type IProps = ICommonProps & {
+type IProps = Omit<ICommonProps, 'type'> & {
   /** 图标类型 */
   type?: ICON;
   /** 尺寸，默认 fontSize 32 */

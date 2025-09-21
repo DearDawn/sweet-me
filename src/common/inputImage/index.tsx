@@ -11,11 +11,11 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 type IProps = Omit<ICommonProps<HTMLInputElement>, 'value'> & {
   /** 内容值变化 */
-  onValueChange?: ({ file, url }: { file?: File; url: string }) => void;
+  onValueChange?: ({ file, url }: { file?: File; url: string; }) => void;
   /** 与 FormItem 配合时，供 FormItem 使用，请用 onValueChange 替代 */
-  onInput?: ({ file, url }: { file?: File; url: string }) => void;
+  onInput?: ({ file, url }: { file?: File; url: string; }) => void;
   /** 图片文件 */
-  value?: { file: File; url: string };
+  value?: { file: File; url?: string; } | { file?: File; url: string; };
   /** 图片选择器大小 */
   size?: number;
   /** 图片大小限制，默认 10MB */

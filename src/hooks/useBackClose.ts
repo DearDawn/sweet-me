@@ -1,12 +1,16 @@
-import { useEffect, useRef } from "react";
-import { sweetMeConfig } from "../utils/config";
+import { useEffect, useRef } from 'react';
+import { sweetMeConfig } from '../utils/config';
 
 /** 返回时拦截并执行操作 */
-export const useBackIntercept = ({ disabled = false, interceptStart = false, onBack }: {
+export const useBackIntercept = ({
+  disabled = false,
+  interceptStart = false,
+  onBack,
+}: {
   /** 是否禁用 */
-  disabled?: boolean,
+  disabled?: boolean;
   /** 是否开始拦截, 如弹窗弹出时 */
-  interceptStart?: boolean,
+  interceptStart?: boolean;
   /** 返回时拦截并执行操作 */
   onBack?: () => void;
 }) => {
@@ -45,5 +49,4 @@ export const useBackIntercept = ({ disabled = false, interceptStart = false, onB
       }
     }
   }, [disableBackIntercept, disabled, interceptStart, onBack]);
-
 };

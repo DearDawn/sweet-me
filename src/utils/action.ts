@@ -20,13 +20,13 @@ export class Action {
   /** 单例实例 */
   private static instance: Action;
 
-  constructor () { }
+  constructor() {}
 
   /**
    * 获取基础数据
    * @returns 包含设备ID、当前URL和路径的基础数据对象
    */
-  private get baseData () {
+  private get baseData() {
     return { did: this.did, url: location.href, page: location.pathname };
   }
 
@@ -34,7 +34,7 @@ export class Action {
    * 获取 Action 单例实例
    * @returns Action 实例
    */
-  static getInstance () {
+  static getInstance() {
     if (!Action.instance) {
       Action.instance = new Action();
     }
@@ -45,12 +45,12 @@ export class Action {
   /**
    * 配置埋点
    */
-  config ({
+  config({
     url,
     loggerUrl = '',
     commonParams = {},
     isDev = false,
-    disableDevLog = false
+    disableDevLog = false,
   }: {
     /** 请求地址 */
     url: string;
@@ -77,7 +77,7 @@ export class Action {
    * 否则生成新的 UUID 并存储
    * @returns 设备ID
    */
-  private generateId () {
+  private generateId() {
     const storageKey = localStorage.getItem(this.didKey);
 
     if (storageKey) {
@@ -93,7 +93,7 @@ export class Action {
    * 开发环境日志输出
    * @param info - 要输出的日志信息
    */
-  private consoleLog (...info: any) {
+  private consoleLog(...info: any) {
     if (!this.disableDevLog) return;
 
     // eslint-disable-next-line no-console
@@ -104,7 +104,7 @@ export class Action {
    * 开发环境错误输出
    * @param info - 要输出的错误信息
    */
-  private consoleError (...info: any) {
+  private consoleError(...info: any) {
     if (!this.disableDevLog) return;
 
     // eslint-disable-next-line no-console
@@ -117,7 +117,7 @@ export class Action {
    * @param extra - 额外数据
    * @returns Promise
    */
-  visit (obj_id = '', extra?: Record<string, any>) {
+  visit(obj_id = '', extra?: Record<string, any>) {
     return this.request('visit', { obj_id, extra });
   }
 
@@ -127,7 +127,7 @@ export class Action {
    * @param extra - 额外数据
    * @returns Promise
    */
-  show (obj_id = '', extra?: Record<string, any>) {
+  show(obj_id = '', extra?: Record<string, any>) {
     return this.request('show', { obj_id, extra });
   }
 
@@ -137,17 +137,17 @@ export class Action {
    * @param extra - 额外数据
    * @returns Promise
    */
-  click (obj_id = '', extra?: Record<string, any>) {
+  click(obj_id = '', extra?: Record<string, any>) {
     return this.request('click', { obj_id, extra });
   }
 
   /** 上报业务日志 */
-  log (message = '', extra?: Record<string, any>) {
+  log(message = '', extra?: Record<string, any>) {
     return this.requestLogger('info', { message, extra });
   }
 
   /** 上报错误日志 */
-  error (message = '', stack = '', extra?: Record<string, any>) {
+  error(message = '', stack = '', extra?: Record<string, any>) {
     return this.requestLogger('error', { message, stack, extra });
   }
 
@@ -157,30 +157,39 @@ export class Action {
    * @param data - 事件数据
    * @returns Promise
    */
-  private request (type = '', data: { obj_id: string, extra: Record<string, any>; }) {
+  private request(
+    type = '',
+    data: { obj_id: string; extra: Record<string, any> }
+  ) {
     if (!this.requestUrl) {
       // eslint-disable-next-line no-console
       this.consoleError('请先使用 action.config 配置请求地址');
       return;
     }
 
-    const body = { ...this.baseData, ...data, extra: { ...data.extra, ...this.extraParams } };
+    const body = {
+      ...this.baseData,
+      ...data,
+      extra: { ...data.extra, ...this.extraParams },
+    };
 
     if (this.isDev) {
       this.consoleLog(body);
       return;
     }
 
-    return fetch(`${this.requestUrl}/${type}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      // eslint-disable-next-line no-console
-      .catch(console.error);
+    return (
+      fetch(`${this.requestUrl}/${type}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+        .then((res) => res.json())
+        // eslint-disable-next-line no-console
+        .catch(console.error)
+    );
   }
 
   /**
@@ -189,14 +198,21 @@ export class Action {
    * @param data - 事件数据
    * @returns Promise
    */
-  private requestLogger (type = '', data: { message: string, stack?: string, extra?: Record<string, any>; }) {
+  private requestLogger(
+    type = '',
+    data: { message: string; stack?: string; extra?: Record<string, any> }
+  ) {
     if (!this.requestLoggerUrl) {
       // eslint-disable-next-line no-console
       this.consoleError('请先使用 action.config 配置请求地址');
       return;
     }
 
-    const body = { ...this.baseData, ...data, extra: { ...data.extra, ...this.extraParams } };
+    const body = {
+      ...this.baseData,
+      ...data,
+      extra: { ...data.extra, ...this.extraParams },
+    };
 
     if (this.isDev) {
       if (type === 'error') {
@@ -207,16 +223,18 @@ export class Action {
       return;
     }
 
-    return fetch(`${this.requestLoggerUrl}/${type}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      // eslint-disable-next-line no-console
-      .catch(console.error);
+    return (
+      fetch(`${this.requestLoggerUrl}/${type}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+        .then((res) => res.json())
+        // eslint-disable-next-line no-console
+        .catch(console.error)
+    );
   }
 }
 

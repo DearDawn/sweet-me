@@ -16,11 +16,11 @@ type IOption = {
 
 type IProps = ICommonProps & {
   /** 值 */
-  value?: any;
+  value?: any[];
   /** 与 FormItem 配合时，供 FormItem 使用，请用 onValueChange 替代 */
-  onInput?: (value?: any) => void;
+  onInput?: (value?: any[]) => void;
   /** 值改变 */
-  onValueChange?: (it?: IOption) => void;
+  onValueChange?: (values?: IOption[]) => void;
   /** 打开选择面板 */
   onVisibleChange?: (visible?: boolean) => void;
   /** 选择框类型：文字，图标 */
@@ -35,10 +35,14 @@ type IProps = ICommonProps & {
   allowCreate?: boolean;
   /** 创建新选项的提示 */
   createPlaceholder?: string;
+  /** 最大选择数量 */
+  maxCount?: number;
+  /** 是否显示已选项数量 */
+  showCount?: boolean;
 };
 
-/** 下拉选择框，高度通过 css 变量 --height 设置 */
-export const Select = ({
+/** 多选下拉选择框，高度通过 css 变量 --height 设置 */
+export const MultiSelect = ({
   className,
   onValueChange,
   onVisibleChange,
@@ -50,14 +54,20 @@ export const Select = ({
   options = [],
   allowCreate = false,
   createPlaceholder = '填写新选项',
+  maxCount,
+  showCount = false,
   ...rest
 }: IProps) => {
   const [selfOptions, setSelfOptions] = React.useState(options);
-  const [selfVal, setSelfVal] = React.useState<string>();
+  const [selfValues, setSelfValues] = React.useState<any[]>([]);
   const [visible, openPanel, closePanel] = useBoolean(false);
   const [pos, setPos] = React.useState<'top' | 'bottom'>('bottom');
   const [inputValue, setInputValue] = React.useState<string>('');
-  const value = selfVal || propsValue;
+
+  const values = React.useMemo(
+    () => (selfValues.length > 0 ? selfValues : propsValue || []),
+    [propsValue, selfValues]
+  );
   const selectWrapRef = React.useRef<HTMLDivElement>(null);
   const onVisibleChangeRef = React.useRef(onVisibleChange);
   onVisibleChangeRef.current = onVisibleChange;
@@ -66,15 +76,31 @@ export const Select = ({
     (it: IOption) => () => {
       if (it.disabled) return;
 
-      if (onValueChange || onInput) {
-        onValueChange?.(it);
-        onInput?.(it.value);
+      let newValues: any[];
+      const isSelected = values.includes(it.value);
+
+      if (isSelected) {
+        // 取消选中
+        newValues = values.filter((val) => val !== it.value);
       } else {
-        setSelfVal(it.value);
+        // 选中
+        if (maxCount && values.length >= maxCount) {
+          return; // 达到最大选择数量
+        }
+        newValues = [...values, it.value];
       }
-      closePanel();
+
+      if (onValueChange || onInput) {
+        const selectedOptions = selfOptions.filter((option) =>
+          newValues.includes(option.value)
+        );
+        onValueChange?.(selectedOptions);
+        onInput?.(newValues);
+      } else {
+        setSelfValues(newValues);
+      }
     },
-    [closePanel, onInput, onValueChange]
+    [onInput, onValueChange, values, maxCount, selfOptions]
   );
 
   const handleToggle = React.useCallback(() => {
@@ -99,17 +125,26 @@ export const Select = ({
       value: inputValue,
     };
 
-    setSelfOptions([...selfOptions, newOption]);
+    const newOptions = [...selfOptions, newOption];
+    setSelfOptions(newOptions);
     setInputValue('');
 
-    if (onValueChange || onInput) {
-      onValueChange?.(newOption);
-      onInput?.(newOption.value);
-    } else {
-      setSelfVal(newOption.value);
+    if (maxCount && values.length >= maxCount) {
+      return;
     }
-    closePanel();
-  }, [closePanel, inputValue, onInput, onValueChange, selfOptions]);
+
+    // 自动选中新创建的选项
+    const newValues = [...values, newOption.value];
+    if (onValueChange || onInput) {
+      const selectedOptions = newOptions.filter((option) =>
+        newValues.includes(option.value)
+      );
+      onValueChange?.(selectedOptions);
+      onInput?.(newValues);
+    } else {
+      setSelfValues(newValues);
+    }
+  }, [inputValue, maxCount, onInput, onValueChange, selfOptions, values]);
 
   // 点击外部时，自动关闭面板
   React.useEffect(() => {
@@ -135,14 +170,27 @@ export const Select = ({
   }, [options]);
 
   React.useEffect(() => {
-    setSelfVal(propsValue || undefined);
+    setSelfValues(propsValue || []);
   }, [propsValue]);
 
   React.useEffect(() => {
     onVisibleChangeRef.current?.(visible);
   }, [visible]);
 
-  const activeItem = selfOptions.find((it) => it.value === value);
+  const selectedItems = selfOptions.filter((it) => values.includes(it.value));
+
+  // 获取显示文本
+  const getDisplayText = () => {
+    if (selectedItems.length === 0) {
+      return placeholder;
+    }
+
+    if (showCount) {
+      return `已选择 ${selectedItems.length} 项`;
+    }
+
+    return selectedItems.map((item) => item.label).join(', ');
+  };
 
   return (
     <div
@@ -154,31 +202,41 @@ export const Select = ({
         styles[`align_${align}`],
         className,
         {
-          [styles.empty]: !activeItem,
+          [styles.empty]: selectedItems.length === 0,
           [styles.visible]: visible,
         }
       )}
       {...rest}
     >
       <div
-        className={clsx(styles.input, 'dodo-select-input')}
+        className={clsx(styles.input, 'dodo-multi-select-input')}
         onClick={handleToggle}
       >
-        {activeItem?.label || placeholder}
+        {getDisplayText()}
       </div>
-      <div className={clsx(styles.optionList, 'dodo-select-option-list')}>
-        {selfOptions.map((it) => (
-          <div
-            className={clsx(styles.optionItem, 'dodo-select-option-item', {
-              [styles.active]: value === it.value,
-              [styles.disabled]: it.disabled,
-            })}
-            key={it.value}
-            onClick={handleSelect(it)}
-          >
-            {it.label}
-          </div>
-        ))}
+      <div className={clsx(styles.optionList, 'dodo-multi-select-option-list')}>
+        {selfOptions.map((it) => {
+          const isSelected = values.includes(it.value);
+          const isMaxReached =
+            maxCount && values.length >= maxCount && !isSelected;
+
+          return (
+            <div
+              className={clsx(
+                styles.optionItem,
+                'dodo-multi-select-option-item',
+                {
+                  [styles.active]: isSelected,
+                  [styles.disabled]: it.disabled || isMaxReached,
+                }
+              )}
+              key={it.value}
+              onClick={handleSelect(it)}
+            >
+              {it.label}
+            </div>
+          );
+        })}
         {allowCreate && (
           <div className={clsx(styles.optionItem, styles.createItem)}>
             <Input

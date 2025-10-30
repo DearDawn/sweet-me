@@ -5,7 +5,7 @@ import { RequestProps, useRequest } from './useRequest';
 
 export type ListRequestProps = {
   url: RequestUrl;
-  params?: Record<string, any> & { pageRewrite?: number; };
+  params?: Record<string, any> & { pageRewrite?: number };
   init?: RequestInit;
   autoRun?: boolean;
   loadingFn?: () => VoidFunction;
@@ -23,8 +23,14 @@ type ListRequest<T> = {
 };
 
 /** 请求 */
-export const useListRequest = <T = any> (props: ListRequestProps) => {
-  const { url = '/', params = {}, init = {}, loadingFn, pageSize = 20 } = props || {};
+export const useListRequest = <T = any>(props: ListRequestProps) => {
+  const {
+    url = '/',
+    params = {},
+    init = {},
+    loadingFn,
+    pageSize = 20,
+  } = props || {};
   const { page: _page, pageRewrite, ...rest } = params || {};
   const [data, setData] = useState<ListRequest<T>>();
   const [page, setPage] = useState(_page || 0);
@@ -49,66 +55,83 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     setData(undefined);
   }, []);
 
-  const onRefresh = useCallback(async (params?: RequestProps['params']) => {
-    if (refreshing) return;
+  const onRefresh = useCallback(
+    async (params?: RequestProps['params']) => {
+      if (refreshing) return;
 
-    resetQuery();
-    await waitTime(0);
-    try {
-      startRefreshing();
-      await waitTime(300);
-      const res = await runApi(params);
-      const { ...rest } = res;
-
-      setData({ ...rest });
-      setPage((p) => { pageRef.current = p + 1; return pageRef.current; });
-
-      return { hasMore: res.has_more, hasLater: res.has_later, res };
-    } catch (error) {
-      return { hasMore: true, hasLater: true, error };
-    } finally {
-      endRefreshing();
-    }
-  }, [endRefreshing, refreshing, resetQuery, runApi, startRefreshing]);
-
-  const onLoadMore = useCallback(async (params?: RequestProps['params']) => {
-    try {
-
-      setPage(pageRef.current);
+      resetQuery();
       await waitTime(0);
-      const res = await runApi(params);
-      const { list: newList, ...rest } = res || {};
+      try {
+        startRefreshing();
+        await waitTime(300);
+        const res = await runApi(params);
+        const { ...rest } = res;
 
-      setData((_data) => {
-        const { list, ...origin } = _data || {};
-        return { list: [...(list || []), ...newList], ...origin, ...rest };
-      });
-      setPage((p) => { pageRef.current = p + 1; return pageRef.current; });
+        setData({ ...rest });
+        setPage((p) => {
+          pageRef.current = p + 1;
+          return pageRef.current;
+        });
 
-      return { hasMore: res.has_more, hasLater: res.has_later, res };
-    } catch (error) {
-      return { hasMore: true, hasLater: true, error };
-    }
-  }, [runApi]);
+        return { hasMore: res.has_more, hasLater: res.has_later, res };
+      } catch (error) {
+        return { hasMore: true, hasLater: true, error };
+      } finally {
+        endRefreshing();
+      }
+    },
+    [endRefreshing, refreshing, resetQuery, runApi, startRefreshing]
+  );
 
-  const onLoadLater = useCallback(async (params?: RequestProps['params']) => {
-    try {
-      setPage(pageLaterRef.current);
-      await waitTime(0);
-      const res = await runApi(params);
-      const { list: newList, ...rest } = res || {};
+  const onLoadMore = useCallback(
+    async (params?: RequestProps['params']) => {
+      try {
+        setPage(pageRef.current);
+        await waitTime(0);
+        const res = await runApi(params);
+        const { list: newList, ...rest } = res || {};
 
-      setData((_data) => {
-        const { list, ...origin } = _data || {};
-        return { list: [...newList, ...(list || [])], ...origin, ...rest };
-      });
-      setPage((p) => { pageLaterRef.current = p + 1; return pageLaterRef.current; });
+        setData((_data) => {
+          const { list, ...origin } = _data || {};
+          return { list: [...(list || []), ...newList], ...origin, ...rest };
+        });
+        setPage((p) => {
+          pageRef.current = p + 1;
+          return pageRef.current;
+        });
 
-      return { hasMore: res.has_more, hasLater: res.has_later, res };
-    } catch (error) {
-      return { hasMore: true, hasLater: true, error };
-    }
-  }, [runApi]);
+        return { hasMore: res.has_more, hasLater: res.has_later, res };
+      } catch (error) {
+        return { hasMore: true, hasLater: true, error };
+      }
+    },
+    [runApi]
+  );
+
+  const onLoadLater = useCallback(
+    async (params?: RequestProps['params']) => {
+      try {
+        setPage(pageLaterRef.current);
+        await waitTime(0);
+        const res = await runApi(params);
+        const { list: newList, ...rest } = res || {};
+
+        setData((_data) => {
+          const { list, ...origin } = _data || {};
+          return { list: [...newList, ...(list || [])], ...origin, ...rest };
+        });
+        setPage((p) => {
+          pageLaterRef.current = p + 1;
+          return pageLaterRef.current;
+        });
+
+        return { hasMore: res.has_more, hasLater: res.has_later, res };
+      } catch (error) {
+        return { hasMore: true, hasLater: true, error };
+      }
+    },
+    [runApi]
+  );
 
   useEffect(() => {
     if (!loading || !loadingFn) return;
@@ -117,7 +140,7 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
       const fn = loadingFn();
       return fn;
     } else {
-      return () => { };
+      return () => {};
     }
   }, [isFirstRequest, loading, loadingFn]);
 
@@ -132,6 +155,6 @@ export const useListRequest = <T = any> (props: ListRequestProps) => {
     resetQuery,
     onRefresh,
     onLoadMore,
-    onLoadLater
+    onLoadLater,
   };
 };

@@ -34,8 +34,9 @@ TODO LIST
 | <input type="checkbox" checked /> ScrollContainer | `2024-10-15` |                                                               |
 | <input type="checkbox" checked /> MultiInput      | `2024-10-17` |                                                               |
 | <input type="checkbox" checked /> ImageCompress   | `2025-01-01` |                                                               |
-| <input type="checkbox" checked /> IconLogo   | `2025-01-15` |                                                               |
+| <input type="checkbox" checked /> IconLogo        | `2025-01-15` |                                                               |
 | <input type="checkbox" checked /> IconCatAvatar   | `2025-02-14` |                                                               |
+| <input type="checkbox" checked /> MultiSelect     | `2025-10-30` |                                                               |
 
 </div>
 </div
@@ -43,14 +44,14 @@ TODO LIST
 <div class="table-wrapper" markdown="block">
 <div class="table-inner" markdown="block">
 
-| Hook                                             | 日期         | 详情 |
-| ------------------------------------------------ | ------------ | ---- |
-| <input type="checkbox" checked /> useRequest     | `2024-01-22` |      |
-| <input type="checkbox" checked /> useBoolean     | `2024-03-13` |      |
-| <input type="checkbox" checked /> usePageVisible | `2024-04-07` |      |
-| <input type="checkbox" checked /> useFormState   | `2024-04-10` |      |
-| <input type="checkbox" checked /> useCallbackRef | `2024-06-23` |      |
-| <input type="checkbox" checked /> useListRequest | `2024-10-15` |      |
+| Hook                                               | 日期         | 详情 |
+| -------------------------------------------------- | ------------ | ---- |
+| <input type="checkbox" checked /> useRequest       | `2024-01-22` |      |
+| <input type="checkbox" checked /> useBoolean       | `2024-03-13` |      |
+| <input type="checkbox" checked /> usePageVisible   | `2024-04-07` |      |
+| <input type="checkbox" checked /> useFormState     | `2024-04-10` |      |
+| <input type="checkbox" checked /> useCallbackRef   | `2024-06-23` |      |
+| <input type="checkbox" checked /> useListRequest   | `2024-10-15` |      |
 | <input type="checkbox" checked /> useBackIntercept | `2025-01-15` |      |
 
 </div>
@@ -59,22 +60,22 @@ TODO LIST
 <div class="table-wrapper" markdown="block">
 <div class="table-inner" markdown="block">
 
-| Util                                                          | 日期         | 详情 |
-| ------------------------------------------------------------- | ------------ | ---- |
-| <input type="checkbox" checked /> toast                       | `2020-09-02` |      |
-| <input type="checkbox" checked /> notice                      | `2020-09-02` |      |
-| <input type="checkbox" checked /> clamp                       | `2024-01-17` |      |
-| <input type="checkbox" checked /> loading                     | `2024-01-23` |      |
-| <input type="checkbox" checked /> safeParse                   | `2024-04-07` |      |
-| <input type="checkbox" checked /> rgbToHsl                    | `2024-06-19` |      |
-| <input type="checkbox" checked /> rgbToHsl                    | `2024-06-19` |      |
-| <input type="checkbox" checked /> findClosestScrollableParent | `2024-06-23` |      |
-| <input type="checkbox" checked /> compressImage               | `2024-09-06` |      |
-| <input type="checkbox" checked /> waitTime                    | `2024-10-15` |      |
-| <input type="checkbox" checked /> getFileFromUrl              | `2025-01-01` |      |
-| <input type="checkbox" checked /> action              | `2025-01-06` | 简易埋点     |
-| <input type="checkbox" checked /> sweetMeConfig              | `2025-01-16` | 组件库全局配置     |
-| <input type="checkbox" checked /> isPhone/isWX...              | `2025-01-22` | 环境检测     |
+| Util                                                          | 日期         | 详情           |
+| ------------------------------------------------------------- | ------------ | -------------- |
+| <input type="checkbox" checked /> toast                       | `2020-09-02` |                |
+| <input type="checkbox" checked /> notice                      | `2020-09-02` |                |
+| <input type="checkbox" checked /> clamp                       | `2024-01-17` |                |
+| <input type="checkbox" checked /> loading                     | `2024-01-23` |                |
+| <input type="checkbox" checked /> safeParse                   | `2024-04-07` |                |
+| <input type="checkbox" checked /> rgbToHsl                    | `2024-06-19` |                |
+| <input type="checkbox" checked /> rgbToHsl                    | `2024-06-19` |                |
+| <input type="checkbox" checked /> findClosestScrollableParent | `2024-06-23` |                |
+| <input type="checkbox" checked /> compressImage               | `2024-09-06` |                |
+| <input type="checkbox" checked /> waitTime                    | `2024-10-15` |                |
+| <input type="checkbox" checked /> getFileFromUrl              | `2025-01-01` |                |
+| <input type="checkbox" checked /> action                      | `2025-01-06` | 简易埋点       |
+| <input type="checkbox" checked /> sweetMeConfig               | `2025-01-16` | 组件库全局配置 |
+| <input type="checkbox" checked /> isPhone/isWX...             | `2025-01-22` | 环境检测       |
 
 </div>
 </div

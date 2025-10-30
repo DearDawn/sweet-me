@@ -13,6 +13,7 @@ export { Icon, ICON } from './icon';
 export { IconLogo, ICON_LOGO } from './iconLogo';
 export { IconCatAvatar, ICON_CAT_AVATAR } from './iconCatAvatar';
 export { Select } from './select';
+export { MultiSelect } from './multiSelect';
 export { Radio } from './radio';
 export { Switch } from './switch';
 export { Slider } from './slider';

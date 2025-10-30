@@ -1,4 +1,17 @@
-export type EColor = "red" | "pink" | "orange" | "yellow" | "lime" | "green" | "teal" | "cyan" | "blue" | "indigo" | "grape" | "purple" | "gray";
+export type EColor =
+  | 'red'
+  | 'pink'
+  | 'orange'
+  | 'yellow'
+  | 'lime'
+  | 'green'
+  | 'teal'
+  | 'cyan'
+  | 'blue'
+  | 'indigo'
+  | 'grape'
+  | 'purple'
+  | 'gray';
 
 export const COLOR_RGB_MAP: Record<EColor, [number, number, number]> = {
   gray: [134, 142, 150],
@@ -17,19 +30,19 @@ export const COLOR_RGB_MAP: Record<EColor, [number, number, number]> = {
 };
 
 export const COLOR_NAME: Record<EColor, string> = {
-  red: "红色",
-  pink: "粉色",
-  orange: "橙色",
-  yellow: "黄色",
-  lime: "青柠色",
-  green: "绿色",
-  teal: "蓝绿色",
-  cyan: "青色",
-  blue: "蓝色",
-  indigo: "靛青色",
-  grape: "葡萄色",
-  purple: "紫色",
-  gray: "灰色"
+  red: '红色',
+  pink: '粉色',
+  orange: '橙色',
+  yellow: '黄色',
+  lime: '青柠色',
+  green: '绿色',
+  teal: '蓝绿色',
+  cyan: '青色',
+  blue: '蓝色',
+  indigo: '靛青色',
+  grape: '葡萄色',
+  purple: '紫色',
+  gray: '灰色',
 };
 
 /**
@@ -38,7 +51,6 @@ export const COLOR_NAME: Record<EColor, string> = {
  * @returns RGB 值数组
  */
 export const getColorRGB = (colorName: EColor) => {
-
   return COLOR_RGB_MAP[colorName] || []; // 如果颜色名无效，则返回空数组
 };
 

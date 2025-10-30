@@ -1,7 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 /** useBoolean */
-export const useBoolean = (initFlag = false): [
+export const useBoolean = (
+  initFlag = false
+): [
   bool: boolean,
   setTrue: VoidFunction,
   setFalse: VoidFunction,

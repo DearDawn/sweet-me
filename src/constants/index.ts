@@ -1,1 +1,2 @@
-export const ERROR_IMAGE = 'https://coding-demo-fullstack-serverless-vue-website-1300422826.cos.ap-guangzhou.myqcloud.com/public/images/2024-07-29-error.png';
+export const ERROR_IMAGE =
+  'https://coding-demo-fullstack-serverless-vue-website-1300422826.cos.ap-guangzhou.myqcloud.com/public/images/2024-07-29-error.png';

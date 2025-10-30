@@ -1,16 +1,15 @@
 /** 组件库全局配置 */
 export class Config {
-
   private static instance: Config;
   /** 是否禁用返回拦截 */
   private disableBackIntercept = false;
 
-  constructor () { }
+  constructor() {}
 
-  get globalConfig () {
+  get globalConfig() {
     return {
       /** 是否禁用返回拦截 */
-      disableBackIntercept: this.disableBackIntercept
+      disableBackIntercept: this.disableBackIntercept,
     };
   }
 
@@ -18,7 +17,7 @@ export class Config {
    * 获取 Config 单例实例
    * @returns Config 实例
    */
-  static getInstance () {
+  static getInstance() {
     if (!Config.instance) {
       Config.instance = new Config();
     }
@@ -29,7 +28,9 @@ export class Config {
   /**
    * 配置组件库
    */
-  config ({ disableBackIntercept = false }: {
+  config({
+    disableBackIntercept = false,
+  }: {
     /** 是否禁用后退拦截 (如在 IOS 微信中禁用) */
     disableBackIntercept?: boolean;
   }) {

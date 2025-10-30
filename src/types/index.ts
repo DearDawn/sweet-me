@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export type ICommonBaseProps = {
   className?: string;
@@ -18,9 +18,17 @@ export type ICommonBaseInputCompoProps<T> = {
   /** 占位符 */
   placeholder?: T;
   children?: any;
-} & ICommonBaseProps & ICommonProps<HTMLInputElement>;
+} & ICommonBaseProps &
+  ICommonProps<HTMLInputElement>;
 
 export type ICommonProps<T = HTMLDivElement> = Omit<
   React.HTMLAttributes<T> & React.InputHTMLAttributes<T>,
-  'size' | 'form' | 'onSubmit' | 'onInput' | 'disabled' | 'placeholder' | 'value'
-> & ICommonBaseProps;
+  | 'size'
+  | 'form'
+  | 'onSubmit'
+  | 'onInput'
+  | 'disabled'
+  | 'placeholder'
+  | 'value'
+> &
+  ICommonBaseProps;

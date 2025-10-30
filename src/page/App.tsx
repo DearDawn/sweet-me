@@ -32,7 +32,8 @@ import {
   showImageCompressModal,
   ICON_CAT_AVATAR,
   IconCatAvatar,
-} from '../../dist';
+  MultiSelect,
+} from '../';
 import clsx from 'clsx';
 import { useBoolean, useFormState, useListRequest, useRequest } from '../hooks';
 import { Storage } from './components/storage';
@@ -40,9 +41,9 @@ import { FileList } from './components/fileList';
 import WallImage from './wallpaper.jpg';
 import README from '../../README.md';
 import CHANGE_LOG from '../../CHANGE_LOG.md';
-import { COLOR_NAME, COLOR_RGB_MAP, waitTime } from '../utils';
+import { COLOR_NAME, COLOR_RGB_MAP, EColor, waitTime } from '../utils';
 
-const uploader = async (file) => {
+const uploader = async (file: File) => {
   await waitTime(1000);
   return URL.createObjectURL(file);
 };
@@ -67,7 +68,7 @@ export const App = () => {
   const [tempFile, setTempFile] = React.useState<File>();
 
   const handleOpenDrawer = React.useCallback(
-    (dir) => () => {
+    (dir: 'top' | 'bottom' | 'left' | 'right') => () => {
       openDrawer();
       setDrawerDir(dir);
     },
@@ -236,7 +237,7 @@ export const App = () => {
       <div className={styles.tagWrap}>
         {Object.keys(COLOR_RGB_MAP).map((key: any, idx) => (
           <Tag color={key} key={`${key}-${idx}`}>
-            {COLOR_NAME[key]}
+            {COLOR_NAME[key as EColor]}
           </Tag>
         ))}
       </div>
@@ -399,6 +400,24 @@ export const App = () => {
               label: <Icon type={ICON.sugar} className={styles.selectIcon} />,
               value: '3',
             },
+          ]}
+        />
+      </div>
+      <Title>MultiSelect</Title>
+      <div className={styles.selectWrap}>
+        <MultiSelect
+          className={styles.select}
+          allowCreate
+          placeholder='多选支持创建（最多选 5 个）'
+          maxCount={5}
+          options={[
+            { label: '选项一', value: '1' },
+            { label: '选项二', value: '2' },
+            { label: '选项三', value: '3', disabled: true },
+            { label: '选项四', value: '4' },
+            { label: '选项五', value: '5' },
+            { label: '选项六', value: '6' },
+            { label: '选项七', value: '7' },
           ]}
         />
       </div>

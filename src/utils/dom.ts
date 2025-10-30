@@ -3,7 +3,10 @@ export const findClosestScrollableParent = (element: HTMLElement) => {
   let parent = element.parentElement;
 
   while (parent) {
-    if (parent.scrollHeight > parent.clientHeight || parent.scrollWidth > parent.clientWidth) {
+    if (
+      parent.scrollHeight > parent.clientHeight ||
+      parent.scrollWidth > parent.clientWidth
+    ) {
       return parent;
     }
     parent = parent.parentElement;

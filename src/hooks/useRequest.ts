@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { RequestUrl, apiGet } from "../utils/request";
-import { useBoolean } from "./useBoolean";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { RequestUrl, apiGet } from '../utils/request';
+import { useBoolean } from './useBoolean';
 
 export type RequestProps = {
   url: RequestUrl;
@@ -12,12 +12,21 @@ export type RequestProps = {
 };
 
 /** 请求 */
-export const useRequest = <T = any> (props: RequestProps) => {
-  const { url = '/', params = {}, init = {}, loadingFn, autoRun = false, cache = false } = props || {};
+export const useRequest = <T = any>(props: RequestProps) => {
+  const {
+    url = '/',
+    params = {},
+    init = {},
+    loadingFn,
+    autoRun = false,
+    cache = false,
+  } = props || {};
   const [data, setData] = useState<T>();
   const [error, setError] = useState<any>();
   const [loading, startLoading, endLoading] = useBoolean(false);
-  const doRequest = useRef<(p?: RequestProps['params']) => Promise<T>>(() => Promise.resolve(data));
+  const doRequest = useRef<(p?: RequestProps['params']) => Promise<T>>(() =>
+    Promise.resolve(data)
+  );
   const reqPromise = useRef<Promise<T>>();
   const cacheDataMap = useRef<Record<string, T>>({});
   const cacheKey = `${url}-${JSON.stringify(params)}`;
@@ -33,14 +42,17 @@ export const useRequest = <T = any> (props: RequestProps) => {
 
     startLoading();
     reqPromise.current = new Promise<T>((resolve, reject) => {
-      apiGet<T>(url, { ...params, ..._params }, init).then(res => {
-        cacheDataMap.current[cacheKey] = res;
-        setData(res);
-        resolve(res);
-      }).catch(err => {
-        setError(err);
-        reject(err);
-      }).finally(endLoading);
+      apiGet<T>(url, { ...params, ..._params }, init)
+        .then((res) => {
+          cacheDataMap.current[cacheKey] = res;
+          setData(res);
+          resolve(res);
+        })
+        .catch((err) => {
+          setError(err);
+          reject(err);
+        })
+        .finally(endLoading);
     });
 
     return reqPromise.current;
@@ -48,9 +60,12 @@ export const useRequest = <T = any> (props: RequestProps) => {
 
   doRequest.current = doRequestFn;
 
-  const runApi = useCallback((params?: RequestProps['params']) => {
-    return doRequest.current(params);
-  }, [doRequest]);
+  const runApi = useCallback(
+    (params?: RequestProps['params']) => {
+      return doRequest.current(params);
+    },
+    [doRequest]
+  );
 
   useEffect(() => {
     if (!loading || !loadingFn) return;

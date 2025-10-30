@@ -11,7 +11,7 @@ type IProps = ICommonProps & {
   onTabChange?: (index: number) => void;
   /** 样式 */
   style?: React.CSSProperties;
-}
+};
 
 /** 标签页 */
 export const TabBar = ({

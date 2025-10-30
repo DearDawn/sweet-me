@@ -1,4 +1,3 @@
-
 export const convertFileSize = (bytes: number) => {
   const kilobyte = 1024;
   const megabyte = kilobyte * 1024;

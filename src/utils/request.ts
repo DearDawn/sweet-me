@@ -7,11 +7,15 @@ export type RequestUrl = `/${string}` | `http${string}`;
  * @param init 请求配置
  * @returns
  */
-export const apiGet = <T> (input: RequestUrl, params: Record<string, any> = {}, init?: RequestInit) => {
+export const apiGet = <T>(
+  input: RequestUrl,
+  params: Record<string, any> = {},
+  init?: RequestInit
+) => {
   const searchStr = new URLSearchParams({ ...params }).toString();
   const url = searchStr ? `${input}?${searchStr}` : input;
 
-  return fetch(url, init).then(res => res.json()) as Promise<T>;
+  return fetch(url, init).then((res) => res.json()) as Promise<T>;
 };
 
 /**
@@ -22,14 +26,22 @@ export const apiGet = <T> (input: RequestUrl, params: Record<string, any> = {}, 
  * @param init 请求配置
  * @returns
  */
-export const apiPost = <T> (input: RequestUrl, params: Record<string, any> = {}, body: Record<string, any> = {}, init?: RequestInit) => {
+export const apiPost = <T>(
+  input: RequestUrl,
+  params: Record<string, any> = {},
+  body: Record<string, any> = {},
+  init?: RequestInit
+) => {
   const searchStr = new URLSearchParams({ ...params }).toString();
   const url = searchStr ? `${input}?${searchStr}` : input;
 
   return fetch(url, {
-    method: 'POST', body: JSON.stringify(body), headers: {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
       'Content-Type': 'application/json',
-      ...init?.headers
-    }, ...init
-  }).then(res => res.json()) as Promise<T>;
+      ...init?.headers,
+    },
+    ...init,
+  }).then((res) => res.json()) as Promise<T>;
 };

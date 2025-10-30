@@ -1,5 +1,5 @@
-import { safeParse } from "./common";
-import { RequestUrl, apiGet, apiPost } from "./request";
+import { safeParse } from './common';
+import { RequestUrl, apiGet, apiPost } from './request';
 
 /** 存储类 */
 export class Storage {
@@ -11,7 +11,7 @@ export class Storage {
   private sync?: boolean;
   /** 命名空间， 默认：域名 */
   private namespace?: string;
-  constructor () {
+  constructor() {
     const { protocol, hostname } = window.location || {};
     const apiUrl = `${protocol}//${hostname}:7020/api/storage` as RequestUrl;
     const pureHost = hostname.replace(/^www\./g, '');
@@ -20,13 +20,18 @@ export class Storage {
     this.namespace = pureHost;
   }
 
-  config ({ remoteUrl, params, sync, namespace }: {
+  config({
+    remoteUrl,
+    params,
+    sync,
+    namespace,
+  }: {
     /** 接口地址，默认： `${protocol}//${hostname}:7020/api/storage` */
-    remoteUrl?: RequestUrl,
+    remoteUrl?: RequestUrl;
     /** 接口额外参数 */
-    params?: Record<string, any>,
+    params?: Record<string, any>;
     /** 是否使用服务端 store， 默认 false */
-    sync?: boolean,
+    sync?: boolean;
     /** 命名空间， 默认：域名 */
     namespace?: string;
   }) {
@@ -36,11 +41,11 @@ export class Storage {
     this.namespace = namespace || this.namespace;
   }
 
-  get reqParams () {
+  get reqParams() {
     return { ...this.params, namespace: this.namespace };
   }
 
-  localGet (key = '') {
+  localGet(key = '') {
     const allData = {};
 
     for (let i = 0; i < localStorage.length; i++) {
@@ -56,9 +61,11 @@ export class Storage {
     return allData[key];
   }
 
-  async remoteGet (key = '') {
+  async remoteGet(key = '') {
     try {
-      const res = await apiGet(`${this.remoteUrl}/get/${key}`, { ...this.reqParams }) as any;
+      const res = (await apiGet(`${this.remoteUrl}/get/${key}`, {
+        ...this.reqParams,
+      })) as any;
 
       return res.data;
     } catch (error) {
@@ -68,11 +75,14 @@ export class Storage {
     }
   }
 
-
-  private async remoteSet (key = '', data: any) {
+  private async remoteSet(key = '', data: any) {
     this.localSet(key, data);
     try {
-      const res = await apiPost(`${this.remoteUrl}/set/${key}`, { ...this.reqParams }, { data }) as any;
+      const res = (await apiPost(
+        `${this.remoteUrl}/set/${key}`,
+        { ...this.reqParams },
+        { data }
+      )) as any;
 
       return res.data;
     } catch (error) {
@@ -82,11 +92,11 @@ export class Storage {
     }
   }
 
-  private localSet (key = '', data: any) {
+  private localSet(key = '', data: any) {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  get (key = '') {
+  get(key = '') {
     if (this.sync) {
       return this.remoteGet(key);
     } else {
@@ -94,7 +104,7 @@ export class Storage {
     }
   }
 
-  set (key = '', data: any) {
+  set(key = '', data: any) {
     if (this.sync) {
       return this.remoteSet(key, data);
     } else {

@@ -13,24 +13,27 @@ export const compressImage = ({
   quality,
   scaleSize = Number.POSITIVE_INFINITY,
   scaleRatio = 1,
-  targetType = 'png'
+  targetType = 'png',
 }: {
-  outputFileName: string,
+  outputFileName: string;
   /** 【目标为 png 时无效，请使用 scaleSize/scaleRatio 代替】 压缩质量，取值 0, 1 默认 0.92 */
-  quality?: number,
+  quality?: number;
   /** 缩放后的大小（以短边计算），默认不缩放 */
   scaleSize?: number;
   /** 缩放比例，0-1, 默认 1 不缩放 */
   scaleRatio?: number;
   /** 输出文件类型，默认 png */
   targetType?: 'png' | 'jpg' | 'jpeg' | 'webp';
-} & ({
-  imgFile?: File,
-  imgUrl: string,
-} | {
-  imgFile: File,
-  imgUrl?: string,
-})): Promise<{ file: File, url: string; }> => {
+} & (
+  | {
+      imgFile?: File;
+      imgUrl: string;
+    }
+  | {
+      imgFile: File;
+      imgUrl?: string;
+    }
+)): Promise<{ file: File; url: string }> => {
   const targetMIME = `image/${targetType}`;
   return new Promise((resolve, reject) => {
     if (!imgFile && !imgUrl) {
@@ -55,15 +58,24 @@ export const compressImage = ({
       const ctx = canvas.getContext('2d');
       // 计算缩放后的宽高
 
-      let scaledWidth = scaleRatio > 0 && scaleRatio < 1 ? scaleRatio * img.width : Math.min(scaleSize, img.width);
+      let scaledWidth =
+        scaleRatio > 0 && scaleRatio < 1
+          ? scaleRatio * img.width
+          : Math.min(scaleSize, img.width);
       let scaledHeight = Math.min(
         (scaledWidth / img.width) * img.height,
         img.height
       );
 
       if (img.width < img.height) {
-        scaledHeight = scaleRatio > 0 && scaleRatio < 1 ? scaleRatio * img.height : Math.min(scaleSize, img.height);
-        scaledWidth = Math.min((scaledHeight / img.height) * img.width, img.width);
+        scaledHeight =
+          scaleRatio > 0 && scaleRatio < 1
+            ? scaleRatio * img.height
+            : Math.min(scaleSize, img.height);
+        scaledWidth = Math.min(
+          (scaledHeight / img.height) * img.width,
+          img.width
+        );
       }
 
       // 设置canvas的宽高与图片一致
@@ -92,7 +104,10 @@ export const compressImage = ({
       });
 
       // 调用回调函数，传递压缩后的文件对象
-      resolve({ file: compressedFile, url: URL.createObjectURL(compressedFile) });
+      resolve({
+        file: compressedFile,
+        url: URL.createObjectURL(compressedFile),
+      });
     };
 
     img.onerror = function (e) {
@@ -102,8 +117,6 @@ export const compressImage = ({
     // 将文件数据赋值给图片元素的src属性
     img.src = fileURL;
   });
-
-
 };
 
 /** 获取图片 Blob 数据 */

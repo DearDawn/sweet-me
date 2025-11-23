@@ -14,6 +14,13 @@ type IProps = ICommonProps & {
   maxWidth?: string;
   /** 页面容器的引用 */
   pageRef?: React.RefObject<HTMLDivElement>;
+  /**
+   * 是否使用内部容器，默认为 false
+   * 默认需要限制子元素的 fixed 定位在父元素内部，但会导致 fixed 定位跟随滚动
+   * 故添加此设置解决该问题，如有需要，请启用，并注意层级变化
+   * */
+  withInner?: boolean;
+  innerClass?: boolean;
 };
 
 /** 页面容器 */
@@ -26,9 +33,10 @@ export const Page = ({
   maxWidth = '750px',
   pageRef,
   style,
+  withInner,
+  innerClass,
   ...rest
 }: IProps) => {
-
   useEffect(() => {
     const rootStyles = document.documentElement.style;
     const windowWidth = `min(max(${minWidth}, 100vw), ${maxWidth})`;
@@ -45,7 +53,11 @@ export const Page = ({
       ref={pageRef}
       {...rest}
     >
-      {children}
+      {withInner ? (
+        <div className={cs(styles.pageInner, innerClass)}>{children}</div>
+      ) : (
+        children
+      )}
     </div>
   );
 };
